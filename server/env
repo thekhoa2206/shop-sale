@@ -1,0 +1,15 @@
+MONGO_URI_1=mongodb+srv://minh210801:210801@cluster-test-wnb.ia5floh.mongodb.net/new_database?retryWrites=true&w=majority
+MONGO_URI_2=mongodb+srv://minh210801:210801@cluster-test-wnb.ia5floh.mongodb.net/new_database_1?retryWrites=true&w=majority
+MONGO_URI_3=mongodb+srv://minh210801:210801@cluster-test-wnb.ia5floh.mongodb.net/new_database_2?retryWrites=true&w=majority
+MONGO_URI_4=mongodb+srv://minh210801:210801@cluster-test-wnb.ia5floh.mongodb.net/new_database_3?retryWrites=true&w=majority
+MONGO_URI_5=mongodb+srv://minh210801:210801@cluster-test-wnb.ia5floh.mongodb.net/new_database_4?retryWrites=true&w=majority
+
+NODE_ENV=development
+JWT_SECRET_KEY=jK73gcHBj3856ysG
+PORT=8000
+
+CLOUDINARY_CLOUD_NAME=df1wsnhi4
+CLOUDINARY_API_KEY=453889693127118
+CLOUDINARY_API_SECRET=__0_MfuZLLDHFV0FisCUcGx0vLg
+
+STRIPE_SECRET=sk_test_51NQ83eDZWjcYnAXfWnVszlulBbQdkZ2F1TklyOVaIODXv6D5fKEabOhXbVyrWTQnSDlu2ukLPNIS37jQ8jBEQQ4500NtL1VV9K
