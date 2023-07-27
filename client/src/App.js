@@ -91,6 +91,7 @@ const App = () => {
           <Route path="/user/wishlist" element={<UserRoute><Wishlist /></UserRoute>} />
           <Route path="/user/upgrade-seller" element={<UserRoute><UpgradeSeller /></UserRoute>} />
           {/* <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} /> */}
+          <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboardv2/></AdminRoute>} />
           <Route path="/admin/category" element={<AdminRoute><CategoryCreate /></AdminRoute>} />
           <Route path="/admin/category/:slug" element={<AdminRoute><CategoryUpdate /></AdminRoute>} />
           <Route path="/admin/sub" element={<AdminRoute><SubCreate /></AdminRoute>} />
@@ -112,7 +113,7 @@ const App = () => {
           <Route path="/seller/dashboard" element={<SellerRoute><SellerDashboard /></SellerRoute>} />
 
         /*admin v2 */
-          <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboardv2/></AdminRoute>} />
+         
         </Routes>
       </BrowserRouter>
     </>

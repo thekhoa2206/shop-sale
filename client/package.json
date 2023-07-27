@@ -5,8 +5,11 @@
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
     "@david.kucsai/react-pdf-table": "^0.4.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@material-ui/core": "^4.12.4",
     "@mui/icons-material": "^5.14.1",
+    "@mui/material": "^5.14.2",
     "@react-pdf/renderer": "^3.1.12",
     "@stripe/react-stripe-js": "^2.1.1",
     "@stripe/stripe-js": "^1.54.1",
