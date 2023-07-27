@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import  { tableCellClasses } from '@mui/material/TableCell';
 import { withStyles } from "@material-ui/styles";
 import { red } from "@material-ui/core/colors";
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
+const StyledTableCell = styled(TableCell)(({ theme,props }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
@@ -29,8 +29,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 40,
   },
 }));
-const Orders = ({ orders, handleStatusChange }) => {
-  
+const OrderDetail = ({ orders }) => {
+  const { classes } = props;
   const [status, setStatus] = React.useState('');
   console.log("status",status);
   const handleChange = (id,e) => {
@@ -233,4 +233,4 @@ const Orders = ({ orders, handleStatusChange }) => {
   );
 };
 
-export default Orders;
+export default OrderDetail;
