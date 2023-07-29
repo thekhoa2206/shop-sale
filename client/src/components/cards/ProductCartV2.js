@@ -6,17 +6,16 @@ import { Link } from "react-router-dom";
 import { showAverage } from "../../functions/rating";
 import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
-import { Box, Checkbox, IconButton, Typography } from "@material-ui/core";
+import { Box, Checkbox, Grid, IconButton, Typography } from "@material-ui/core";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import StarRating from "react-star-ratings";
 import { addToWishlist, getWishlist, removeWishlist } from "../../functions/user";
 import { toast } from "react-toastify";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-
 const { Meta } = Card;
 
-const ProductCard = ({ product }) => {
+const ProductCardV2 = ({ product }) => {
   const [tooltip, setTooltip] = useState(product.quantity > 0 ? "Click to add" : "Out of stock");
   const [wishlist, setWishlist] = useState([]);
   // redux
@@ -98,39 +97,20 @@ const ProductCard = ({ product }) => {
     });
   return (
     <>
-      <Box style={{border: "1px solid #E5E9EB", borderRadius: 6, width: 400}}>
-        <Box>
+      <Box style={{border: "1px solid #E5E9EB", padding: 20, borderRadius: 6, width: 1200, marginTop: 20, height: 240, alignItems: "center"}}>
+        <Grid xs={12} container>
+            <Grid xs={3} item> 
+            <Box>
           <img
               src={images && images.length ? images[0].url : defaultIMG}
-              style={{ height: "300px", objectFit: "cover", width: "100%" }}
+              style={{ objectFit: "cover", width: "200px", height: "200px"  }}
               className="p-1"
             />
         </Box>
-        <Box style={{textAlign: "center", position: "absolute", zIndex: 100, top: 5, left: "370px", display: "inline-block"}}>
-          <Box style={{width: 30, textAlign: "center"}}>
-            <IconButton style={{width: 20, height: 30}}>
-              <Link to={`/product/${slug}`} target="_blank">
-                <RemoveRedEyeOutlinedIcon style={{color: "#757575", width: 20}} />
-              </Link>
-            </IconButton>
-
-            <IconButton style={{width: 20, height: 30}} onClick={handleAddToCart} disabled={product.quantity < 1}>
-          <Tooltip title={tooltip}>
-              <ShoppingCartOutlinedIcon style={{color: "#757575"}} />
-          </Tooltip>
-            </IconButton>
-            
-            {user && (
-            <IconButton style={{width: 20, height: 30}}>
-              <Checkbox checked={!!wishlist.find((item) => item._id === product._id)}  icon={<FavoriteBorder style={{color: "#757575", width: 20}} />} checkedIcon={<Favorite style={{ width: 20}} />} onChange={(e) => handleAddToWishlist(e)}/>
-            </IconButton>
-            )}
-          </Box>
-        </Box>
-        <Box style={{padding: "10px 20px"}}>
-          <Typography>{title}</Typography>
-          <Typography>{`${description && description.substring(0, 40)}...`}</Typography>
-          <Typography style={{fontWeight: "bold", fontSize: 20}}>${product.price}</Typography>
+            </Grid>
+            <Grid xs={8} item> 
+            <Typography style={{color: "#ed5555"}}>{title}</Typography>
+          <Typography>{`${description && description}`}</Typography>
           <Box style={{display: "flex"}}>
             <StarRating
               changeRating={() => {}}
@@ -143,11 +123,37 @@ const ProductCard = ({ product }) => {
             />
             <Typography style={{color: "#5B6871", marginTop: 4, marginLeft: 5, fontSize: 14}}>{product.ratings.length}</Typography>
           </Box>
+          <Typography style={{fontWeight: "bold", fontSize: 20}}>${product.price}</Typography>
+            </Grid>
+            <Grid xs={1} item style={{textAlign: "right"}}> 
+            <Box style={{textAlign: "center",  display: "inline-block"}}>
+          <Box style={{width: 30, textAlign: "center"}}>
+            <IconButton style={{width: 20, height: 30}}>
+              <Link to={`/product/${slug}`} target="_blank">
+                <RemoveRedEyeOutlinedIcon style={{color: "#000000", width: 20}} />
+              </Link>
+            </IconButton>
+
+            <IconButton style={{width: 20, height: 30}} onClick={handleAddToCart} disabled={product.quantity < 1}>
+          <Tooltip title={tooltip}>
+              <ShoppingCartOutlinedIcon style={{color: "#000000", width: 20}} />
+          </Tooltip>
+            </IconButton>
+            
+            {user && (
+            <IconButton style={{width: 20, height: 30}}>
+              <Checkbox checked={!!wishlist.find((item) => item._id === product._id)}  icon={<FavoriteBorder style={{color: "#000000", width: 20}}/>} checkedIcon={<Favorite style={{ width: 20}}/>} onChange={(e) => handleAddToWishlist(e)}/>
+            </IconButton>
+            )}
+          </Box>
         </Box>
+            </Grid>
+        </Grid>
+        
       </Box>
       
     </>
   );
 };
 
-export default ProductCard;
+export default ProductCardV2;

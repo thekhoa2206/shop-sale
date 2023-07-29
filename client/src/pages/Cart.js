@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import ProductCardInCheckout from "../components/cards/ProductCartInCheckout";
 import { userCart } from "../functions/user";
+import { Table, TableCell, TableHead } from "@material-ui/core";
 
 const Cart = () => {
   const { cart, user } = useSelector((state) => ({ ...state }));
@@ -40,26 +41,23 @@ const Cart = () => {
   };
 
   const showCartItems = () => (
-    <table className="table table-bordered">
-      <thead className="thead-light">
-        <tr>
-          <th scope="col">Image</th>
-          <th scope="col">Title</th>
-          <th scope="col">Price</th>
-          <th scope="col">Resident</th>
-          <th scope="col">Color</th>
-          <th scope="col">Count</th>
-          <th scope="col">Shipping</th>
-          <th scope="col">Remove</th>
-        </tr>
-      </thead>
+    <Table className="table table-bordered">
+      <TableHead className="thead-light">
+        <TableCell>Image</TableCell>
+        <TableCell>Title</TableCell>
+        <TableCell>Price</TableCell>
+        <TableCell>Resident</TableCell>
+        <TableCell>Color</TableCell>
+        <TableCell>Count</TableCell>
+        <TableCell>Shipping</TableCell>
+        <TableCell>Remove</TableCell>
+      </TableHead>
 
       {cart.map((p) => (
         <ProductCardInCheckout key={p._id} p={p} />
       ))}
-    </table>
+    </Table>
   );
-
   return (
     <div className="container-fluid pt-2">
       <div className="row">

@@ -11,6 +11,8 @@ import {
 } from "../functions/user";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { Box, Grid, Paper, TextField, Typography } from "@material-ui/core";
+import { Button } from "antd";
 
 const Checkout = ({ }) => {
   const [products, setProducts] = useState([]);
@@ -92,9 +94,9 @@ const Checkout = ({ }) => {
   const showAddress = () => (
     <>
       <ReactQuill theme="snow" value={address} onChange={setAddress} />
-      <button className="btn btn-primary mt-2" onClick={saveAddressToDb}>
+      <Button className="btn btn-primary mt-2" onClick={saveAddressToDb} style={{background: "#0088FF", color: "#FFFFFF", height: 36}}>
         Save
-      </button>
+      </Button>
     </>
   );
 
@@ -110,18 +112,20 @@ const Checkout = ({ }) => {
 
   const showApplyCoupon = () => (
     <>
-      <input
+      <TextField
         onChange={(e) => {
           setCoupon(e.target.value);
           setDiscountError("");
         }}
         value={coupon}
         type="text"
-        className="form-control"
+        fullWidth
+        variant="outlined"
+        placeholder="Input Coupon"
       />
-      <button onClick={applyDiscountCoupon} className="btn btn-primary mt-2">
+      <Button onClick={applyDiscountCoupon} className="btn btn-primary mt-2" style={{background: "#0088FF", color: "#FFFFFF", height: 36}}>
         Apply
-      </button>
+      </Button>
     </>
   );
 
@@ -158,24 +162,33 @@ const Checkout = ({ }) => {
   };
 
   return (
-    <div className="row">
-      <div className="col-md-6">
-        <h4>Delivery Address</h4>
-        <br />
-        <br />
+    <Box style={{width: "90%", margin: "auto", background: "#fbfbfb", marginTop: 25}}>
+      <Grid xs={12} container  spacing={2} style={{padding: "20px"}}>
+      <Grid xs={6} item>
+        <Paper  style={{width: "100%", boxShadow: "0px 2px 4px rgba(168, 168, 168, 0.25)", padding: 10}}>
+        <Typography variant="h6"  style={{ padding: "12px 24px 16px" }}>
+        Additional information
+          </Typography>
+          <Box style={{height: 1,background: "#dbdbdb"}}></Box>
+        <Box style={{width: "90%", margin: "auto", marginTop: 10}}>
+        <Typography variant="h6" style={{marginBottom: "5px"}}>Delivery address</Typography>
         {showAddress()}
-        <hr />
-        <h4>Got Coupon?</h4>
-        <br />
+        <Typography variant="h6" style={{marginBottom: "10px"}}>Got Coupon?</Typography>
         {showApplyCoupon()}
         <br />
         {discountError && <p className="bg-danger p-2">{discountError}</p>}
-      </div>
-
-      <div className="col-md-6">
-        <h4>Order Summary</h4>
-        <hr />
-        <p>Products {products.length}</p>
+        </Box>
+        </Paper>
+        
+      </Grid>
+      <Grid xs={6} item>
+      <Paper style={{width: "100%", boxShadow: "0px 2px 4px rgba(168, 168, 168, 0.25)", padding: 10}}>
+      <Typography variant="h6"  style={{ padding: "12px 24px 16px" }}>
+      Order Summary
+          </Typography>
+          <Box style={{height: 1,background: "#dbdbdb"}}></Box>
+      <Box style={{width: "90%", margin: "auto", marginTop: 10}}>
+      <p>Number Products {products.length}</p>
         <hr />
         {showProductSummary()}
         <hr />
@@ -218,8 +231,11 @@ const Checkout = ({ }) => {
             </button>
           </div>
         </div>
-      </div>
-    </div>
+      </Box>
+        </Paper>
+      </Grid>
+      </Grid>
+    </Box>
   );
 };
 
