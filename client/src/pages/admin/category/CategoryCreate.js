@@ -8,13 +8,118 @@ import {
   removeCategory,
 } from "../../../functions/category";
 import { Link } from "react-router-dom";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import CategoryForm from "../../../components/forms/CategoryForm";
+
 import LocalSearch from "../../../components/forms/LocalSearch";
 import { tableCellClasses } from '@mui/material/TableCell';
 import { withStyles } from "@material-ui/styles";
-import { Table, TableCell, TableBody, TableContainer, TableHead, TableRow, Typography, styled, Paper, Button } from "@material-ui/core";
+import { Table, TableCell, TableBody, TableContainer, TableHead, TableRow, Typography, styled, Paper, Button, Box } from "@material-ui/core";
 import Addcategory from "./common/Addcategory";
+import { createStyles, Theme } from "@material-ui/core";
+const styles = (theme) =>
+  createStyles({
+    container: {
+      display: "flex",
+      flexDirection: "column",
+      backgroundColor: "red",
+      padding: "0 32px 40px",
+      flex: "1 1 auto",
+      "& .MuiChip-root": {
+        padding: "4px 4px",
+        fontSize: "14px",
+        height: "24px",
+      },
+      "& .MuiTableContainer-root.stickyHeader": {
+        backgroundColor: "#F3F4F5",
+      },
+      "& .MuiTableHead-root": {
+        backgroundColor: "#F3F4F5",
+        "& .MuiTableCell-paddingNone": {
+          padding: "0 16px",
+        },
+        "& .MuiTableCell-root": {
+          paddingTop: "12px",
+          paddingBottom: "12px",
+        },
+      },
+    },
+    listBox: {
+      backgroundColor: "white",
+      boxShadow: "0px 2px 4px rgba(168, 168, 168, 0.25)",
+    },
+    header: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      height: "60px",
+    },
+    headerItem: {
+      display: "flex",
+      alignItems: "center",
+    },
+    utilities: {
+      display: "flex",
+      flexDirection: "column",
+      minHeight: 86,
+      backgroundColor: "white",
+    },
+    tabLabel: {
+      position: "relative",
+      display: "flex",
+      "&.Mui-selected:hover .deleteTabIcon": {
+        display: "block",
+      },
+      "& .MuiTab-wrapper": {
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        maxWidth: 167,
+        display: "block",
+      },
+    },
+    filterAndSearchBox: {
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+      padding: "16px",
+    },
+    searchbox: {
+      flex: 1,
+    },
+
+    description: {
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+    },
+  
+    accountRolesLabel: {
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      maxWidth: "150px",
+    },
+    tenantRoleLabel: {
+      fontSize: "14px",
+      lineHeight: "20px",
+      fontWeight: 500,
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      display: "-webkit-box",
+      "-webkit-line-clamp": 2,
+      "-webkit-box-orient": "vertical",
+    },
+    dInline: {
+      width: "fit-content",
+      display: "inline-block",
+      maxWidth: "100%",
+    },
+    headerTitleLabel: {
+      fontSize: "20px",
+      lineHeight: "28px",
+      color: "#0F1824",
+      fontWeight: 500,
+    },
+  });
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -36,6 +141,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 const CategoryCreate = () => {
+  const classes = styles();
   const { user } = useSelector((state) => ({ ...state }));
   const [openAdd, setOpenAdd] = React.useState(false);
   const [name, setName] = useState("");
@@ -90,10 +196,9 @@ const CategoryCreate = () => {
         });
     }
   };
-const handleChangeAdd = ()=> {
-  setOpenAdd(true);
-  console.log("testt",openAdd);
-}
+  const handleChangeAdd = () => {
+    setOpenAdd(!openAdd);
+  }
   // step 4
   const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
   const TableHeaderCell = withStyles(() => ({
@@ -104,59 +209,63 @@ const handleChangeAdd = ()=> {
     },
   }))(TableCell);
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
+
+      <Box style={{ display: "flex"}} >
+        <Box  style={{marginTop: "24px"}}>
           <AdminNav />
-        </div>
-        <div className="col">
+        </Box>
+        <Box >
           {loading ? (
             <h4 className="text-danger">Loading..</h4>
           ) : (
-            <h4>category</h4>
-          )}
-          <Button onClick={handleChangeAdd}>Add</Button>
-          <CategoryForm
-            handleSubmit={handleSubmit}
-            name={name}
-            setName={setName}
-          />
-          <hr/>
-          {/* step 2 and step 3 */}
-          <LocalSearch keyword={keyword} setKeyword={setKeyword} />
+            <Box  className={classes.container} >
+              <Box style={{ display: "flex", marginTop: "24px" }}>
+                <Box>
+                  <Typography variant="h4">Category</Typography>
+                </Box>
+                <Box >
+                  <Button variant="contained" color="primary" onClick={handleChangeAdd} style={{ float: "right", marginLeft: "950px" }}>Add Category</Button>
+                </Box>
+              </Box>
 
-          {/* step 5 */}
-          <TableContainer component={Paper} style={{ boxShadow: "rgba(168, 168, 168, 0.25) 0px 0px 7px 3px" }} >
-            <Table sx={{ minWidth: 700 }} >
-              <TableHead style={{ borderRadius: "6px solid #dfe4e8" }}>
-                <TableRow >
-                  <TableHeaderCell >Id</TableHeaderCell>
-                  <TableHeaderCell align="center">Name</TableHeaderCell>
-                  <TableHeaderCell align="center">CreateAt</TableHeaderCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {categories.filter(searched(keyword)).map((x) => (
-                  <StyledTableRow key={x._id}>
-                    <StyledTableCell component="th" scope="row">
-                      <Link to={`/admin/category/${x.slug}`}>
-                        {x._id}
-                      </Link>
-                    </StyledTableCell>
-                    <StyledTableCell align="center">{x.name}</StyledTableCell>
-                    <StyledTableCell align="right">{new Date(x.createdAt * 1000).toLocaleString()}</StyledTableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <Addcategory
-          open={openAdd}
-          />
-        </div>
-      </div>
-      
-    </div>
+              <hr />
+              {/* step 2 and step 3 */}
+              <LocalSearch keyword={keyword} setKeyword={setKeyword} />
+
+              {/* step 5 */}
+              <TableContainer component={Paper} style={{ boxShadow: "rgba(168, 168, 168, 0.25) 0px 0px 7px 3px" }} >
+                <Table sx={{ minWidth: 700 }} >
+                  <TableHead style={{ borderRadius: "6px solid #dfe4e8" }}>
+                    <TableRow >
+                      <TableHeaderCell  >Id</TableHeaderCell>
+                      <TableHeaderCell align="center">Name</TableHeaderCell>
+                      <TableHeaderCell align="right">CreateAt</TableHeaderCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {categories.filter(searched(keyword)).map((x) => (
+                      <StyledTableRow key={x._id}>
+                        <StyledTableCell width={150} scope="row"  >
+                          <Link to={`/admin/category/${x.slug}`}>
+                            {x._id}
+                          </Link>
+                        </StyledTableCell>
+                        <StyledTableCell align="center" width={150}>{x.name}</StyledTableCell>
+                        <StyledTableCell align="right" width={150}>{new Date(x.createdAt * 1000).toLocaleString()}</StyledTableCell>
+                      </StyledTableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <Addcategory
+                open={openAdd}
+                onClose={handleChangeAdd}
+                data={loadCategories}
+              />
+            </Box>
+          )}
+        </Box>
+      </Box>
   );
 };
 
