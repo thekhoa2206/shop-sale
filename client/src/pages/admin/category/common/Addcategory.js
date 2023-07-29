@@ -12,7 +12,6 @@ import { useSelector } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
 const Addcategory = ({ open, onClose,data }) => {
-  console.log("55", open);
   const [name, setName] = React.useState();
   const { user } = useSelector((state) => ({ ...state }));
   const [openAdd, setOpenAdd] = React.useState(open);

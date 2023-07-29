@@ -10,11 +10,24 @@ import {
 import { Link } from "react-router-dom";
 
 import LocalSearch from "../../../components/forms/LocalSearch";
-import { tableCellClasses } from '@mui/material/TableCell';
+import { tableCellClasses } from "@mui/material/TableCell";
 import { withStyles } from "@material-ui/styles";
-import { Table, TableCell, TableBody, TableContainer, TableHead, TableRow, Typography, styled, Paper, Button, Box } from "@material-ui/core";
+import {
+  Table,
+  TableCell,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+  styled,
+  Paper,
+  Button,
+  Box,
+} from "@material-ui/core";
 import Addcategory from "./common/Addcategory";
 import { createStyles, Theme } from "@material-ui/core";
+import Editcategory from "./common/Editcategory";
 const styles = (theme) =>
   createStyles({
     container: {
@@ -91,7 +104,7 @@ const styles = (theme) =>
       overflow: "hidden",
       textOverflow: "ellipsis",
     },
-  
+
     accountRolesLabel: {
       whiteSpace: "nowrap",
       overflow: "hidden",
@@ -127,16 +140,16 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
-    fontFamily: "sans-serif"
+    fontFamily: "sans-serif",
   },
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
+  "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
   // hide last border
-  '&:last-child td, &:last-child th': {
+  "&:last-child td, &:last-child th": {
     border: 40,
   },
 }));
@@ -144,8 +157,10 @@ const CategoryCreate = () => {
   const classes = styles();
   const { user } = useSelector((state) => ({ ...state }));
   const [openAdd, setOpenAdd] = React.useState(false);
+  const [openEdit, setOpenEdit] = React.useState(false);
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({});
   const [categories, setCategories] = useState([]);
 
   // step 1
@@ -198,33 +213,49 @@ const CategoryCreate = () => {
   };
   const handleChangeAdd = () => {
     setOpenAdd(!openAdd);
-  }
+  };
+  const handleChangeEdit = (data) => {
+    setData(data);
+    setOpenEdit(!openEdit);
+    console.log("data", data);
+  };
+  const handleChangeEdit1 = () => {
+    setOpenEdit(!openEdit);
+
+  };
   // step 4
   const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
   const TableHeaderCell = withStyles(() => ({
     root: {
       fontSize: "14px",
       fontWeight: "bold",
-      fontFamily: "sans-serif"
+      fontFamily: "sans-serif",
     },
   }))(TableCell);
   return (
-
-      <Box style={{ display: "flex"}} >
-        <Box  style={{marginTop: "24px"}}>
+    <>
+      <Box style={{ display: "flex" }}>
+        <Box style={{ marginTop: "24px" }}>
           <AdminNav />
         </Box>
-        <Box >
+        <Box>
           {loading ? (
             <h4 className="text-danger">Loading..</h4>
           ) : (
-            <Box  className={classes.container} >
+            <Box className={classes.container}>
               <Box style={{ display: "flex", marginTop: "24px" }}>
                 <Box>
                   <Typography variant="h4">Category</Typography>
                 </Box>
-                <Box >
-                  <Button variant="contained" color="primary" onClick={handleChangeAdd} style={{ float: "right", marginLeft: "950px" }}>Add Category</Button>
+                <Box>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleChangeAdd}
+                    style={{ float: "right", marginLeft: "950px" }}
+                  >
+                    Add Category
+                  </Button>
                 </Box>
               </Box>
 
@@ -233,11 +264,16 @@ const CategoryCreate = () => {
               <LocalSearch keyword={keyword} setKeyword={setKeyword} />
 
               {/* step 5 */}
-              <TableContainer component={Paper} style={{ boxShadow: "rgba(168, 168, 168, 0.25) 0px 0px 7px 3px" }} >
-                <Table sx={{ minWidth: 700 }} >
+              <TableContainer
+                component={Paper}
+                style={{
+                  boxShadow: "rgba(168, 168, 168, 0.25) 0px 0px 7px 3px",
+                }}
+              >
+                <Table sx={{ minWidth: 700 }}>
                   <TableHead style={{ borderRadius: "6px solid #dfe4e8" }}>
-                    <TableRow >
-                      <TableHeaderCell  >Id</TableHeaderCell>
+                    <TableRow>
+                      <TableHeaderCell>Id</TableHeaderCell>
                       <TableHeaderCell align="center">Name</TableHeaderCell>
                       <TableHeaderCell align="right">CreateAt</TableHeaderCell>
                     </TableRow>
@@ -245,27 +281,38 @@ const CategoryCreate = () => {
                   <TableBody>
                     {categories.filter(searched(keyword)).map((x) => (
                       <StyledTableRow key={x._id}>
-                        <StyledTableCell width={150} scope="row"  >
-                          <Link to={`/admin/category/${x.slug}`}>
+                        <StyledTableCell width={150} scope="row">
+                          <Link onClick={() => handleChangeEdit(x)}>
                             {x._id}
                           </Link>
                         </StyledTableCell>
-                        <StyledTableCell align="center" width={150}>{x.name}</StyledTableCell>
-                        <StyledTableCell align="right" width={150}>{new Date(x.createdAt * 1000).toLocaleString()}</StyledTableCell>
+                        <StyledTableCell align="center" width={150}>
+                          {x.name}
+                        </StyledTableCell>
+                        <StyledTableCell align="right" width={150}>
+                          {new Date(x.createdAt * 1000).toLocaleString()}
+                        </StyledTableCell>
                       </StyledTableRow>
                     ))}
                   </TableBody>
                 </Table>
               </TableContainer>
-              <Addcategory
-                open={openAdd}
-                onClose={handleChangeAdd}
-                data={loadCategories}
-              />
             </Box>
           )}
         </Box>
       </Box>
+      <Addcategory
+        open={openAdd}
+        onClose={handleChangeAdd}
+        data={loadCategories}
+      />
+      <Editcategory
+        open={openEdit}
+        onClose={handleChangeEdit1}
+        data={loadCategories}
+        initData={data}
+      />
+    </>
   );
 };
 
