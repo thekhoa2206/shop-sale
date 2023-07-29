@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import ShowPaymentInfo from "../cards/ShowPaymentInfo";
 import { Box, Collapse, FormControl, IconButton, InputLabel, MenuItem, Select, Table,TableCell, TableBody, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
@@ -9,6 +9,10 @@ import Paper from '@mui/material/Paper';
 import  { tableCellClasses } from '@mui/material/TableCell';
 import { withStyles } from "@material-ui/styles";
 import { red } from "@material-ui/core/colors";
+import { useParams } from "react-router-dom";
+import { getOrders } from "../../functions/admin";
+import { useSelector } from "react-redux";
+import { isNull } from "lodash";
 const StyledTableCell = styled(TableCell)(({ theme,props }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -29,137 +33,29 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 40,
   },
 }));
-const OrderDetail = ({ orders }) => {
-  const { classes } = props;
-  const [status, setStatus] = React.useState('');
-  console.log("status",status);
-  const handleChange = (id,e) => {
-    setStatus(e.target.value)
-    handleStatusChange(id,e.target.value)
-  };
+const OrderDetail = () => {
+  const [orders, setOrders] = useState([]);
+  const [products, setProducts] = useState([isNull]);
+  const [status, setStatus] = useState('');
+  const { user } = useSelector((state) => ({ ...state }));
+  const { id } = useParams();
+  useEffect(() => {
+    loadOrders();
+  }, []);
+  const loadOrders = () =>{
+  getOrders(user.token).then((res) => {
+    if(res.data.length > 0) {
+     const data = res.data.filter(order => order._id===id);
+     console.log("data",data);
+     setOrders(data);
+     setProducts(data.products);
+   
+    
+    }
+    
+  })};
 
-  // function Row(props) {
-  //   const { row } = props;
-  //   const [open, setOpen] = React.useState(false);
-  //   setStatus(row.orderStatus);
-  //   return (
-  //     <React.Fragment>
-  //       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-  //         <TableCell width={20}>
-  //           <IconButton
-  //             aria-label="expand row"
-  //             size="small"
-  //             onClick={() => setOpen(!open)}
-  //           >
-  //             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-  //           </IconButton>
-  //         </TableCell>
-  //         <TableCell width={150} >
-  //           {row._id}
-  //         </TableCell>
-  //         <TableCell align="center" width={150}>{row.paymentIntent.amount}</TableCell>
-  //         <TableCell align="center"width={150}>{row.paymentIntent.currency}</TableCell>
-  //         <TableCell align="center"width={150}>{row.paymentIntent.payment_method_types[0]}</TableCell>
-  //         <TableCell align="center"width={150}>{row.paymentIntent.status.toUpperCase()}</TableCell>
-  //         <TableCell align="right"width={150}>{new Date(row.paymentIntent.created * 1000).toLocaleString()}</TableCell>
-  //         <FormControl fullWidth>
-  //       <InputLabel id="demo-simple-select-label">Age</InputLabel>
-  //       <Select
-  //         labelId="demo-simple-select-label"
-  //         id="demo-simple-select"
-  //         value={status}
-  //         onChange={(e)=>handleChange(row._id,e)}
-  //       >
-  //         <MenuItem value="Not Processed">Not Processed</MenuItem>
-  //         <MenuItem value="Cash On Delivery">Cash On Delivery</MenuItem>
-  //         <MenuItem value="Processing">Processing</MenuItem>
-  //         <MenuItem value="Dispatched">Dispatched</MenuItem>
-  //         <MenuItem value="Cancelled">Cancelled</MenuItem>
-  //         <MenuItem value="Completed">Completed</MenuItem>
-  //       </Select>
-  //     </FormControl>
-  //       </TableRow>
-  //       <TableRow>
-  //         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
-  //           <Collapse in={open} timeout="auto" unmountOnExit>
-  //             <Box sx={{ margin: 1 }}>
-  //               <Typography variant="h6" gutterBottom component="div">
-  //                 Detail
-  //               </Typography>
-  //               <Table size="small" aria-label="purchases">
-  //                 <TableHead>
-  //                   <TableRow>
-  //                     <TableCell>Title</TableCell>
-  //                     <TableCell>Color</TableCell>
-  //                     <TableCell >Count</TableCell>
-  //                     <TableCell >Resident</TableCell>
-  //                     <TableCell >Price</TableCell>
-  //                     <TableCell >Shipping</TableCell>
-  //                   </TableRow>
-  //                 </TableHead>
-  //                 <TableBody>
-  //                   {row.products.map((productRow) => (
-  //                     <TableRow >
-  //                       <TableCell component="th" scope="row">
-  //                         {productRow.product.title}
-  //                       </TableCell>
-  //                       <TableCell >{productRow.color}</TableCell>
-  //                       <TableCell>{productRow.count}</TableCell>
-                        
-  //                       <TableCell >{productRow.product.resident}</TableCell>
-  //                       <TableCell >{productRow.product.price}</TableCell>
-  //                       <TableCell >
-  //                       {productRow.product.shipping}
-  //                       </TableCell>
-  //                     </TableRow>
-  //                   ))}
-  //                 </TableBody>
-  //               </Table>
-  //             </Box>
-  //           </Collapse>
-  //         </TableCell>
-  //       </TableRow>
-  //     </React.Fragment>
-  //   );
-  // }
-  
 
-  // const showOrderInTable = (order) => (
-
-    // <table className="table table-bordered">
-    //   <thead className="thead-light">
-    //     <tr>
-    //       <th scope="col">Title</th>
-    //       <th scope="col">Price</th>
-    //       <th scope="col">Resident</th>
-    //       <th scope="col">Color</th>
-    //       <th scope="col">Count</th>
-    //       <th scope="col">Shipping</th>
-    //     </tr>
-    //   </thead>
-
-    //   <tbody>
-    //     {order.products.map((p, i) => (
-    //       <tr key={i}>
-    //         <td>
-    //           <b>{p.product.title}</b>
-    //         </td>
-    //         <td>{p.product.price}</td>
-    //         <td>{p.product.resident}</td>
-    //         <td>{p.color}</td>
-    //         <td>{p.count}</td>
-    //         <td>
-    //           {p.product.shipping === "Yes" ? (
-    //             <CheckCircleOutlined style={{ color: "green" }} />
-    //           ) : (
-    //             <CloseCircleOutlined style={{ color: "red" }} />
-    //           )}
-    //         </td>
-    //       </tr>
-    //     ))}
-    //   </tbody>
-    // </table>
-  // );
   const TableHeaderCell = withStyles(() => ({
     root: {
       fontSize: "14px",
@@ -169,36 +65,46 @@ const OrderDetail = ({ orders }) => {
   }))(TableCell);
   return (
     <>
-    <TableContainer component={Paper} style={{boxShadow:"rgba(168, 168, 168, 0.25) 0px 0px 7px 3px"}} >
+    <Paper>
+      <Box>
+<Typography>
+  {orders._id}
+</Typography>
+      </Box>
+      <Box>
+      <TableContainer component={Paper} style={{boxShadow:"rgba(168, 168, 168, 0.25) 0px 0px 7px 3px"}} >
       <Table sx={{ minWidth: 700 }} >
         <TableHead style={{borderRadius:"6px solid #dfe4e8"}}>
           <TableRow >
-            <TableHeaderCell >Id</TableHeaderCell>
-            <TableHeaderCell   align="center">Amount</TableHeaderCell>
-            <TableHeaderCell align="center">Currentcy</TableHeaderCell>
-            <TableHeaderCell align="center">Method</TableHeaderCell>
-            <TableHeaderCell align="center">Payment </TableHeaderCell>
-            <TableHeaderCell align="right">Orderd on</TableHeaderCell>
-            <TableHeaderCell align="center">Status</TableHeaderCell>
+            <TableHeaderCell >Title</TableHeaderCell>
+            <TableHeaderCell align="center">Color</TableHeaderCell>
+            <TableHeaderCell align="center">Count</TableHeaderCell>
+            <TableHeaderCell align="center">Resident </TableHeaderCell>
+            <TableHeaderCell align="right">Price</TableHeaderCell>
+            <TableHeaderCell align="center">Shipping</TableHeaderCell>
             </TableRow>
         </TableHead>
         <TableBody>
-          {orders.map((row) => (
-            <StyledTableRow key={row._id}>
+          {products !=null  ? products.map((row) => (
+            <StyledTableRow key={row.product._id}>
               <StyledTableCell component="th" scope="row">
-                {row._id}
+                {row.product._id}
               </StyledTableCell>
-              <StyledTableCell align="center">{row.paymentIntent.amount}</StyledTableCell>
-              <StyledTableCell align="center">{row.paymentIntent.currency}</StyledTableCell>
-              <StyledTableCell align="center">{row.paymentIntent.payment_method_types[0]}</StyledTableCell>
-              <StyledTableCell align="center">{row.paymentIntent.status.toUpperCase()}</StyledTableCell>
-              <StyledTableCell align="right">{new Date(row.paymentIntent.created * 1000).toLocaleString()}</StyledTableCell>
-              <StyledTableCell align="center">{row.orderStatus}</StyledTableCell>
+              <StyledTableCell align="center">{row.color}</StyledTableCell>
+              <StyledTableCell align="center">{row.count}</StyledTableCell>
+              <StyledTableCell align="center">{row.product.resident}</StyledTableCell>
+              <StyledTableCell align="center">{row.product.price}</StyledTableCell>
+              <StyledTableCell align="center">{row.product.shipping}</StyledTableCell>
             </StyledTableRow>
-          ))}
+          )) : ""
+          }
+         
         </TableBody>
       </Table>
     </TableContainer>
+      </Box>
+    </Paper>
+
       {/* {orders.map((order) => (
         <div key={order._id} className="row pb-5">
           <div className="btn btn-block bg-light">

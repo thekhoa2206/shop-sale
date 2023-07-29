@@ -1,7 +1,7 @@
 import React from "react";
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import ShowPaymentInfo from "../cards/ShowPaymentInfo";
-import { Box, Collapse, FormControl, IconButton, InputLabel, MenuItem, Select, Table,TableCell, TableBody, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
+import {  Table,TableCell, TableBody, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { styled } from '@mui/material/styles';
@@ -9,6 +9,8 @@ import Paper from '@mui/material/Paper';
 import  { tableCellClasses } from '@mui/material/TableCell';
 import { withStyles } from "@material-ui/styles";
 import { red } from "@material-ui/core/colors";
+import OrderDetail from "./OrderDetail";
+import { Link } from "react-router-dom";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -32,12 +34,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const Orders = ({ orders, handleStatusChange }) => {
   
   const [status, setStatus] = React.useState('');
-  console.log("status",status);
   const handleChange = (id,e) => {
     setStatus(e.target.value)
     handleStatusChange(id,e.target.value)
   };
-
   // function Row(props) {
   //   const { row } = props;
   //   const [open, setOpen] = React.useState(false);
@@ -167,6 +167,7 @@ const Orders = ({ orders, handleStatusChange }) => {
       fontFamily:"sans-serif"
     },
   }))(TableCell);
+
   return (
     <>
     <TableContainer component={Paper} style={{boxShadow:"rgba(168, 168, 168, 0.25) 0px 0px 7px 3px"}} >
@@ -186,7 +187,9 @@ const Orders = ({ orders, handleStatusChange }) => {
           {orders.map((row) => (
             <StyledTableRow key={row._id}>
               <StyledTableCell component="th" scope="row">
+                <Link  to= {`/admin/orders/${row._id}` }>
                 {row._id}
+                </Link> 
               </StyledTableCell>
               <StyledTableCell align="center">{row.paymentIntent.amount}</StyledTableCell>
               <StyledTableCell align="center">{row.paymentIntent.currency}</StyledTableCell>
@@ -199,36 +202,6 @@ const Orders = ({ orders, handleStatusChange }) => {
         </TableBody>
       </Table>
     </TableContainer>
-      {/* {orders.map((order) => (
-        <div key={order._id} className="row pb-5">
-          <div className="btn btn-block bg-light">
-            <ShowPaymentInfo order={order} showStatus={false} />
-<Box>ôkkoookko</Box>
-            <div className="row">
-              <div className="col-md-4">Delivery Status</div>
-              <div className="col-md-8">
-                <select
-                  onChange={(e) =>
-                    handleStatusChange(order._id, e.target.value)
-                  }
-                  className="form-control"
-                  defaultValue={order.orderStatus}
-                  name="status"
-                >
-                  <option value="Not Processed">Not Processed</option>
-                  <option value="Cash On Delivery">Cash On Delivery</option>
-                  <option value="Processing">Processing</option>
-                  <option value="Dispatched">Dispatched</option>
-                  <option value="Cancelled">Cancelled</option>
-                  <option value="Completed">Completed</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          {showOrderInTable(order)}
-        </div>
-      ))} */}
     </>
   );
 };
