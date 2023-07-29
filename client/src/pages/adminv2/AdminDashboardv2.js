@@ -15,7 +15,6 @@ const AdminDashboardv2 = () => {
 
   const loadOrders = () =>
     getOrders(user.token).then((res) => {
-      console.log(JSON.stringify(res.data, null, 4));
       setOrders(res.data);
     });
 
@@ -34,7 +33,7 @@ const AdminDashboardv2 = () => {
         </div>
 
         <div className="col-md-10">
-          <h4>Admin Dashboard</h4>
+          <h4>Admin Dashboard sdasasdsa</h4>
           {/* {JSON.stringify(orders)} */}
           <Orders orders={orders} handleStatusChange={handleStatusChange} />
         </div>
