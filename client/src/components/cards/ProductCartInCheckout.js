@@ -8,6 +8,7 @@ import {
   CloseCircleOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
+import { MenuItem, Select, TextField } from "@material-ui/core";
 
 const ProductCardInCheckout = ({ p }) => {
   const colors = ["Black", "Brown", "Silver", "White", "Blue"];
@@ -89,7 +90,7 @@ const ProductCardInCheckout = ({ p }) => {
       });
     }
   };
-
+console.log(p);
   return (
     <tbody>
       <tr>
@@ -106,8 +107,8 @@ const ProductCardInCheckout = ({ p }) => {
         <td>${p.price}</td>
         <td>{p.resident}</td>
         <td>
-          <select
-            onChange={handleColorChange}
+          {/* <select
+            
             name="color"
             className="form-control"
           >
@@ -123,13 +124,19 @@ const ProductCardInCheckout = ({ p }) => {
                   {c}
                 </option>
               ))}
-          </select>
+          </select> */}
+          <Select id="color"  label="Color"  value={p.color} onChange={(e) => {handleColorChange(e)}}>
+          {!p.color && <MenuItem value="">Color</MenuItem>}
+          {colors.map((c) => (
+                <MenuItem key={c} value={c}>{c}</MenuItem>
+              ))}
+          </Select>
         </td>
         <td className="text-center">
-          <input
+          <TextField
             type="number"
-            className="form-control"
             value={p.count}
+            style={{width: 80}}
             onChange={handleQuantityChange}
           />
         </td>

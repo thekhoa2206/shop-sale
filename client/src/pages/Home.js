@@ -8,14 +8,20 @@ import { Link } from "react-router-dom";
 import defaultIMG from "../images/default.png";
 import Footer from "../components/nav/Footer";
 import Banner from "./Banner";
-
+import { Box } from "@material-ui/core";
+import Background from "../components/images/background.jpg"
 const Home = () => {
   const [category, setCategory] = useState();
   return (
     <>
-      <div className="jumbotron text-danger h1 font-weight-bold text-center">
+      <Box style={{width: "100%", margin: "auto"}}>
+      <Box style={{width: "100%" , margin: "auto", zIndex: 1}}>
+        <img style={{width: "100%", height: 1000}} src={Background}/>
+      </Box>
+      <div className="jumbotron text-danger h1 font-weight-bold text-center" style={{zIndex: 100}}>
         <Jumbotron text={["Latest Products", "New Arrivals", "Best Sellers"]} />
       </div>
+      </Box>
 
       {/* <div class1="home-wrapper-1 container-xxl py-5">
         <div className="row">
@@ -108,10 +114,10 @@ const Home = () => {
       </h4>
       <BestSellers />
 
-      <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
+      {/* <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
         Categories
       </h4>
-      <CategoryList />
+      <CategoryList /> */}
 
       <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
         Sub Categories

@@ -1,19 +1,24 @@
-import React, { useState, useEffect } from "react";
-import {
-  getProductsByCount,
-  fetchProductsByFilter,
-} from "../functions/product";
-import { getCategories } from "../functions/category";
-import { getSubs } from "../functions/sub";
-import { useSelector, useDispatch } from "react-redux";
+import { Box, IconButton, Typography } from "@material-ui/core";
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
+import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
+import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import WhereToVoteOutlinedIcon from '@mui/icons-material/WhereToVoteOutlined';
+import { Checkbox, Menu, Radio, Slider } from "antd";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../components/cards/ProductCard";
-import { Menu, Slider, Checkbox, Radio } from "antd";
-import {
-  DollarOutlined,
-  DownSquareOutlined,
-  StarOutlined,
-} from "@ant-design/icons";
 import Star from "../components/forms/Star";
+import { getCategories } from "../functions/category";
+import {
+  fetchProductsByFilter,
+  getProductsByCount,
+} from "../functions/product";
+import { getSubs } from "../functions/sub";
+import ProductCardV2 from "../components/cards/ProductCartV2";
+import StorageOutlinedIcon from '@mui/icons-material/StorageOutlined';
+import ViewModuleOutlinedIcon from '@mui/icons-material/ViewModuleOutlined';
 
 const { SubMenu, ItemGroup } = Menu;
 
@@ -27,6 +32,7 @@ const Shop = () => {
   const [star, setStar] = useState("");
   const [subs, setSubs] = useState([]);
   const [sub, setSub] = useState("");
+  const [typeShow, setTypeShow] = useState(false);
   const [residents, setResidents] = useState([
     "Tay Ho", "Ba Dinh", "Hoan Kiem", "Dong Da", "Cau Giay", "Hai Ba Trung", "Hoang Mai", "Long Bien"
   ]);
@@ -317,9 +323,12 @@ const Shop = () => {
             <SubMenu
               key="1"
               title={
-                <span className="h6">
-                  <DollarOutlined /> Price
-                </span>
+                <Box style={{display: "flex"}}>
+                  <MonetizationOnOutlinedIcon style={{marginTop: 4, marginRight: 5,color: "#0088FF"}}/> 
+                  <Typography variant="h6">
+                  Price
+                 </Typography>
+                </Box>
               }
             >
               <div>
@@ -338,9 +347,12 @@ const Shop = () => {
             <SubMenu
               key="2"
               title={
-                <span className="h6">
-                  <DownSquareOutlined /> Categories
-                </span>
+                <Box style={{display: "flex"}}>
+                  <CategoryOutlinedIcon style={{marginTop: 4, marginRight: 5, color: "#0088FF"}}/> 
+                  <Typography variant="h6">
+                  Categories
+                 </Typography>
+                </Box>
               }
             >
               <div style={{ maringTop: "-10px" }}>{showCategories()}</div>
@@ -350,9 +362,12 @@ const Shop = () => {
             <SubMenu
               key="3"
               title={
-                <span className="h6">
-                  <StarOutlined /> Rating
-                </span>
+                <Box style={{display: "flex"}}>
+                  <StarOutlineIcon style={{marginTop: 4, marginRight: 5, color: "#0088FF"}}/> 
+                  <Typography variant="h6">
+                  Rating
+                 </Typography>
+                </Box>
               }
             >
               <div style={{ maringTop: "-10px" }}>{showStars()}</div>
@@ -362,9 +377,12 @@ const Shop = () => {
             <SubMenu
               key="4"
               title={
-                <span className="h6">
-                  <DownSquareOutlined /> Sub Categories
-                </span>
+                <Box style={{display: "flex"}}>
+                  <CategoryOutlinedIcon style={{marginTop: 4, marginRight: 5, color: "#0088FF"}}/> 
+                  <Typography variant="h6">
+                  Sub Categories
+                 </Typography>
+                </Box>
               }
             >
               <div style={{ maringTop: "-10px" }} className="pl-4 pr-4">
@@ -376,9 +394,12 @@ const Shop = () => {
             <SubMenu
               key="5"
               title={
-                <span className="h6">
-                  <DownSquareOutlined /> Residents
-                </span>
+                <Box style={{display: "flex"}}>
+                  <WhereToVoteOutlinedIcon style={{marginTop: 4, marginRight: 5, color: "#0088FF"}}/> 
+                  <Typography variant="h6">
+                  Residents
+                 </Typography>
+                </Box>
               }
             >
               <div style={{ maringTop: "-10px" }} className="pr-5">
@@ -390,9 +411,12 @@ const Shop = () => {
             <SubMenu
               key="6"
               title={
-                <span className="h6">
-                  <DownSquareOutlined /> Colors
-                </span>
+                <Box style={{display: "flex"}}>
+                  <ColorLensOutlinedIcon style={{marginTop: 4, marginRight: 5, color: "#0088FF"}}/> 
+                  <Typography variant="h6">
+                  Colors
+                 </Typography>
+                </Box>
               }
             >
               <div style={{ maringTop: "-10px" }} className="pr-5">
@@ -404,9 +428,12 @@ const Shop = () => {
             <SubMenu
               key="7"
               title={
-                <span className="h6">
-                  <DownSquareOutlined /> Shipping
-                </span>
+                <Box style={{display: "flex"}}>
+                  <LocalShippingOutlinedIcon style={{marginTop: 4, marginRight: 5, color: "#0088FF"}}/> 
+                  <Typography variant="h6">
+                  Shipping
+                 </Typography>
+                </Box>
               }
             >
               <div style={{ maringTop: "-10px" }} className="pr-5">
@@ -417,19 +444,25 @@ const Shop = () => {
         </div>
 
         <div className="col-md-9 pt-2">
+          <Box style={{display: "flex"}}>
           {loading ? (
             <h4 className="text-danger">Loading...</h4>
           ) : (
             <h4 className="text-danger">Products</h4>
           )}
-
+          <Box style={{marginLeft: "80%"}}>
+            <IconButton onClick={() => {setTypeShow(false)}}><StorageOutlinedIcon/></IconButton>
+            <IconButton onClick={() => {setTypeShow(true)}}><ViewModuleOutlinedIcon/></IconButton>
+          </Box>
+          </Box>
           {products.length < 1 && <p>No products found</p>}
 
           <div className="row pb-5">
             {products.map((p) => (
-              <div key={p._id} className="col-md-4 mt-3">
-                <ProductCard product={p} />
-              </div>
+              typeShow ? <div key={p._id} className="col-md-4 mt-3">
+              <ProductCard product={p} />
+            </div> :
+              <Box><ProductCardV2  product={p} /></Box>
             ))}
           </div>
         </div>
