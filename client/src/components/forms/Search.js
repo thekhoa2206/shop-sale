@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { SearchOutlined } from "@ant-design/icons";
+import { TextField } from "@material-ui/core";
 // import { DropdownButton, Dropdown } from "react-bootstrap";
 
 const Search = () => {
@@ -32,14 +33,17 @@ const Search = () => {
           <Dropdown.Item key={id} onClick={() => setSearchCategoryToggle(category.name)}>{category.name}</Dropdown.Item>
         ))}
       </DropdownButton> */}
-      <input
+      <TextField
         onChange={handleChange}
         type="search"
         value={text}
         className="form-control mr-sm-2"
         placeholder="Search"
+        InputProps={{
+          endAdornment: <SearchOutlined onClick={handleSubmit} style={{ cursor: "pointer", color: "#B0BABF" }} />,
+        }}
       />
-      <SearchOutlined onClick={handleSubmit} style={{ cursor: "pointer" }} />
+      
     </form>
   );
 };

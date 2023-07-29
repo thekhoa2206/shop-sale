@@ -1,26 +1,27 @@
-import React, { useState } from "react";
-import { Menu, Badge } from "antd";
 import {
   AppstoreOutlined,
-  SettingOutlined,
-  UserOutlined,
-  UserAddOutlined,
   LogoutOutlined,
+  SettingOutlined,
   ShoppingOutlined,
-  ShoppingCartOutlined,
+  UserAddOutlined,
+  UserOutlined
 } from "@ant-design/icons";
+import { MenuItem, Select } from "@material-ui/core";
+import { Badge, Menu } from "antd";
 import firebase from "firebase/compat/app";
-import "firebase/compat/auth"
-import { Link } from "react-router-dom";
+import "firebase/compat/auth";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import Search from "../forms/Search";
+import { Link, useNavigate } from "react-router-dom";
 import { selectDatabase } from "../../functions/db";
+import Search from "../forms/Search";
+import CartIcon from "../svg/CartIcon";
 
 const { SubMenu, Item } = Menu;
 
 const Header = () => {
   const [current, setCurrent] = useState("home");
+  const [valueDatabase, setValueDatabase] = useState("no-value");
 
   const navigate = useNavigate();
 
@@ -56,27 +57,29 @@ const Header = () => {
         });
     });
   });
-
   return (
     <>
-      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
+      <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal" style={{padding: 10}}> 
         <Item key="home" icon={<AppstoreOutlined />}>
           <Link to="/">Home</Link>
         </Item>
-        <select id="databaseDropdown" selected="">
-          <option value="">Select Database</option>
-          <option value="db1">Database 1</option>
-          <option value="db2">Database 2</option>
-          <option value="db3">Database 3</option>
-          <option value="db4">Database 4</option>
-          <option value="db5">Database 5</option>
-        </select>
 
+        <Select id="databaseDropdown"  value={valueDatabase} label="Select Database" onChange={(e) => {setValueDatabase(e.target.value)}}> 
+          <MenuItem value="no-value">Select Database</MenuItem>
+          <MenuItem value="db1">Database 1</MenuItem>
+          <MenuItem value="db2">Database 2</MenuItem>
+          <MenuItem value="db3">Database 3</MenuItem>
+          <MenuItem value="db4">Database 4</MenuItem>
+          <MenuItem value="db5">Database 5</MenuItem>
+        </Select>
+
+    
+        
         <Item key="shop" icon={<ShoppingOutlined />}>
           <Link to="/shop">Shop</Link>
         </Item>
 
-        <Item key="cart" icon={<ShoppingCartOutlined />}>
+        <Item key="cart" icon={<CartIcon />}>
           <Link to="/cart">
             <Badge count={cart.length} offset={[9, 0]}>
               Cart

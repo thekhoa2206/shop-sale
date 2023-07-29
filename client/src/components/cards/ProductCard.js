@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Card, Tooltip } from "antd";
 import { EyeOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import defaultIMG from "../../images/default.png";
@@ -6,11 +6,17 @@ import { Link } from "react-router-dom";
 import { showAverage } from "../../functions/rating";
 import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
+import { Box, Checkbox, IconButton, Typography } from "@material-ui/core";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import StarRating from "react-star-ratings";
+import { addToWishlist, getWishlist, removeWishlist } from "../../functions/user";
+import { toast } from "react-toastify";
 
 const { Meta } = Card;
 
 const ProductCard = ({ product }) => {
   const [tooltip, setTooltip] = useState("Click to add");
+  const [wishlist, setWishlist] = useState([]);
   // redux
   const { user, cart } = useSelector((state) => ({ ...state }));
   const dispatch = useDispatch();
@@ -48,38 +54,96 @@ const ProductCard = ({ product }) => {
   };
   // destructure
   const { images, title, description, slug } = product;
+  const avgRating = useMemo(() => {
+    let avgRate = 0;
+    if(product){
+      if(product.ratings && product.ratings.length > 0){
+          let total = 0;
+          product.ratings.filter((item) => {
+            total += item.star;
+          })
+          avgRate = total/product.ratings.length;
+      }
+    }
+    return avgRate;
+  }, [product])
+
+
+  const handleAddToWishlist = (e) => {
+    if(!wishlist.find((item) => item._id === product._id)){
+      e.preventDefault();
+      addToWishlist(product._id, user.token).then((res) => {
+      console.log("ADDED TO WISHLIST", res.data);
+      toast.success("Added to wishlist");
+      loadWishlist();
+    });
+    }else {
+      handleRemove(product._id)
+    }
+  };
+  useEffect(() => {
+    if(user?.token) loadWishlist();
+  }, [user])
+  const loadWishlist = () =>
+    getWishlist(user.token).then((res) => {
+      // console.log(res);
+      setWishlist(res.data.wishlist);
+    });
+
+  const handleRemove = (productId) =>
+    removeWishlist(productId, user.token).then((res) => {
+      loadWishlist();
+    });
   return (
     <>
-      {product && product.ratings && product.ratings.length > 0 ? (
-        showAverage(product)
-      ) : (
-        <div className="text-center pt-1 pb-3">No rating yet</div>
-      )}
-      <Card
-        cover={
+      <Box style={{border: "1px solid #E5E9EB", borderRadius: 6, width: 400}}>
+        <Box>
           <img
-            src={images && images.length ? images[0].url : defaultIMG}
-            style={{ height: "150px", objectFit: "cover" }}
-            className="p-1"
-          />
-        }
-        actions={[
-          <Link to={`/product/${slug}`}>
-            <EyeOutlined className="text-warning" /> <br /> View Product
-          </Link>,
+              src={images && images.length ? images[0].url : defaultIMG}
+              style={{ height: "300px", objectFit: "cover", width: "100%" }}
+              className="p-1"
+            />
+        </Box>
+        <Box style={{textAlign: "center", position: "absolute", zIndex: 100, top: 5, left: "370px", display: "inline-block"}}>
+          <Box style={{width: 30, textAlign: "center"}}>
+            <IconButton style={{width: 20, height: 30}}>
+              <Link to={`/product/${slug}`} target="_blank">
+                <EyeOutlined style={{color: "#757575", width: 20}} />
+              </Link>
+            </IconButton>
+
+            <IconButton style={{width: 20, height: 30}} onClick={handleAddToCart} disabled={product.quantity < 1}>
           <Tooltip title={tooltip}>
-            <a onClick={handleAddToCart} disabled={product.quantity < 1}>
-              <ShoppingCartOutlined className="text-danger" /> <br />
-              {product.quantity < 1 ? "Out of stock" : "Add to Cart"}
-            </a>
-          </Tooltip>,
-        ]}
-      >
-        <Meta
-          title={title}
-          description={`${description && description.substring(0, 40)}...`}
-        />
-      </Card>
+              <ShoppingCartOutlined style={{color: "#757575"}} />
+          </Tooltip>
+            </IconButton>
+            
+            {user && (
+            <IconButton style={{width: 20, height: 30}}>
+              <Checkbox checked={!!wishlist.find((item) => item._id === product._id)}  icon={<FavoriteBorder />} checkedIcon={<Favorite />} onChange={(e) => handleAddToWishlist(e)}/>
+            </IconButton>
+            )}
+          </Box>
+        </Box>
+        <Box style={{padding: "10px 20px"}}>
+          <Typography>{title}</Typography>
+          <Typography>{`${description && description.substring(0, 40)}...`}</Typography>
+          <Typography style={{fontWeight: "bold", fontSize: 20}}>${product.price}</Typography>
+          <Box style={{display: "flex"}}>
+            <StarRating
+              changeRating={() => {}}
+              starHoverColor="#CBD3E3"
+              numberOfStars={5}
+              rating={avgRating}
+              starDimension="20px"
+              starSpacing="2px"
+              starRatedColor="red"
+            />
+            <Typography style={{color: "#5B6871", marginTop: 4, marginLeft: 5, fontSize: 14}}>{product.ratings.length}</Typography>
+          </Box>
+        </Box>
+      </Box>
+      
     </>
   );
 };

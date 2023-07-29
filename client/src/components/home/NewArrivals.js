@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { getProducts, getProductsCount } from "../../functions/product";
+import { fetchProductsByFilter, getProducts, getProductsCount } from "../../functions/product";
 import ProductCard from "../cards/ProductCard";
 import LoadingCard from "../cards/LoadingCard";
 import { Pagination } from "antd";
+import { Box, Typography } from "@material-ui/core";
+import NoData from "../images/NoData.png";
 
-const NewArrivals = () => {
+const NewArrivals = ({category}) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [productsCount, setProductsCount] = useState(0);
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    loadAllProducts();
-  }, [page]);
+    if(!category) loadAllProducts();
+  }, [page, category]);
 
   useEffect(() => {
     getProductsCount().then((res) => setProductsCount(res.data));
@@ -26,20 +28,37 @@ const NewArrivals = () => {
       setLoading(false);
     });
   };
-
+  useEffect(() => {
+   if(category){
+    let inTheState = [category._id];
+    fetchProducts({category: inTheState})
+   }
+  }, [category, page])
+  const fetchProducts = (arg) => {
+    fetchProductsByFilter(arg).then((res) => {
+      if(res.data){
+        let data = [...res.data].splice((page-1) * 3, 3)
+        setProducts(data);
+        setProductsCount(res.data.length);
+      }
+    });
+  };
   return (
     <>
       <div className="container">
         {loading ? (
           <LoadingCard count={3} />
         ) : (
-          <div className="row">
-            {products.map((product) => (
-              <div key={product._id} className="col-md-4">
-                <ProductCard product={product} />
-              </div>
-            ))}
-          </div>
+          products && products.length > 0 ? <div className="row">
+          {products.map((product) => (
+            <div key={product._id} className="col-md-4">
+              <ProductCard product={product} />
+            </div>
+          ))}
+        </div> : <Box className="row" style={{textAlign: "center"}}>
+            <img style={{width: 200, margin: "auto"}} src={NoData}/>
+            <Typography>No Data</Typography>
+        </Box>
         )}
       </div>
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Jumbotron from "../components/cards/Jumbotron";
 import NewArrivals from "../components/home/NewArrivals";
 import BestSellers from "../components/home/BestSellers";
@@ -6,8 +6,11 @@ import CategoryList from "../components/category/CategoryList";
 import SubList from "../components/sub/SubList";
 import { Link } from "react-router-dom";
 import defaultIMG from "../images/default.png";
+import Footer from "../components/nav/Footer";
+import Banner from "./Banner";
 
 const Home = () => {
+  const [category, setCategory] = useState();
   return (
     <>
       <div className="jumbotron text-danger h1 font-weight-bold text-center">
@@ -93,11 +96,12 @@ const Home = () => {
           </div>
         </div>
       </div> */}
-
+      <Banner handleCategory={(category) => {setCategory(category)}}/>
+      
       <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
         New Arrivals
       </h4>
-      <NewArrivals />
+      <NewArrivals category={category}/>
 
       <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
         Best Sellers
@@ -114,8 +118,7 @@ const Home = () => {
       </h4>
       <SubList />
 
-      <br />
-      <br />
+      <Footer/>
     </>
   );
 };
