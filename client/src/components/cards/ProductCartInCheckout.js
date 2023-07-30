@@ -8,7 +8,7 @@ import {
   CloseCircleOutlined,
   CloseOutlined,
 } from "@ant-design/icons";
-import { MenuItem, Select, TextField } from "@material-ui/core";
+import { MenuItem, Select, TableBody, TableCell, TableRow, TextField } from "@material-ui/core";
 
 const ProductCardInCheckout = ({ p }) => {
   const colors = ["Black", "Brown", "Silver", "White", "Blue"];
@@ -92,9 +92,9 @@ const ProductCardInCheckout = ({ p }) => {
   };
 console.log(p);
   return (
-    <tbody>
-      <tr>
-        <td>
+    <TableBody>
+      <TableRow>
+        <TableCell>
           <div style={{ width: "100px", height: "auto" }}>
             {p.images.length ? (
               <ModalImage small={p.images[0].url} large={p.images[0].url} />
@@ -102,11 +102,11 @@ console.log(p);
               <ModalImage small={defaultIMG} large={defaultIMG} />
             )}
           </div>
-        </td>
-        <td>{p.title}</td>
-        <td>${p.price}</td>
-        <td>{p.resident}</td>
-        <td>
+        </TableCell>
+        <TableCell>{p.title}</TableCell>
+        <TableCell>${p.price}</TableCell>
+        <TableCell>{p.resident}</TableCell>
+        <TableCell>
           {/* <select
             
             name="color"
@@ -131,30 +131,30 @@ console.log(p);
                 <MenuItem key={c} value={c}>{c}</MenuItem>
               ))}
           </Select>
-        </td>
-        <td className="text-center">
+        </TableCell>
+        <TableCell className="text-center">
           <TextField
             type="number"
             value={p.count}
             style={{width: 80}}
             onChange={handleQuantityChange}
           />
-        </td>
-        <td className="text-center">
+        </TableCell>
+        <TableCell align="center">
           {p.shipping === "Yes" ? (
             <CheckCircleOutlined className="text-success" />
           ) : (
             <CloseCircleOutlined className="text-danger" />
           )}
-        </td>
-        <td className="text-center">
+        </TableCell>
+        <TableCell align="center">
           <CloseOutlined
             onClick={handleRemove}
             className="text-danger pointer"
           />
-        </td>
-      </tr>
-    </tbody>
+        </TableCell>
+      </TableRow>
+    </TableBody>
   );
 };
 

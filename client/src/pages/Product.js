@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getRelated } from "../functions/product";
 import ProductCard from "../components/cards/ProductCard";
+import { Box, Typography } from "@material-ui/core";
 
 const Product = ({ match }) => {
   const [product, setProduct] = useState({});
@@ -54,24 +55,24 @@ const Product = ({ match }) => {
           star={star} />
       </div>
 
-      <div className="row">
-        <div className="col text-center pt-5 pb-5">
-          <hr />
-          <h4>Related Products</h4>
-          <hr />
-        </div>
-      </div>
 
       <div className="row pb-5">
-        {related.length ? (
-          related.map((r) => (
-            <div key={r._id} className="col-md-4">
-              <ProductCard product={r} />
-            </div>
-          ))
-        ) : (
-          <div className="text-center col">No Products Found</div>
-        )}
+        <Box style={{width: "1400px", margin: "auto", marginTop: 20 }}>
+          <Typography style={{marginBottom: 30, fontWeight: "bold", fontSize: 26, lineHeight: "32px", marginLeft: 20}}>
+            Our Popular Products
+          </Typography>
+        </Box>
+        <Box style={{width: "1400px", display: "flex", margin: "auto"}}>
+          {related.length ? (
+            related.map((r) => (
+              <div key={r._id} className="col-md-3">
+                <ProductCard product={r} />
+              </div>
+            ))
+          ) : (
+            <div className="text-center col">No Products Found</div>
+          )}
+        </Box>
       </div>
     </div>
   );

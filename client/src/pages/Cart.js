@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import ProductCardInCheckout from "../components/cards/ProductCartInCheckout";
 import { userCart } from "../functions/user";
-import { Table, TableCell, TableHead } from "@material-ui/core";
+import { Box, Button, Table, TableCell, TableHead } from "@material-ui/core";
+import { Typography } from "antd";
 
 const Cart = () => {
   const { cart, user } = useSelector((state) => ({ ...state }));
@@ -41,8 +42,8 @@ const Cart = () => {
   };
 
   const showCartItems = () => (
-    <Table className="table table-bordered">
-      <TableHead className="thead-light">
+    <Table>
+      <TableHead >
         <TableCell>Image</TableCell>
         <TableCell>Title</TableCell>
         <TableCell>Price</TableCell>
@@ -60,64 +61,73 @@ const Cart = () => {
   );
   return (
     <div className="container-fluid pt-2">
-      <div className="row">
-        <div className="col-md-8">
-          <h4>Cart / {cart.length} Product</h4>
+      <Box style={{width: 1200, background: "#FFFFFF", margin: "auto", padding: 20, borderRadius: 6}}>
+      <Typography style={{fontWeight: "bold", fontSize: 16}}>Cart / {cart.length} Product</Typography>
+      <hr/>
+        <Box>
+        {!cart.length ? (
+          <p>
+            No products in cart. <Link to="/shop">Continue Shopping.</Link>
+          </p>
+        ) : (
+          showCartItems()
+        )}
+        </Box>
+        
+      </Box>
 
-          {!cart.length ? (
-            <p>
-              No products in cart. <Link to="/shop">Continue Shopping.</Link>
-            </p>
-          ) : (
-            showCartItems()
-          )}
-        </div>
-        <div className="col-md-4">
-          <h4>Order Summary</h4>
-          <hr />
-          <p>Products</p>
-          {cart.map((c, i) => (
-            <div key={i}>
-              <p>
-                {c.title} x {c.count} = ${c.price * c.count}
-              </p>
-            </div>
-          ))}
-          <hr />
-          Total: <b>${getTotal()}</b>
-          <hr />
-          {user ? (
-            <>
-            <button
-              onClick={saveOrderToDb}
-              className="btn btn-sm btn-primary mt-2"
-              disabled={!cart.length}
-            >
-              Proceed to Checkout
-            </button>
-            <br />
-            <button
-              onClick={saveCashOrderToDb}
-              className="btn btn-sm btn-warning mt-2"
-              disabled={!cart.length}
-            >
-              Pay Cash on Delivery
-            </button>
-          </>
-          ) : (
-            <button className="btn btn-sm btn-primary mt-2">
-              <Link
-                to={{
-                  pathname: "/login",
-                  state: { from: "cart" },
-                }}
+      <Box style={{width: 1200, background: "#FFFFFF", margin: "auto", padding: 20, borderRadius: 6, marginTop: 20}}>
+        <Box>
+        <Typography style={{fontWeight: "bold", fontSize: 16}}>Order Summary</Typography>
+            <hr />
+            <Box style={{marginLeft: 800}}>
+              <Typography style={{fontWeight: "bold", fontSize: 14}}>Products</Typography>
+              {cart.map((c, i) => (
+                <div key={i}>
+                  <Typography>
+                    {c.title} x {c.count} = ${c.price * c.count}
+                  </Typography>
+                </div>
+              ))}
+            </Box>
+            <Box style={{marginLeft: 800}}>
+              <hr />
+              Total: <b>${getTotal()}</b>
+              <hr />
+            </Box>
+          </Box>
+      </Box>
+      <Box style={{marginBottom: 50, marginTop: 20, marginLeft: 1130}}>
+        {user ? (
+              <Box style={{display: "flex"}}>
+              <Button
+                onClick={saveOrderToDb}
+                disabled={!cart.length}
+                style={{height: 40, borderRadius: 6, background: "#009688", color: "#FFFFFF"}}
               >
-                Login to Checkout
-              </Link>
-            </button>
-          )}
-        </div>
-      </div>
+                Proceed to Checkout
+              </Button>
+              <Button
+                onClick={saveCashOrderToDb}
+                disabled={!cart.length}
+                style={{height: 40, borderRadius: 6, background: "#0088FF", color: "#FFFFFF", marginLeft: 20}}
+              >
+                Pay Cash on Delivery
+              </Button>
+            </Box>
+            ) : (
+              <Button style={{height: 40, borderRadius: 6, background: "#0088FF", color: "#FFFFFF", marginLeft: 20}}>
+                <Link
+                  to={{
+                    pathname: "/login",
+                    state: { from: "cart" },
+                  }}
+                >
+                  Login to Checkout
+                </Link>
+              </Button>
+            )}
+      </Box>
     </div>
   );
 };

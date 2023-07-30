@@ -46,12 +46,15 @@ const NewArrivals = ({category}) => {
   return (
     <>
       <div className="container">
+      <Typography style={{marginBottom: 30, fontWeight: "bold", fontSize: 26, lineHeight: "32px", marginTop: 20}}>
+        New Arrivals
+      </Typography>
         {loading ? (
           <LoadingCard count={3} />
         ) : (
           products && products.length > 0 ? <div className="row">
           {products.map((product) => (
-            <div key={product._id} className="col-md-4">
+            <div key={product._id} className="col-md-3">
               <ProductCard product={product} />
             </div>
           ))}

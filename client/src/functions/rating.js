@@ -1,3 +1,4 @@
+import { Box, Typography } from "@material-ui/core";
 import React from "react";
 import StarRating from "react-star-ratings";
 
@@ -20,16 +21,17 @@ export const showAverage = (p) => {
 
     return (
       <div className="text-center pt-1 pb-3">
-        <span>
+        
+        <Box style={{display: "flex"}}>
           <StarRating
-            starDimension="20px"
+            starDimension="16px"
             starSpacing="2px"
-            starRatedColor="red"
+            starRatedColor="#ffc84c"
             rating={result}
             editing={false}
           />{" "}
-          ({p.ratings.length})
-        </span>
+          <Typography style={{color: "#5B6871", marginTop: 4, marginLeft: 5, fontSize: 14}}>({`${p.ratings.length} Reviews`})</Typography>
+        </Box>
       </div>
     );
   }

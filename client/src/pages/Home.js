@@ -8,8 +8,9 @@ import { Link } from "react-router-dom";
 import defaultIMG from "../images/default.png";
 import Footer from "../components/nav/Footer";
 import Banner from "./Banner";
-import { Box } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import Background from "../components/images/background.jpg"
+import CategoryCard from "../components/home/CategoryCard";
 const Home = () => {
   const [category, setCategory] = useState();
   return (
@@ -103,15 +104,9 @@ const Home = () => {
         </div>
       </div> */}
       <Banner handleCategory={(category) => {setCategory(category)}}/>
-      
-      <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
-        New Arrivals
-      </h4>
+      <CategoryCard handleCategory={(category) => {setCategory(category)}} />
       <NewArrivals category={category}/>
 
-      <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
-        Best Sellers
-      </h4>
       <BestSellers />
 
       {/* <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
@@ -119,9 +114,6 @@ const Home = () => {
       </h4>
       <CategoryList /> */}
 
-      <h4 className="text-center p-3 mt-5 mb-5 display-4 jumbotron">
-        Sub Categories
-      </h4>
       <SubList />
 
       <Footer/>

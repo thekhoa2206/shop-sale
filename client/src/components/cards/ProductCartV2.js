@@ -97,7 +97,7 @@ const ProductCardV2 = ({ product }) => {
     });
   return (
     <>
-      <Box style={{border: "1px solid #E5E9EB", padding: 20, borderRadius: 6, width: 1200, marginTop: 20, height: 240, alignItems: "center"}}>
+      <Box style={{background: "#FFFFFF", padding: 20, borderRadius: 6, width: 1200, marginTop: 20, height: 240, alignItems: "center"}}>
         <Grid xs={12} container>
             <Grid xs={3} item> 
             <Box>
@@ -130,19 +130,19 @@ const ProductCardV2 = ({ product }) => {
           <Box style={{width: 30, textAlign: "center"}}>
             <IconButton style={{width: 20, height: 30}}>
               <Link to={`/product/${slug}`} target="_blank">
-                <RemoveRedEyeOutlinedIcon style={{color: "#000000", width: 20}} />
+                <RemoveRedEyeOutlinedIcon style={{color: "#1c1c1b", width: 16}} />
               </Link>
             </IconButton>
 
             <IconButton style={{width: 20, height: 30}} onClick={handleAddToCart} disabled={product.quantity < 1}>
           <Tooltip title={tooltip}>
-              <ShoppingCartOutlinedIcon style={{color: "#000000", width: 20}} />
+              <ShoppingCartOutlinedIcon style={{color: "#1c1c1b", width: 16}} />
           </Tooltip>
             </IconButton>
             
             {user && (
             <IconButton style={{width: 20, height: 30}}>
-              <Checkbox checked={!!wishlist.find((item) => item._id === product._id)}  icon={<FavoriteBorder style={{color: "#000000", width: 20}}/>} checkedIcon={<Favorite style={{ width: 20}}/>} onChange={(e) => handleAddToWishlist(e)}/>
+              <Checkbox checked={!!wishlist.find((item) => item._id === product._id)}  icon={<FavoriteBorder style={{color: "#1c1c1b", width: 16}}/>} checkedIcon={<Favorite style={{ width: 16}}/>} onChange={(e) => handleAddToWishlist(e)}/>
             </IconButton>
             )}
           </Box>
