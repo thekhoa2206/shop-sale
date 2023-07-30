@@ -1,0 +1,10 @@
+
+.product-card:hover  img:last-child {
+  display: block;
+}
+.icon-show {
+    display: none;
+}
+.product-card:hover .icon-show  {
+    display: block;
+}

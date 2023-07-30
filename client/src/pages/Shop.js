@@ -459,7 +459,7 @@ const Shop = () => {
 
           <div className="row pb-5">
             {products.map((p) => (
-              typeShow ? <div key={p._id} className="col-md-4 mt-3">
+              typeShow ? <div key={p._id} className="col-md-3 mt-3">
               <ProductCard product={p} />
             </div> :
               <Box><ProductCardV2  product={p} /></Box>

@@ -3,6 +3,7 @@ import { getProducts, getProductsCount } from "../../functions/product";
 import ProductCard from "../cards/ProductCard";
 import LoadingCard from "../cards/LoadingCard";
 import { Pagination } from "antd";
+import { Typography } from "@material-ui/core";
 
 const BestSellers = () => {
   const [products, setProducts] = useState([]);
@@ -30,12 +31,16 @@ const BestSellers = () => {
   return (
     <>
       <div className="container">
+      <Typography style={{marginBottom: 30, fontWeight: "bold", fontSize: 26, lineHeight: "32px"}}>
+        Best Sellers
+      </Typography>
+
         {loading ? (
           <LoadingCard count={3} />
         ) : (
           <div className="row">
             {products.map((product) => (
-              <div key={product._id} className="col-md-4">
+              <div key={product._id} className="col-md-3">
                 <ProductCard product={product} />
               </div>
             ))}

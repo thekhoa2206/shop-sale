@@ -13,6 +13,7 @@ import _ from "lodash";
 import { useSelector, useDispatch } from "react-redux";
 import { addToWishlist } from "../../functions/user";
 import { toast } from "react-toastify";
+import { Box, Button, Typography } from "@material-ui/core";
 
 const { Meta } = Card;
 const { TabPane } = Tabs;
@@ -69,46 +70,47 @@ const SingleProduct = ({ product, onStarClick, star }) => {
         });
       };
     return (
-        <>
-            <div className="col-md-7">
-                {images && images.length ? (
-                    <Carousel showArrows={true} autoPlay infiniteLoop>
-                        {images && images.map((i) => <img src={i.url} key={i.public_id} />)}
-                    </Carousel>
-                ) : (
-                    <Card cover={<img src={defaultIMG} className="mb-3 card-image" />}></Card>
-                )}
+        <Box style={{width: 1300, display: "flex", margin: "auto"}}>
+            <div style={{width: 620}}>
+                <Box style={{background: "#FFFFFF", padding: 20, borderRadius: 10}}>
+                    {images && images.length ? (
+                        <Carousel showArrows={true} autoPlay infiniteLoop>
+                            {images && images.map((i) => <img src={i.url} key={i.public_id} />)}
+                        </Carousel>
+                    ) : (
+                        <Card cover={<img src={defaultIMG} className="mb-3 card-image" />}></Card>
+                    )}
+                </Box>
 
-                <Tabs type="card">
-                    <TabPane tab="Description" key="1">
-                        {description && description}
-                    </TabPane>
-                    <TabPane tab="More" key="2">
-                        Call use on xxxx xxx xxx to learn more about this product.
-                    </TabPane>
-                </Tabs>
+                    <Tabs type="card" style={{marginTop: 20}}>
+                        <TabPane tab="Description" key="1">
+                            <Box style={{background: "#FFFFFF", padding: 10, borderRadius: 6, marginTop: -15}}><Typography>{description && description}</Typography></Box>
+                        </TabPane>
+                        <TabPane tab="More" key="2">
+                            Call use on xxxx xxx xxx to learn more about this product.
+                        </TabPane>
+                    </Tabs>
             </div>
 
-            <div className="col-md-5">
-                <h1 className="bg-info p-3">{title}</h1>
+            <div style={{width: 660, marginLeft: 20}}>
+                <Box style={{background: "#FFFFFF", padding: 20, borderRadius: 10}}>
+                    <Typography style={{fontSize: 18, fontWeight: "bold", color: "#1c1c1b", marginBottom: 10}}>{title}</Typography>
+                    <hr/>
 
-                {product && product.ratings && product.ratings.length > 0 ? (
+                    <Typography style={{fontWeight: "bold", marginBottom: 10}}>
+                        <span className="label label-default label-pill pull-xs-right">
+                        $ {product.price}
+                        </span>
+                    </Typography>
+
+                    {product && product.ratings && product.ratings.length > 0 ? (
                     showAverage(product)
-                ) : (
-                    <div className="text-center pt-1 pb-3">No rating yet</div>
-                )}
-
-                <Card
-                    actions={[
-                        <Tooltip title={tooltip}>
-                            <a onClick={handleAddToCart}>
-                                <ShoppingCartOutlined className="text-danger" /> <br /> Add to
-                                Cart
-                            </a>
-                        </Tooltip>,
-                        <a onClick={handleAddToWishlist}>
-                            <HeartOutlined className="text-info" /> <br /> Add to Wishlist
-                        </a>,
+                    ) : (
+                        <div className="text-center pt-1 pb-3">No rating yet</div>
+                    )}
+                    <hr/>
+                    <ProductListItems product={product} />
+                    <Box style={{cursor: "pointer", textAlign: "center"}}>
                         <RatingModal>
                             <StarRating
                                 name={_id}
@@ -116,15 +118,32 @@ const SingleProduct = ({ product, onStarClick, star }) => {
                                 rating={star}
                                 changeRating={onStarClick}
                                 isSelectable={true}
-                                starRatedColor="red"
+                                starRatedColor="#ffc84c"
                             />
-                        </RatingModal>,
-                    ]}
-                >
-                    <ProductListItems product={product} />
-                </Card>
+                        </RatingModal>
+                    </Box>
+                    <hr/>
+                    <Box style={{display: "flex", marginTop: "10px", marginLeft: 150}}>
+                        <Tooltip title={tooltip}>
+                            <Button 
+                            startIcon={<ShoppingCartOutlined style={{color: "#FFFFFF", width: 16}}/>} 
+                            onClick={handleAddToCart} 
+                            style={{width: "160px", height: 48, background: "#232f3e", color: "#FFFFFF", borderRadius: 40}}>
+                                 Add to Cart
+                            </Button>
+                            </Tooltip>
+                            <Button 
+                                startIcon={<HeartOutlined style={{color: "#131921", width: 16}}/>} 
+                                onClick={handleAddToWishlist} 
+                                style={{width: "180px", height: 48, background: "#febd69", color: "#131921", borderRadius: 40, marginLeft: 16}}>
+                                    Add to Wishlist
+                            </Button>
+                    </Box>
+                    
+                </Box>
             </div>
-        </>
+            
+        </Box>
     );
 };
 

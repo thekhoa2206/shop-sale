@@ -13,6 +13,8 @@ import { addToWishlist, getWishlist, removeWishlist } from "../../functions/user
 import { toast } from "react-toastify";
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import EyeIcon from "../svg/EyeIcon";
+import '../css/ProductCard.css';
 
 const { Meta } = Card;
 
@@ -98,7 +100,7 @@ const ProductCard = ({ product }) => {
     });
   return (
     <>
-      <Box style={{border: "1px solid #E5E9EB", borderRadius: 6, width: 400}}>
+      <Box className={"product-card"} style={{background: "#FFFFFF", borderRadius: 10, width: "100%", padding: 10, height: 440, cursor: "pointer"}}>
         <Box>
           <img
               src={images && images.length ? images[0].url : defaultIMG}
@@ -106,43 +108,42 @@ const ProductCard = ({ product }) => {
               className="p-1"
             />
         </Box>
-        <Box style={{textAlign: "center", position: "absolute", zIndex: 100, top: 5, left: "370px", display: "inline-block"}}>
-          <Box style={{width: 30, textAlign: "center"}}>
+        <Box style={{textAlign: "center", position: "absolute", zIndex: 100, top: 5, left: "85%", display: "inline-block"}} >
+          <Box style={{width: 30, textAlign: "center"}} className="icon-show action-bar">
+          {user && (
+            <IconButton style={{width: 20, height: 30}}>
+              <Checkbox checked={!!wishlist.find((item) => item._id === product._id)}  icon={<FavoriteBorder style={{color: "#1c1c1b", width: 16}} />} checkedIcon={<Favorite style={{ width: 16}} />} onChange={(e) => handleAddToWishlist(e)}/>
+            </IconButton>
+            )}
             <IconButton style={{width: 20, height: 30}}>
               <Link to={`/product/${slug}`} target="_blank">
-                <RemoveRedEyeOutlinedIcon style={{color: "#757575", width: 20}} />
+                <EyeIcon style={{color: "#1c1c1b", width: 16}} />
               </Link>
             </IconButton>
 
             <IconButton style={{width: 20, height: 30}} onClick={handleAddToCart} disabled={product.quantity < 1}>
           <Tooltip title={tooltip}>
-              <ShoppingCartOutlinedIcon style={{color: "#757575"}} />
+              <ShoppingCartOutlinedIcon style={{color: "#1c1c1b", width: 16}} />
           </Tooltip>
             </IconButton>
-            
-            {user && (
-            <IconButton style={{width: 20, height: 30}}>
-              <Checkbox checked={!!wishlist.find((item) => item._id === product._id)}  icon={<FavoriteBorder style={{color: "#757575", width: 20}} />} checkedIcon={<Favorite style={{ width: 20}} />} onChange={(e) => handleAddToWishlist(e)}/>
-            </IconButton>
-            )}
           </Box>
         </Box>
-        <Box style={{padding: "10px 20px"}}>
-          <Typography>{title}</Typography>
-          <Typography>{`${description && description.substring(0, 40)}...`}</Typography>
-          <Typography style={{fontWeight: "bold", fontSize: 20}}>${product.price}</Typography>
+        <Box style={{padding: "0px 10px"}}>
+          <Typography style={{color: "#bf4800", fontSize: 13, fontWeight: "bold"}}>{title}</Typography>
+          <Box style={{height: 45}}><Typography style={{color: "#1c1c1b", fontSize: 15, fontWeight: "bold"}}>{`${description && description.substring(0, 40)}...`}</Typography></Box>
           <Box style={{display: "flex"}}>
             <StarRating
               changeRating={() => {}}
               starHoverColor="#CBD3E3"
               numberOfStars={5}
               rating={avgRating}
-              starDimension="20px"
+              starDimension="16px"
               starSpacing="2px"
-              starRatedColor="red"
+              starRatedColor="#ffc84c"
             />
             <Typography style={{color: "#5B6871", marginTop: 4, marginLeft: 5, fontSize: 14}}>{product.ratings.length}</Typography>
           </Box>
+          <Typography style={{fontWeight: "bold", fontSize: 20}}>${product.price}</Typography>
         </Box>
       </Box>
       
