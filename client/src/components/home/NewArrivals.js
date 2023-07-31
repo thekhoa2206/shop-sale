@@ -28,21 +28,21 @@ const NewArrivals = ({category}) => {
       setLoading(false);
     });
   };
-  useEffect(() => {
-   if(category){
-    let inTheState = [category._id];
-    fetchProducts({category: inTheState})
-   }
-  }, [category, page])
-  const fetchProducts = (arg) => {
-    fetchProductsByFilter(arg).then((res) => {
-      if(res.data){
-        let data = [...res.data].splice((page-1) * 3, 3)
-        setProducts(data);
-        setProductsCount(res.data.length);
-      }
-    });
-  };
+  // useEffect(() => {
+  //  if(category){
+  //   let inTheState = [category._id];
+  //   fetchProducts({category: inTheState})
+  //  }
+  // }, [category, page])
+  // const fetchProducts = (arg) => {
+  //   fetchProductsByFilter(arg).then((res) => {
+  //     if(res.data){
+  //       let data = [...res.data].splice((page-1) * 3, 3)
+  //       setProducts(data);
+  //       setProductsCount(res.data.length);
+  //     }
+  //   });
+  // };
   return (
     <>
       <div className="container">

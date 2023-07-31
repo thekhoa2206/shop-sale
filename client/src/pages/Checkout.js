@@ -94,9 +94,9 @@ const Checkout = ({ }) => {
   const showAddress = () => (
     <>
       <ReactQuill theme="snow" value={address} onChange={setAddress} />
-      <Button className="btn btn-primary mt-2" onClick={saveAddressToDb} style={{background: "#0088FF", color: "#FFFFFF", height: 36}}>
+      {/* <Button className="btn btn-primary mt-2" onClick={saveAddressToDb} style={{background: "#0088FF", color: "#FFFFFF", height: 36}}>
         Save
-      </Button>
+      </Button> */}
     </>
   );
 
@@ -105,7 +105,7 @@ const Checkout = ({ }) => {
       <div key={i}>
         <p>
           {p.product.title} ({p.color}) x {p.count} ={" "}
-          {p.product.price * p.count}
+          {p.product.price * p.count} $
         </p>
       </div>
     ));
@@ -120,16 +120,19 @@ const Checkout = ({ }) => {
         value={coupon}
         type="text"
         fullWidth
-        variant="outlined"
+        variant="standard"
         placeholder="Input Coupon"
+        style={{marginBottom: 20}}
       />
-      <Button onClick={applyDiscountCoupon} className="btn btn-primary mt-2" style={{background: "#0088FF", color: "#FFFFFF", height: 36}}>
+      {/* <Button onClick={applyDiscountCoupon} className="btn btn-primary mt-2" style={{background: "#0088FF", color: "#FFFFFF", height: 36}}>
         Apply
-      </Button>
+      </Button> */}
     </>
   );
 
   const createCashOrder = () => {
+    saveAddressToDb();
+    applyDiscountCoupon();
     createCashOrderForUser(user.token, COD, couponTrueOrFalse).then((res) => {
       console.log("USER CASH ORDER CREATED RES ", res);
       // empty cart form redux, local Storage, reset coupon, reset COD, redirect
@@ -162,13 +165,11 @@ const Checkout = ({ }) => {
   };
 
   return (
-    <Box style={{width: "90%", margin: "auto", background: "#fbfbfb", marginTop: 25}}>
+    <Box style={{width: "90%", margin: "auto", marginTop: 25}}>
       <Grid xs={12} container  spacing={2} style={{padding: "20px"}}>
       <Grid xs={6} item>
         <Paper  style={{width: "100%", boxShadow: "0px 2px 4px rgba(168, 168, 168, 0.25)", padding: 10}}>
-        <Typography variant="h6"  style={{ padding: "12px 24px 16px" }}>
-        Additional information
-          </Typography>
+          <Typography style={{fontWeight: "bold", fontSize: 16, padding: "12px 24px 16px"}}>Additional information</Typography>
           <Box style={{height: 1,background: "#dbdbdb"}}></Box>
         <Box style={{width: "90%", margin: "auto", marginTop: 10}}>
         <Typography variant="h6" style={{marginBottom: "5px"}}>Delivery address</Typography>
@@ -183,29 +184,30 @@ const Checkout = ({ }) => {
       </Grid>
       <Grid xs={6} item>
       <Paper style={{width: "100%", boxShadow: "0px 2px 4px rgba(168, 168, 168, 0.25)", padding: 10}}>
-      <Typography variant="h6"  style={{ padding: "12px 24px 16px" }}>
-      Order Summary
-          </Typography>
+          <Typography style={{fontWeight: "bold", fontSize: 16, padding: "12px 24px 16px"}}>Order Summary</Typography>
           <Box style={{height: 1,background: "#dbdbdb"}}></Box>
       <Box style={{width: "90%", margin: "auto", marginTop: 10}}>
-      <p>Number Products {products.length}</p>
+      <p>Number Products: <span style={{fontWeight: "bold"}}>{products.length}</span></p>
         <hr />
         {showProductSummary()}
         <hr />
-        <p>Cart Total: {total}</p>
+        <Typography style={{fontWeight: "bold", marginBottom: 20}}>Cart Total: {total} $</Typography>
 
         {totalAfterDiscount > 0 && (
           <p className="bg-success p-2">
             Discount Applied: Total Payable: ${totalAfterDiscount}
           </p>
         )}
-
-        <div className="row">
-          <div className="col-md-6">
+      </Box>
+        </Paper>
+      </Grid>
+      </Grid>
+      <Box style={{display: "flex", marginLeft: 1400}}>
+          <Box>
             {COD ? (
               <button
                 className="btn btn-primary"
-                disabled={!addressSaved || !products.length}
+                disabled={!products.length}
                 onClick={createCashOrder}
               >
                 Place Order
@@ -219,9 +221,9 @@ const Checkout = ({ }) => {
                 Place Order
               </button>
             )}
-          </div>
+          </Box>
 
-          <div className="col-md-6">
+          <Box style={{marginLeft: 20}}>
             <button
               disabled={!products.length}
               onClick={emptyCart}
@@ -229,12 +231,8 @@ const Checkout = ({ }) => {
             >
               Empty Cart
             </button>
-          </div>
-        </div>
-      </Box>
-        </Paper>
-      </Grid>
-      </Grid>
+          </Box>
+        </Box>
     </Box>
   );
 };

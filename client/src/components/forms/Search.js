@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { SearchOutlined } from "@ant-design/icons";
 import { TextField } from "@material-ui/core";
+import "../css/Search.css"
 // import { DropdownButton, Dropdown } from "react-bootstrap";
 
 const Search = () => {
@@ -36,8 +37,9 @@ const Search = () => {
       <TextField
         onChange={handleChange}
         type="search"
+        variant="outlined"
+        style={{borderRadius: 30}}
         value={text}
-        className="form-control mr-sm-2"
         placeholder="Search"
         InputProps={{
           endAdornment: <SearchOutlined onClick={handleSubmit} style={{ cursor: "pointer", color: "#B0BABF" }} />,

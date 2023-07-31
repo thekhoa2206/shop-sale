@@ -3,6 +3,8 @@ import { getCategory } from "../../functions/category";
 import { Link, useParams } from "react-router-dom";
 import ProductCard from "../../components/cards/ProductCard";
 import CategoryList from "../../components/category/CategoryList";
+import { Box } from "@material-ui/core";
+import ProductCardV2 from "../../components/cards/ProductCartV2";
 
 const CategoryHome = ({ match }) => {
   const [category, setCategory] = useState({});
@@ -39,9 +41,7 @@ const CategoryHome = ({ match }) => {
 
       <div className="row">
         {products.map((p) => (
-          <div className="col" key={p._id}>
-            <ProductCard product={p} />
-          </div>
+            <Box key={p._id} style={{marginLeft: 300}}><ProductCardV2  product={p} /></Box>
         ))}
       </div>
     </div>
