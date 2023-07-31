@@ -28,10 +28,11 @@ const Banner = ({handleCategory}) => {
         )
     }
   return (
-    <Box style={{width: "85%", margin: "auto", display: "flex"}}>
-      <Box style={{width: "15%", background: "while", border: "1px solid #E5E9EB"}}>
-      <Button startIcon={<MenuIcon /> }  style={{background: "#4094F7", color: "#FFFFFF", width: "100%", textAlign: "left"}}  onClick={(e) => {}}>Categories</Button>
-        <MenuList >
+    <Box style={{width: "98%", margin: "auto", display: "flex"}}>
+      <Box style={{width: "10%", background: "while",  height: 400}}>
+      {/* <Box style={{width: "15%", background: "while", border: "1px solid #E5E9EB", height: 400}}> */}
+      {/* <Button startIcon={<MenuIcon /> }  style={{background: "#4094F7", color: "#FFFFFF", width: "100%", textAlign: "left"}}  onClick={(e) => {}}>Categories</Button>
+        <MenuList style={{background: "#FFFFFF"}}>
           <MenuItem
             onClick={() => {
               handleCategory(undefined); 
@@ -46,7 +47,7 @@ const Banner = ({handleCategory}) => {
               }}>
             {item.name}
           </MenuItem>))}
-        </MenuList>
+        </MenuList> */}
       </Box>
       <Box style={{width: "80%"}}>
               {Slideshow()}

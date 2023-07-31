@@ -114,7 +114,7 @@ const Home = () => {
       </h4>
       <CategoryList /> */}
 
-      <SubList />
+      {/* <SubList /> */}
 
       <Footer/>
     </>

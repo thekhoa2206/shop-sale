@@ -76,11 +76,11 @@ const Cart = () => {
         
       </Box>
 
-      <Box style={{width: 1200, background: "#FFFFFF", margin: "auto", padding: 20, borderRadius: 6, marginTop: 20}}>
+      <Box style={{width: 400, background: "#FFFFFF", marginLeft: "1150px", padding: 20, borderRadius: 6, marginTop: 30}}>
         <Box>
         <Typography style={{fontWeight: "bold", fontSize: 16}}>Order Summary</Typography>
             <hr />
-            <Box style={{marginLeft: 800}}>
+            <Box style={{marginLeft: 0}}>
               <Typography style={{fontWeight: "bold", fontSize: 14}}>Products</Typography>
               {cart.map((c, i) => (
                 <div key={i}>
@@ -90,7 +90,7 @@ const Cart = () => {
                 </div>
               ))}
             </Box>
-            <Box style={{marginLeft: 800}}>
+            <Box style={{marginLeft: 0}}>
               <hr />
               Total: <b>${getTotal()}</b>
               <hr />
@@ -122,6 +122,7 @@ const Cart = () => {
                     pathname: "/login",
                     state: { from: "cart" },
                   }}
+                  style={{color: "#FFFFFF"}}
                 >
                   Login to Checkout
                 </Link>

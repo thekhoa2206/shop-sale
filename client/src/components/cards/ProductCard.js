@@ -100,7 +100,7 @@ const ProductCard = ({ product }) => {
     });
   return (
     <>
-      <Box className={"product-card"} style={{background: "#FFFFFF", borderRadius: 10, width: "100%", padding: 10, height: 440, cursor: "pointer"}}>
+      <Box onClick={() => {window.open(`/product/${slug}`)}} className={"product-card"} style={{background: "#FFFFFF", borderRadius: 10, width: "100%", padding: 10, height: 440, cursor: "pointer"}}>
         <Box>
           <img
               src={images && images.length ? images[0].url : defaultIMG}
