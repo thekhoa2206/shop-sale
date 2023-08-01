@@ -6,10 +6,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { toast } from "react-toastify";
-import { getCategories, removeCategory, updateCategory } from "../../../../functions/category";
+import { removeCategory, updateCategory } from "../../../../functions/category";
 import { useSelector } from "react-redux";
-
-import { Navigate } from "react-router-dom";
 const Editcategory = ({ open, onClose, data, initData }) => {
   const [name, setName] = React.useState();
   const { user } = useSelector((state) => ({ ...state }));
@@ -21,16 +19,14 @@ const Editcategory = ({ open, onClose, data, initData }) => {
   };
 
   const handleSubmit = (e) => {
-    console.log("checknbemr",name);
     e.preventDefault();
     // console.log(name);
-    updateCategory(initData._id, { name }, user.token)
+    updateCategory(initData.slug, { name }, user.token)
       .then((res) => {
         // console.log(res)
         setName("");
         data();
         onClose();
-        toast.success(`"${res.data.name}" is updated`);
       })
       .catch((err) => {
         console.log(err);
@@ -41,9 +37,9 @@ const Editcategory = ({ open, onClose, data, initData }) => {
     // let answer = window.confirm("Delete?");
     // console.log(answer, slug);
     if (window.confirm("Delete?")) {
-      removeCategory(initData._id, user.token)
+      removeCategory(initData.slug, user.token)
         .then((res) => {
-          toast.error(`${res.data.name} deleted`);
+          toast.success("deleted compelete");
           data();
           onClose();
         })
@@ -81,7 +77,11 @@ const Editcategory = ({ open, onClose, data, initData }) => {
           <Button variant="contained" color="inherit" onClick={() => onClose()}>
             Cancel
           </Button>
-          <Button variant="contained" color="error" onClick={() => handleRemove()}>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => handleRemove()}
+          >
             Delete
           </Button>
           <Button variant="contained" color="primary" onClick={handleSubmit}>

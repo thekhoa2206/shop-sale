@@ -25,6 +25,7 @@ import {
   Button,
   Box,
 } from "@material-ui/core";
+import Grid from "@mui/material/Unstable_Grid2";
 import Addcategory from "./common/Addcategory";
 import { createStyles, Theme } from "@material-ui/core";
 import Editcategory from "./common/Editcategory";
@@ -221,7 +222,6 @@ const CategoryCreate = () => {
   };
   const handleChangeEdit1 = () => {
     setOpenEdit(!openEdit);
-
   };
   // step 4
   const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
@@ -234,73 +234,79 @@ const CategoryCreate = () => {
   }))(TableCell);
   return (
     <>
-      <Box style={{ display: "flex" }}>
-        <Box style={{ marginTop: "24px" }}>
-          <AdminNav />
-        </Box>
-        <Box>
-          {loading ? (
-            <h4 className="text-danger">Loading..</h4>
-          ) : (
-            <Box className={classes.container}>
-              <Box style={{ display: "flex", marginTop: "24px" }}>
-                <Box>
-                  <Typography variant="h4">Category</Typography>
+      <Grid container  spacing={0.5} style={{ display: "flex" }}>
+        <Grid xs={2}>
+          <Box style={{ marginTop: "24px" }}>
+            <AdminNav />
+          </Box>
+        </Grid>
+        <Grid xs={9} marginBottom={ 12} >
+          <Box>
+            {loading ? (
+              <h4 className="text-danger">Loading..</h4>
+            ) : (
+              <Box className={classes.container}>
+                <Box style={{ display: "flex", marginTop: "24px" }}>
+                  <Box>
+                    <Typography variant="h4">Category</Typography>
+                  </Box>
+                  <Box>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleChangeAdd}
+                      style={{ float: "right", marginLeft: "850px" }}
+                    >
+                      Add Category
+                    </Button>
+                  </Box>
                 </Box>
-                <Box>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleChangeAdd}
-                    style={{ float: "right", marginLeft: "950px" }}
-                  >
-                    Add Category
-                  </Button>
-                </Box>
+
+                <hr />
+                {/* step 2 and step 3 */}
+                <LocalSearch keyword={keyword} setKeyword={setKeyword} />
+
+                {/* step 5 */}
+                <TableContainer
+                  component={Paper}
+                  style={{
+                    boxShadow: "rgba(168, 168, 168, 0.25) 0px 0px 7px 3px",
+                  }}
+                >
+                  <Table sx={{ minWidth: 700 }}>
+                    <TableHead style={{ borderRadius: "6px solid #dfe4e8" }}>
+                      <TableRow>
+                        <TableHeaderCell>Id</TableHeaderCell>
+                        <TableHeaderCell align="center">Name</TableHeaderCell>
+                        <TableHeaderCell align="right">
+                          CreateAt
+                        </TableHeaderCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {categories.filter(searched(keyword)).map((x) => (
+                        <StyledTableRow key={x._id}>
+                          <StyledTableCell width={150} scope="row">
+                            <Link onClick={() => handleChangeEdit(x)}>
+                              {x._id}
+                            </Link>
+                          </StyledTableCell>
+                          <StyledTableCell align="center" width={150}>
+                            {x.name}
+                          </StyledTableCell>
+                          <StyledTableCell align="right" width={150}>
+                            {new Date(x.createdAt * 1000).toLocaleString()}
+                          </StyledTableCell>
+                        </StyledTableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
               </Box>
-
-              <hr />
-              {/* step 2 and step 3 */}
-              <LocalSearch keyword={keyword} setKeyword={setKeyword} />
-
-              {/* step 5 */}
-              <TableContainer
-                component={Paper}
-                style={{
-                  boxShadow: "rgba(168, 168, 168, 0.25) 0px 0px 7px 3px",
-                }}
-              >
-                <Table sx={{ minWidth: 700 }}>
-                  <TableHead style={{ borderRadius: "6px solid #dfe4e8" }}>
-                    <TableRow>
-                      <TableHeaderCell>Id</TableHeaderCell>
-                      <TableHeaderCell align="center">Name</TableHeaderCell>
-                      <TableHeaderCell align="right">CreateAt</TableHeaderCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {categories.filter(searched(keyword)).map((x) => (
-                      <StyledTableRow key={x._id}>
-                        <StyledTableCell width={150} scope="row">
-                          <Link onClick={() => handleChangeEdit(x)}>
-                            {x._id}
-                          </Link>
-                        </StyledTableCell>
-                        <StyledTableCell align="center" width={150}>
-                          {x.name}
-                        </StyledTableCell>
-                        <StyledTableCell align="right" width={150}>
-                          {new Date(x.createdAt * 1000).toLocaleString()}
-                        </StyledTableCell>
-                      </StyledTableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Box>
-          )}
-        </Box>
-      </Box>
+            )}
+          </Box>
+        </Grid>
+      </Grid>
       <Addcategory
         open={openAdd}
         onClose={handleChangeAdd}
