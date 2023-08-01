@@ -1,23 +1,20 @@
+import { Box } from "@material-ui/core";
 import React, { useState } from "react";
 import Jumbotron from "../components/cards/Jumbotron";
-import NewArrivals from "../components/home/NewArrivals";
 import BestSellers from "../components/home/BestSellers";
-import CategoryList from "../components/category/CategoryList";
-import SubList from "../components/sub/SubList";
-import { Link } from "react-router-dom";
-import defaultIMG from "../images/default.png";
+import CategoryCard from "../components/home/CategoryCard";
+import NewArrivals from "../components/home/NewArrivals";
+import Background from "../components/images/background.png";
 import Footer from "../components/nav/Footer";
 import Banner from "./Banner";
-import { Box, Typography } from "@material-ui/core";
-import Background from "../components/images/background.jpg"
-import CategoryCard from "../components/home/CategoryCard";
 const Home = () => {
   const [category, setCategory] = useState();
   return (
     <>
       <Box style={{width: "100%", margin: "auto"}}>
       <Box style={{width: "100%" , margin: "auto", zIndex: 1}}>
-        <img style={{width: "100%", height: 1000}} src={Background}/>
+        <img style={{width: "100%", height: 700}} src={Background}/>
+        <Box></Box>
       </Box>
       <div className="jumbotron text-danger h1 font-weight-bold text-center" style={{zIndex: 100}}>
         <Jumbotron text={["Latest Products", "New Arrivals", "Best Sellers"]} />

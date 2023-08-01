@@ -97,7 +97,7 @@ const ProductCardV2 = ({ product }) => {
     });
   return (
     <>
-      <Box  onClick={() => {window.open(`/product/${slug}`)}} style={{cursor: "pointer", background: "#FFFFFF", padding: 20, borderRadius: 6, width: 1350, marginTop: 20, height: 240, alignItems: "center"}}>
+      <Box  onClick={() => {window.open(`/product/${slug}`)}} style={{cursor: "pointer", background: "#FFFFFF", padding: 20, borderRadius: 6, width: 1300, marginTop: 20, height: 240, alignItems: "center"}}>
         <Grid xs={12} container>
             <Grid xs={3} item> 
             <Box>

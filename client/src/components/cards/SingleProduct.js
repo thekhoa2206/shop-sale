@@ -128,14 +128,16 @@ const SingleProduct = ({ product, onStarClick, star }) => {
                             <Button 
                             startIcon={<ShoppingCartOutlined style={{color: "#FFFFFF", width: 16}}/>} 
                             onClick={handleAddToCart} 
-                            style={{width: "160px", height: 48, background: "#232f3e", color: "#FFFFFF", borderRadius: 40}}>
+                            style={{width: "160px", height: 40, borderRadius: 6, background: "#0088FF", color: "#FFFFFF", marginLeft: 20}}
+                            >
                                  Add to Cart
                             </Button>
                             </Tooltip>
                             <Button 
-                                startIcon={<HeartOutlined style={{color: "#131921", width: 16}}/>} 
+                                startIcon={<HeartOutlined style={{color: "#FFFFFF", width: 16}}/>} 
                                 onClick={handleAddToWishlist} 
-                                style={{width: "180px", height: 48, background: "#febd69", color: "#131921", borderRadius: 40, marginLeft: 16}}>
+                                style={{width: "180px", height: 40, borderRadius: 6, background: "#009688", color: "#FFFFFF", marginLeft: 20}}
+                                >
                                     Add to Wishlist
                             </Button>
                     </Box>
