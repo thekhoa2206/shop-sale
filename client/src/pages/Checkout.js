@@ -205,32 +205,32 @@ const Checkout = ({ }) => {
       <Box style={{display: "flex", marginLeft: 1400}}>
           <Box>
             {COD ? (
-              <button
-                className="btn btn-primary"
+              <Button
                 disabled={!products.length}
                 onClick={createCashOrder}
+                style={{height: 40, borderRadius: 6, background: "#0088FF", color: "#FFFFFF", marginLeft: 20}}
               >
                 Place Order
-              </button>
+              </Button>
             ) : (
-              <button
-                className="btn btn-primary"
+              <Button
                 disabled={!addressSaved || !products.length}
                 onClick={() => navigate("/payment")}
+                style={{height: 40, borderRadius: 6, background: "#0088FF", color: "#FFFFFF", marginLeft: 20}}
               >
                 Place Order
-              </button>
+              </Button>
             )}
           </Box>
 
           <Box style={{marginLeft: 20}}>
-            <button
+            <Button
               disabled={!products.length}
               onClick={emptyCart}
-              className="btn btn-primary"
+              style={{height: 40, borderRadius: 6, background: "#009688", color: "#FFFFFF"}}
             >
               Empty Cart
-            </button>
+            </Button>
           </Box>
         </Box>
     </Box>

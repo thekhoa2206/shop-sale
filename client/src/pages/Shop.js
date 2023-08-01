@@ -309,7 +309,8 @@ const Shop = () => {
   };
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid" style={{width: "100%"}}>
+      <Box style={{width: "90%", margin: "auto"}}>
       <div className="row">
         <div className="col-md-3 pt-2">
           <h4>Search/Filter</h4>
@@ -467,6 +468,8 @@ const Shop = () => {
           </div>
         </div>
       </div>
+      </Box>
+        
     </div>
   );
 };
