@@ -98,6 +98,9 @@ const SubCreate = () => {
     setOpenAdd(!openAdd);
   };
   const handleChangeEdit = (data) => {
+    let test =categories.filter((x)=>x._id === data.parent);
+    setName(test[0].name)
+    console.log("pppp",name);
     setData(data);
     setOpenEdit(!openEdit);
   };
@@ -199,6 +202,7 @@ const SubCreate = () => {
           onClose={handleChangeEdit1}
           data={loadSubs}
           initData={data}
+          categoryName={name}
         />
       </Grid>
     </>

@@ -12,43 +12,42 @@ import { useSelector } from "react-redux";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { Box } from "@material-ui/core";
-import { createSub } from "../../../../functions/sub";
+import { createSub, updateSub } from "../../../../functions/sub";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-const EditSub = ({ open, onClose, data, initData }) => {
-  const [name, setName] = React.useState();
+const EditSub = ({ open, onClose, data, initData,categoryName }) => {
+  const [name, setName] = React.useState(undefined);
   const { user } = useSelector((state) => ({ ...state }));
   const [openAdd, setOpenAdd] = React.useState(open);
   const [category, setCategory] = React.useState("");
   const theme = useTheme();
   const [categories, setCategories] = React.useState([]);
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const [parent, setParent] = React.useState("");
   React.useEffect(() => {
     setName(initData.name);
-    console.log("okeee", initData);
+    setParent(categoryName)
     loadCategories();
   }, []);
   const loadCategories = () =>
     getCategories().then((c) => setCategories(c.data));
-  const handleChangeAdd = () => {
-    setOpenAdd(false);
+  const handleChangeEdit = (event) => {
+    setParent(event.target.value);
   };
   const handleAddName = (event) => {
     setName(event.target.value);
-    console.log("check ", name);
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // console.log(name);
-    createSub({ name, parent: category }, user.token)
+  const handleSubmit = (name,parent) => {
+    console.log(initData);
+    let name1 = name === undefined ? name : initData.name;
+    let parent1 = parent=== undefined ? parent :categoryName;
+    updateSub(initData.slug, {name1 ,parent1}, user.token)
       .then((res) => {
-        // console.log(res)
         setName("");
-        toast.success(`"${res.data.name}" is created`);
+        toast.success(`updated compelete`);
         data();
         onClose();
       })
@@ -78,24 +77,22 @@ const EditSub = ({ open, onClose, data, initData }) => {
               fullWidth
               variant="outlined"
               onChange={(event) => handleAddName(event)}
-              value={name}
+              value={name === undefined ? initData.name : name}
             />
             <FormControl fullWidth style={{ marginLeft: 12, marginTop: 8 }}>
-              <InputLabel id="demo-simple-select-label">Age</InputLabel>
+              <InputLabel id="demo-simple-select-label">{categoryName}</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={category}
+                value={parent}
                 label="Category"
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={(event)=>handleChangeEdit(event)}
               >
                 {categories.length > 0 &&
                   categories.map((c) => (
                     <MenuItem
-                      key={c._id}
-                      value={c._id}
-                      selected={c._id === initData.parent}
-                    >
+                      value={c.name}
+                      >
                       {c.name}
                     </MenuItem>
                   ))}
@@ -107,7 +104,7 @@ const EditSub = ({ open, onClose, data, initData }) => {
           <Button variant="contained" color="error" onClick={() => onClose()}>
             Cancel
           </Button>
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
+          <Button variant="contained" color="primary" onClick={()=>handleSubmit(name,parent)}>
             Save
           </Button>
         </DialogActions>
