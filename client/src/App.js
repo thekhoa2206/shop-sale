@@ -41,7 +41,7 @@ import SellerDashboard from "./pages/seller/SellerDashboard";
 import SellerProductCreate from "./pages/seller/product/SellerProductCreate";
 import AllSellerProducts from "./pages/seller/product/AllSellerProducts";
 import UpgradeSeller from "./pages/user/UpgradeSeller";
-import AdminDashboardv2 from "./pages/adminv2/AdminDashboardv2";
+import AdminUserInfo from "./pages/admin/user/AdminUserInfo";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -112,7 +112,8 @@ const App = () => {
           <Route path="/seller/dashboard" element={<SellerRoute><SellerDashboard /></SellerRoute>} />
 
         /*admin v2 */
-          <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboardv2/></AdminRoute>} />
+          <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard/></AdminRoute>} />
+          <Route path="/admin/user/info" element={<AdminRoute><AdminUserInfo/></AdminRoute>}/>
         </Routes>
       </BrowserRouter>
     </>

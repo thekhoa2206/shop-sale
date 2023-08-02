@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
+import { Box } from "@material-ui/core";
 
 const SubCreate = () => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -73,13 +74,10 @@ const SubCreate = () => {
   const searched = (keyword) => (c) => c.name.toLowerCase().includes(keyword);
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
-        <div className="col">
-          {loading ? (
+    <Box style={{width: "100%", display: "flex", minHeight: "820px"}}>
+        <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
+        <Box style={{marginTop: 20, marginLeft: 50, width: 1600}}>
+        {loading ? (
             <h4 className="text-danger">Loading..</h4>
           ) : (
             <h4>Create sub category</h4>
@@ -128,9 +126,8 @@ const SubCreate = () => {
               </Link>
             </div>
           ))}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
   );
 };
 

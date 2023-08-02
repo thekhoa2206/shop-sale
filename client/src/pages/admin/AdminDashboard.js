@@ -4,6 +4,7 @@ import { getOrders, changeStatus } from "../../functions/admin";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import Orders from "../../components/order/Orders";
+import { Box } from "@material-ui/core";
 
 const AdminDashboard = () => {
   const [orders, setOrders] = useState([]);
@@ -27,19 +28,14 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
-
-        <div className="col-md-10">
+    <Box style={{width: "100%", display: "flex"}}>
+        <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
+        <Box style={{marginTop: 20, marginLeft: 50}}>
           <h4>Admin Dashboard</h4>
           {/* {JSON.stringify(orders)} */}
           <Orders orders={orders} handleStatusChange={handleStatusChange} />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
   );
 };
 

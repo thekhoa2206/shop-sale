@@ -10,6 +10,7 @@ import {
 import "react-datepicker/dist/react-datepicker.css";
 import { DeleteOutlined } from "@ant-design/icons";
 import AdminNav from "../../../components/nav/AdminNav";
+import { Box } from "@material-ui/core";
 
 const CreateCouponPage = () => {
   const [name, setName] = useState("");
@@ -57,13 +58,10 @@ const CreateCouponPage = () => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
-        <div className="col-md-10">
-          {loading ? (
+    <Box style={{width: "100%", display: "flex", minHeight: "820px"}}>
+        <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
+        <Box style={{marginTop: 20, marginLeft: 50, width: 1600}}>
+        {loading ? (
             <h4 className="text-danger">Loading...</h4>
           ) : (
             <h4>Coupon</h4>
@@ -138,9 +136,8 @@ const CreateCouponPage = () => {
               ))}
             </tbody>
           </table>
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
   );
 };
 

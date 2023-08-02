@@ -8,6 +8,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
+import { Box } from "@material-ui/core";
 
 const SubUpdate = ({ match, history }) => {
   const { user } = useSelector((state) => ({ ...state }));
@@ -55,13 +56,10 @@ const SubUpdate = ({ match, history }) => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
-        <div className="col">
-          {loading ? (
+    <Box style={{width: "100%", display: "flex", minHeight: "820px"}}>
+        <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
+        <Box style={{marginTop: 20, marginLeft: 50, width: 1600}}>
+        {loading ? (
             <h4 className="text-danger">Loading..</h4>
           ) : (
             <h4>Update sub category</h4>
@@ -89,9 +87,8 @@ const SubUpdate = ({ match, history }) => {
             name={name}
             setName={setName}
           />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
   );
 };
 
