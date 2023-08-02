@@ -7,42 +7,44 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { toast } from 'react-toastify';
-import { createCategory } from '../../../../functions/category';
 import { useSelector } from 'react-redux';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-const Addcategory = ({ open, onClose,data }) => {
+import { Box } from '@material-ui/core';
+import { createCoupon } from '../../../functions/coupon';
+import InputAdornment from '@mui/material/InputAdornment';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+const AddCopoun = ({ open, onClose,data }) => {
+    const [value, setValue] = React.useState(null);
   const [name, setName] = React.useState();
   const { user } = useSelector((state) => ({ ...state }));
   const [openAdd, setOpenAdd] = React.useState(open);
   const theme = useTheme();
+  const [expiry, setExpiry] = React.useState("");
+  const [discount, setDiscount] = React.useState("");
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   const handleChangeAdd = () => {
     setOpenAdd(false);
   }
   const handleAddName = (event) => {
     setName(event.target.value);
-    console.log("check ",name);
   }
   const handleSubmit = (e) => {
-    if (name === undefined) {
-      toast.error("name not null!")
-    }
-
     e.preventDefault();
-    // console.log(name);
-    createCategory({ name }, user.token)
+    // console.table(name, expiry, discount);
+    createCoupon({ name, expiry, discount }, user.token)
       .then((res) => {
-        // console.log(res)
-        onClose();
         setName("");
-        data();
+        setDiscount("");
+        setExpiry("");
         toast.success(`"${res.data.name}" is created`);
+        data();
+        onClose();
       })
-      .catch((err) => {
-        console.log(err);
-        if (err.response.status === 400) toast.error(err.response.data);
-      });
+      .catch((err) => console.log("create coupon err", err));
   };
   return (
 
@@ -50,16 +52,38 @@ const Addcategory = ({ open, onClose,data }) => {
       <Dialog open={open} onClose={handleChangeAdd} aria-labelledby="responsive-dialog-title" maxWidth='sm' fullWidth='true'  >
         <DialogTitle>Add Category</DialogTitle>
         <DialogContent>
+        <Box display={"flex"}>
           <TextField
             autoFocus
             margin="dense"
             id="name"
-            label="Name category"
+            label="Name Copoun"
             type="text"
             fullWidth
             variant="outlined"
             onChange={(event) => handleAddName(event)}
           />
+          <TextField style={{marginLeft: 12}}
+            autoFocus
+            margin="dense"
+            id="discount"
+            label="Discount"
+            type="text"
+            fullWidth
+            variant="outlined"
+            onChange={(event) => setDiscount(event.target.value)}
+            InputProps={{
+                endAdornment: <InputAdornment position="end">%</InputAdornment>,
+              }}
+          />
+          </Box>
+          <Box>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer components={['DatePicker']}>
+        <DatePicker value={expiry} onChange={(newValue) => setExpiry(newValue)} />
+      </DemoContainer>
+    </LocalizationProvider>
+    </Box>
         </DialogContent>
         <DialogActions>
           <Button variant='contained' color='error' onClick={() => onClose()}>Cancel</Button>
@@ -69,4 +93,4 @@ const Addcategory = ({ open, onClose,data }) => {
     </div>
   );
 }
-export default Addcategory;
+export default AddCopoun;

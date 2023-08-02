@@ -5,6 +5,8 @@ import AdminProductCard from "../../../components/cards/AdminProductCard";
 import { removeProduct } from "../../../functions/product";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import Grid from '@mui/material/Unstable_Grid2';
+import { Box, Button, Typography } from "@mui/material";
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
@@ -46,7 +48,8 @@ const AllProducts = () => {
   };
 
   return (
-    <div className="container-fluid">
+    <>
+    {/* <div className="container-fluid">
       <div className="row">
         <div className="col-md-2">
           <AdminNav />
@@ -70,7 +73,27 @@ const AllProducts = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div> */}
+    <Box  style={{ display: "flex", marginTop: "24px" }}>
+     <Typography variant="h5" marginLeft={40}>All Products({products.length})</Typography>
+     </Box>
+    <Grid container spacing={0.5} padding={1}>
+       <Grid xs={2} >
+          <AdminNav />
+        </Grid>
+        <Grid container xs={10} padding={3}>
+        {products.map((product) => (
+              <div key={product._id} className="col-md-4 pb-3">
+                <AdminProductCard
+                  product={product}
+                  handleRemove={handleRemove}
+                />
+              </div>
+            ))}
+          </Grid>
+         
+          </Grid>
+    </>
   );
 };
 

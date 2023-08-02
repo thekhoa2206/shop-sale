@@ -7,7 +7,9 @@ import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 import { getCategories, getCategorySubs } from "../../../functions/category";
 import FileUpload from "../../../components/forms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
-
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Unstable_Grid2';
+import { Typography } from "@mui/material";
 const initialState = {
   title: "",
   description: "",
@@ -60,54 +62,107 @@ const ProductCreate = () => {
     // console.log(e.target.name, " ----- ", e.target.value);
   };
 
+  const handleChangeColor = (e) => {
+    debugger
+    setValues({ ...values, color: e.target.value });
+    // console.log(e.target.name, " ----- ", e.target.value);
+  };
+  const handleChangeResident = (e) => {
+    setValues({ ...values, resident: e.target.value});
+    // console.log(e.target.name, " ----- ", e.target.value);
+  };
+  const handleChangeSub = (e) => {
+    setValues({ ...values, subs: e.target.value });
+    // console.log(e.target.name, " ----- ", e.target.value);
+  };
+  const handleChangeShipping= (e) => {
+    setValues({ ...values, shipping: e.target.value });
+    // console.log(e.target.name, " ----- ", e.target.value);
+  };
   const handleCatagoryChange = (e) => {
-    e.preventDefault();
-    console.log("CLICKED CATEGORY", e.target.value);
+    debugger
     setValues({ ...values, subs: [], category: e.target.value });
     getCategorySubs(e.target.value).then((res) => {
-      console.log("SUB OPTIONS ON CATGORY CLICK", res);
       setSubOptions(res.data);
     });
     setShowSub(true);
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
+    // <div className="container-fluid">
+    //   <div className="row">
+    //     <div className="col-md-2">
+    //       <AdminNav />
+    //     </div>
+
+    //     <div className="col-md-10">
+    //       {loading ? (
+    //         <LoadingOutlined className="text-danger h1" />
+    //       ) : (
+    //         <h4>Product create</h4>
+    //       )}
+    //       <hr />
+
+    //       {JSON.stringify(values.subs)}
+
+    //       <div className="p-3">
+    //         <FileUpload 
+    //         values={values}
+    //         setValues={setValues}
+    //         setLoading={setLoading}
+    //         />
+    //       </div>
+
+    //       <ProductCreateForm
+    //         handleSubmit={handleSubmit}
+    //         handleChange={handleChange}
+    //         setValues={setValues}
+    //         values={values}
+    //         handleCatagoryChange={handleCatagoryChange}
+    //         subOptions={subOptions}
+    //         showSub={showSub}
+    //       />
+    //     </div>
+    //   </div>
+    // </div>
+    <>
+     <Typography variant="h5" marginLeft={40}>Add Product</Typography>
+      <Grid container spacing={2}>
+        <Grid xs={2} >
           <AdminNav />
-        </div>
-
-        <div className="col-md-10">
-          {loading ? (
-            <LoadingOutlined className="text-danger h1" />
-          ) : (
-            <h4>Product create</h4>
-          )}
-          <hr />
-
-          {JSON.stringify(values.subs)}
-
-          <div className="p-3">
-            <FileUpload 
-            values={values}
-            setValues={setValues}
-            setLoading={setLoading}
+        </Grid>
+        <Grid container xs={10} >
+          <Grid xs={9}>
+            <ProductCreateForm
+              handleSubmit={handleSubmit}
+              handleChange={handleChange}
+              setValues={setValues}
+              values={values}
+              handleCatagoryChange={handleCatagoryChange}
+              subOptions={subOptions}
+              showSub={showSub}
+              handleChangeColor={handleChangeColor}
+              handleChangeResident={handleChangeResident}
+              handleChangeSub={handleChangeSub}
+              handleChangeShipping={handleChangeShipping}
             />
-          </div>
+          </Grid>
+          <Grid xs={2} padding={3}>
+            <Paper  style={{width:"250px",height:"250px"}}>
 
-          <ProductCreateForm
-            handleSubmit={handleSubmit}
-            handleChange={handleChange}
-            setValues={setValues}
-            values={values}
-            handleCatagoryChange={handleCatagoryChange}
-            subOptions={subOptions}
-            showSub={showSub}
-          />
-        </div>
-      </div>
-    </div>
+            </Paper>
+            <FileUpload 
+              values={values}
+              setValues={setValues}
+              setLoading={setLoading}
+            />
+          </Grid>
+        </Grid>
+
+
+      </Grid>
+
+    </>
   );
 };
 
