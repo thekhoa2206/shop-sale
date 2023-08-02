@@ -35,7 +35,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 const OrderDetail = () => {
   const [orders, setOrders] = useState([]);
-  const [products, setProducts] = useState([isNull]);
+  const [products, setProducts] = useState([]);
   const [status, setStatus] = useState('');
   const { user } = useSelector((state) => ({ ...state }));
   const { id } = useParams();
@@ -48,12 +48,9 @@ const OrderDetail = () => {
      const data = res.data.filter(order => order._id===id);
      console.log("data",data);
      setOrders(data);
-     setProducts(data.products);
-   
-    
-    }
-    
-  })};
+     setProducts(data[0].products);
+     console.log("products",products);}
+    })};
 
 
   const TableHeaderCell = withStyles(() => ({
@@ -68,7 +65,6 @@ const OrderDetail = () => {
     <Paper>
       <Box>
 <Typography>
-  {orders._id}
 </Typography>
       </Box>
       <Box>
@@ -85,7 +81,7 @@ const OrderDetail = () => {
             </TableRow>
         </TableHead>
         <TableBody>
-          {products !=null  ? products.map((row) => (
+          {orders !== undefined  ? orders[0].products.map((row) => (
             <StyledTableRow key={row.product._id}>
               <StyledTableCell component="th" scope="row">
                 {row.product._id}
