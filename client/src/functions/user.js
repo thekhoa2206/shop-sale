@@ -118,3 +118,10 @@ export const addToWishlist = async (productId, authtoken) =>
         },
       }
     );
+
+    export const getUsers = async (authtoken) =>
+  await axios.get(`${process.env.REACT_APP_API}/admin/users`, {
+    headers: {
+      authtoken,
+    },
+  });

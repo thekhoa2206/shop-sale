@@ -14,9 +14,10 @@ const Home = () => {
       <Box style={{width: "100%", margin: "auto"}}>
       <Box style={{width: "100%" , margin: "auto", zIndex: 1}}>
         <img style={{width: "100%", height: 700}} src={Background}/>
-        <Box style={{position: "absolute", zIndex: 100, marginTop: -550, marginLeft: 400}}>
-          <Typography style={{color: "#FFFFFF", fontSize: 50}}>Shopping And Department Store</Typography>
-          <Button style={{height: 50, borderRadius: 40, width: 140, color: "#FFFFFF", background: "#0088FF"}} onClick={() => {window.location.href = "/shop"}}>Learn More</Button>
+        <Box style={{position: "absolute", zIndex: 100, marginTop: -600, marginLeft: 200}}>
+          <Typography style={{color: "#FFFFFF", fontSize: 50}}>Shopping And</Typography>
+          <Typography style={{color: "#FFFFFF", fontSize: 50}}>Department Store</Typography>
+          <Button style={{height: 50, borderRadius: 40, width: 140, color: "#FFFFFF", background: "#0088FF", marginLeft: 100}} onClick={() => {window.location.href = "/shop"}}>Learn More</Button>
           </Box>
       </Box>
       <div className="jumbotron text-danger h1 font-weight-bold text-center" style={{zIndex: 100}}>

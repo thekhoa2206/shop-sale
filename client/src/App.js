@@ -113,7 +113,8 @@ const App = () => {
           <Route path="/seller/dashboard" element={<SellerRoute><SellerDashboard /></SellerRoute>} />
 
         /*admin v2 */
-         
+          <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard/></AdminRoute>} />
+          <Route path="/admin/user/info" element={<AdminRoute><AdminUserInfo/></AdminRoute>}/>
         </Routes>
       </BrowserRouter>
     </>
