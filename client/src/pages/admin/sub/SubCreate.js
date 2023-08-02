@@ -100,7 +100,6 @@ const SubCreate = () => {
   const handleChangeEdit = (data) => {
     let test =categories.filter((x)=>x._id === data.parent);
     setName(test[0].name)
-    console.log("pppp",name);
     setData(data);
     setOpenEdit(!openEdit);
   };
