@@ -255,9 +255,25 @@ exports.upgradeSeller = async (req, res) => {
     { 
       role: "seller",
       name: req.body.name,
+      cardDetail: req.body.cardDetail,
+      address: req.body.address,
     },
     { new: true }
   ).exec();
 
   res.json({ ok: true });
 };
+
+exports.updateInfoUser = async (req,res) => {
+  const userAddress = await User.findOneAndUpdate(
+    { email: req.user.email },
+    { 
+      phoneNumber: req.body.phoneNumber,
+      name: req.body.name,
+      address: req.body.address,
+    },
+    { new: true }
+  ).exec();
+
+  res.json({ ok: true });
+}

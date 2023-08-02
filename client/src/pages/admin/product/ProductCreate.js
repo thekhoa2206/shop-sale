@@ -7,6 +7,7 @@ import ProductCreateForm from "../../../components/forms/ProductCreateForm";
 import { getCategories, getCategorySubs } from "../../../functions/category";
 import FileUpload from "../../../components/forms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
+import { Box } from "@material-ui/core";
 
 const initialState = {
   title: "",
@@ -72,14 +73,10 @@ const ProductCreate = () => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
-
-        <div className="col-md-10">
-          {loading ? (
+      <Box style={{width: "100%", display: "flex", minHeight: "820px"}}>
+        <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
+        <Box style={{marginTop: 20, marginLeft: 50, width: 1600}}>
+        {loading ? (
             <LoadingOutlined className="text-danger h1" />
           ) : (
             <h4>Product create</h4>
@@ -105,9 +102,8 @@ const ProductCreate = () => {
             subOptions={subOptions}
             showSub={showSub}
           />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
   );
 };
 

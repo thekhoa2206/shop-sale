@@ -5,6 +5,7 @@ import AdminProductCard from "../../../components/cards/AdminProductCard";
 import { removeProduct } from "../../../functions/product";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { Box } from "@material-ui/core";
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
@@ -46,14 +47,10 @@ const AllProducts = () => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
-
-        <div className="col">
-          {loading ? (
+      <Box style={{width: "100%", display: "flex", minHeight: "820px"}}>
+        <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
+        <Box style={{marginTop: 20, marginLeft: 50, width: 1600}}>
+        {loading ? (
             <h4 className="text-danger">Loading...</h4>
           ) : (
             <h4>All Products</h4>
@@ -68,9 +65,8 @@ const AllProducts = () => {
               </div>
             ))}
           </div>
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
   );
 };
 

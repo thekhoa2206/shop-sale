@@ -1,24 +1,21 @@
 import {
-  AppstoreOutlined,
   LogoutOutlined,
   SettingOutlined,
   ShoppingOutlined,
   UserAddOutlined,
   UserOutlined
 } from "@ant-design/icons";
-import { Box, Button, MenuItem, MenuList, Select, Typography, Menu } from "@material-ui/core";
+import { Box, Button, Menu, MenuItem, Typography } from "@material-ui/core";
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import StorageIcon from '@mui/icons-material/Storage';
 import { Badge } from "antd";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { selectDatabase } from "../../functions/db";
 import Search from "../forms/Search";
 import CartIcon from "../svg/CartIcon";
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import ArrowDropDownOutlinedIcon from '@mui/icons-material/ArrowDropDownOutlined';
-import StorageIcon from '@mui/icons-material/Storage';
 const { SubMenu } = Menu;
 
 const Header = () => {
@@ -61,6 +58,11 @@ const Header = () => {
     navigate("/login");
   };
 
+  const isAdmin = () => {
+    let url = window.location.pathname;
+    return url.includes("admin") || false;
+  }
+
   // document.addEventListener('DOMContentLoaded', () => {
   //   const databaseDropdown = document.getElementById('databaseDropdown');
   //   databaseDropdown.addEventListener('change', () => {
@@ -79,7 +81,8 @@ const Header = () => {
     <>
     <Box style={{width: "100%", height: 82, background: "#FFFFFF", paddingTop: 15, paddingBottom: 15, marginLeft: "auto", marginRight: "auto", zIndex: 5, position: "relative", boxShadow: "0px 2px 4px rgba(168, 168, 168, 0.25)"}}>
       <Box style={{overflow: "visible", width: "100%", maxWidth: 1360, marginLeft: "auto", marginRight: "auto", paddingLeft: 40, paddingRight: 40}}>
-        <Box style={{display: "flex", justifyContent: "space-between", marginTop: 5, alignItems: "center"}}>
+        {!isAdmin() ? (
+          <Box style={{display: "flex", justifyContent: "space-between", marginTop: 5, alignItems: "center"}}>
           <Box onClick={() => {window.location.href = "/"}} style={{cursor: "pointer"}}><Typography style={{fontSize: 25, fontWeight: "bold"}}>ShopCart</Typography></Box>
           <Box onClick={() => {window.location.href = "/"}} style={{display: "flex", cursor: "pointer"}}><HomeOutlinedIcon  style={{marginRight: 5, width: 18}}/><Typography style={{fontSize: 16}}>Home</Typography></Box>
           {/* <Box style={{display: "flex", cursor: "pointer"}}
@@ -169,7 +172,7 @@ const Header = () => {
             {user && user.role === "subscriber" && (
               <MenuItem>
                 <Typography style={{fontSize: 16}}>
-                  <Link to="/user/history">Dashboard</Link>
+                  <Link to="/user/history" onClick={handleClose}>Dashboard</Link>
                 </Typography>
               </MenuItem>
               
@@ -183,7 +186,7 @@ const Header = () => {
 
             {user && user.role === "admin" && (
               <MenuItem><Typography style={{fontSize: 16}}>
-                <Link to="/admin/dashboard">Dashboard</Link>
+                <Link to="/admin/dashboard" onClick={handleClose}>Dashboard</Link>
               </Typography></MenuItem>
             )}
 
@@ -199,6 +202,46 @@ const Header = () => {
             </Menu>
         )}
         </Box>
+        ) : (
+          <Box style={{marginTop: 5, alignItems: "center", display: "flex", justifyContent: "space-between"}}>
+          <Box onClick={() => {window.location.href = "/"}} style={{cursor: "pointer"}}><Typography style={{fontSize: 25, fontWeight: "bold"}}>ShopCart</Typography></Box>
+            {
+              user && (
+                <Button
+                  id="basic-button"
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClickAnChorEl}
+                  startIcon={<SettingOutlined />}
+                  >
+                    {user.email && user.email.split("@")[0]}
+                  </Button>
+              )
+            }
+            {user && (
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                'aria-labelledby': 'basic-button',
+              }}
+              style={{marginTop: 40}}
+            >
+                <MenuItem><Box style={{display: "flex", cursor: "pointer"}} onClick={() => {logout();}}>
+                  <LogoutOutlined style={{marginRight: 5, marginTop: 3}}/>
+                  <Typography style={{fontSize: 16}}>User info</Typography>
+                </Box></MenuItem>
+                <MenuItem><Box style={{display: "flex", cursor: "pointer"}} onClick={() => {logout();}}>
+                  <LogoutOutlined style={{marginRight: 5, marginTop: 3}}/>
+                  <Typography style={{fontSize: 16}}>Logout</Typography>
+                </Box></MenuItem>
+                </Menu>
+            )}
+          </Box>
+        )}
       </Box>
     </Box>
       {/* <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal" style={{padding: 10}}>

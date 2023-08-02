@@ -13,7 +13,7 @@ import CategoryForm from "../../../components/forms/CategoryForm";
 import LocalSearch from "../../../components/forms/LocalSearch";
 import { tableCellClasses } from '@mui/material/TableCell';
 import { withStyles } from "@material-ui/styles";
-import { Table, TableCell, TableBody, TableContainer, TableHead, TableRow, Typography, styled, Paper, Button } from "@material-ui/core";
+import { Table, TableCell, TableBody, TableContainer, TableHead, TableRow, Typography, styled, Paper, Button, Box } from "@material-ui/core";
 import Addcategory from "./common/Addcategory";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -104,13 +104,10 @@ const handleChangeAdd = ()=> {
     },
   }))(TableCell);
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <AdminNav />
-        </div>
-        <div className="col">
-          {loading ? (
+    <Box style={{width: "100%", display: "flex"}}>
+        <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
+        <Box style={{marginTop: 20, marginLeft: 50, width: 1600}}>
+        {loading ? (
             <h4 className="text-danger">Loading..</h4>
           ) : (
             <h4>category</h4>
@@ -153,10 +150,8 @@ const handleChangeAdd = ()=> {
           <Addcategory
           open={openAdd}
           />
-        </div>
-      </div>
-      
-    </div>
+        </Box>
+      </Box>
   );
 };
 
