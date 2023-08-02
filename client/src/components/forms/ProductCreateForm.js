@@ -6,7 +6,6 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
-import Switch from '@mui/material/Switch';
 import MenuItem from '@mui/material/MenuItem';
 const { Option } = Select;
 

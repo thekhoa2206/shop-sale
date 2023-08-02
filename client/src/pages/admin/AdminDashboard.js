@@ -34,9 +34,8 @@ const AdminDashboard = () => {
           <h4>Admin Dashboard</h4>
           {/* {JSON.stringify(orders)} */}
           <Orders />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
   );
 };
 

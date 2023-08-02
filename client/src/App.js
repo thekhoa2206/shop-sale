@@ -41,7 +41,7 @@ import SellerDashboard from "./pages/seller/SellerDashboard";
 import SellerProductCreate from "./pages/seller/product/SellerProductCreate";
 import AllSellerProducts from "./pages/seller/product/AllSellerProducts";
 import UpgradeSeller from "./pages/user/UpgradeSeller";
-import AdminDashboardv2 from "./pages/adminv2/AdminDashboardv2";
+
 
 const App = () => {
   const dispatch = useDispatch();
@@ -90,8 +90,8 @@ const App = () => {
           <Route path="/user/password" element={<UserRoute><Password /></UserRoute>} />
           <Route path="/user/wishlist" element={<UserRoute><Wishlist /></UserRoute>} />
           <Route path="/user/upgrade-seller" element={<UserRoute><UpgradeSeller /></UserRoute>} />
-          {/* <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} /> */}
-          <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboardv2/></AdminRoute>} />
+          <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
+          {/* <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboardv2/></AdminRoute>} /> */}
           <Route path="/admin/category" element={<AdminRoute><CategoryCreate /></AdminRoute>} />
           <Route path="/admin/category/:slug" element={<AdminRoute><CategoryUpdate /></AdminRoute>} />
           <Route path="/admin/sub" element={<AdminRoute><SubCreate /></AdminRoute>} />
@@ -114,7 +114,7 @@ const App = () => {
 
         /*admin v2 */
           <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard/></AdminRoute>} />
-          <Route path="/admin/user/info" element={<AdminRoute><AdminUserInfo/></AdminRoute>}/>
+          {/* <Route path="/admin/user/info" element={<AdminRoute><AdminUserInfo/></AdminRoute>}/> */}
         </Routes>
       </BrowserRouter>
     </>
