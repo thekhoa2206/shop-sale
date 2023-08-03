@@ -41,6 +41,7 @@ import SellerDashboard from "./pages/seller/SellerDashboard";
 import SellerProductCreate from "./pages/seller/product/SellerProductCreate";
 import AllSellerProducts from "./pages/seller/product/AllSellerProducts";
 import UpgradeSeller from "./pages/user/UpgradeSeller";
+import AdminUserInfo from "./pages/admin/user/AdminUserInfo";
 
 
 const App = () => {
@@ -114,7 +115,7 @@ const App = () => {
 
         /*admin v2 */
           <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard/></AdminRoute>} />
-          {/* <Route path="/admin/user/info" element={<AdminRoute><AdminUserInfo/></AdminRoute>}/> */}
+          <Route path="/admin/user/info" element={<AdminRoute><AdminUserInfo/></AdminRoute>}/>
         </Routes>
       </BrowserRouter>
     </>

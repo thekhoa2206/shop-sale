@@ -28,9 +28,9 @@ const AdminDashboard = () => {
   };
 
   return (
-    <Box style={{width: "100%", display: "flex"}}>
+      <Box style={{width: "100%", display: "flex", minHeight: 800}}>
         <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
-        <Box style={{marginTop: 20, marginLeft: 50}}>
+        <Box style={{marginTop: 20, marginLeft: 50,width: 1500}}>
           <h4>Admin Dashboard</h4>
           {/* {JSON.stringify(orders)} */}
           <Orders />

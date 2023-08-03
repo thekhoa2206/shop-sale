@@ -52,6 +52,7 @@ const CategoryUpdate = ({ history, match }) => {
   
 
   return (
+    
     <Box style={{width: "100%", display: "flex", minHeight: "820px"}}>
         <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
         <Box style={{marginTop: 20, marginLeft: 50, width: 1600}}>

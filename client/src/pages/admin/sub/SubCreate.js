@@ -117,14 +117,10 @@ const SubCreate = () => {
   }))(TableCell);
   return (
     <>
-      <Grid container spacing={0.5} style={{ display: "flex" }}>
-        <Grid xs={2}>
-          <Box style={{ marginTop: "24px" }}>
-            <AdminNav />
-          </Box>
-        </Grid>
-        <Grid xs={9} marginBottom={12}>
-          <Box>
+    <Box style={{width: "100%", display: "flex", minHeight: "820px"}}>
+        <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
+        <Box style={{marginTop: 20, marginLeft: 50, width: 1600}}>
+        <Box>
             {loading ? (
               <h4 className="text-danger">Loading..</h4>
             ) : (
@@ -138,7 +134,7 @@ const SubCreate = () => {
                       variant="contained"
                       color="primary"
                       onClick={handleChangeAdd}
-                      style={{ float: "right", marginLeft: "850px" }}
+                      style={{ float: "right", marginLeft: "1300px" }}
                     >
                       Add Sub
                     </Button>
@@ -194,7 +190,8 @@ const SubCreate = () => {
               </Box>
             )}
           </Box>
-        </Grid>
+        </Box>
+      </Box>
         <AddSub open={openAdd} onClose={handleChangeAdd} data={loadSubs} />
         <EditSub
           open={openEdit}
@@ -203,7 +200,6 @@ const SubCreate = () => {
           initData={data}
           categoryName={name}
         />
-      </Grid>
     </>
   );
 };

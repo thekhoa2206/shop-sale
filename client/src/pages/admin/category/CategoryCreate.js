@@ -234,14 +234,10 @@ const CategoryCreate = () => {
   }))(TableCell);
   return (
     <>
-      <Grid container  spacing={0.5} style={{ display: "flex" }}>
-        <Grid xs={2}>
-          <Box style={{ marginTop: "24px" }}>
-            <AdminNav />
-          </Box>
-        </Grid>
-        <Grid xs={9} marginBottom={ 12} >
-          <Box>
+      <Box style={{width: "100%", display: "flex", minHeight: 800}}>
+        <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
+        <Box style={{marginTop: 20, marginLeft: 50, width: 1500}}>
+        <Box style={{width: "100%"}}>
             {loading ? (
               <h4 className="text-danger">Loading..</h4>
             ) : (
@@ -305,8 +301,8 @@ const CategoryCreate = () => {
               </Box>
             )}
           </Box>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
       <Addcategory
         open={openAdd}
         onClose={handleChangeAdd}

@@ -74,25 +74,25 @@ const AllProducts = () => {
         </div>
       </div>
     </div> */}
-    <Box  style={{ display: "flex", marginTop: "24px" }}>
-     <Typography variant="h5" marginLeft={40}>All Products({products.length})</Typography>
-     </Box>
-    <Grid container spacing={0.5} padding={1}>
-       <Grid xs={2} >
-          <AdminNav />
-        </Grid>
-        <Grid container xs={10} padding={3}>
-        {products.map((product) => (
-              <div key={product._id} className="col-md-4 pb-3">
-                <AdminProductCard
+
+        <Box style={{width: "100%", display: "flex", minHeight: "820px"}}>
+        <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
+        <Box style={{marginTop: 20, marginLeft: 50, width: 1600}}>
+          <Typography variant="h5" marginLeft={0} marginBottom={"10px"}>All Products({products.length})</Typography>
+            {products.map((product) => (
+              <div className="row">
+              {products.map((product) => (
+                <div key={product._id} className="col-md-4 pb-3">
+                   <AdminProductCard
                   product={product}
                   handleRemove={handleRemove}
                 />
-              </div>
+                </div>
+              ))}
+            </div>
             ))}
-          </Grid>
-         
-          </Grid>
+        </Box>
+      </Box>
     </>
   );
 };

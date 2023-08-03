@@ -10,6 +10,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Unstable_Grid2';
 import { Typography } from "@mui/material";
+import { Box } from "@material-ui/core";
 const initialState = {
   title: "",
   description: "",
@@ -126,12 +127,11 @@ const ProductCreate = () => {
     //   </div>
     // </div>
     <>
-     <Typography variant="h5" marginLeft={40}>Add Product</Typography>
-      <Grid container spacing={2}>
-        <Grid xs={2} >
-          <AdminNav />
-        </Grid>
-        <Grid container xs={10} >
+    <Box style={{width: "100%", display: "flex", minHeight: 800}}>
+        <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
+        <Box style={{marginTop: 20, marginLeft: 50, width: 1500}}>
+              <Typography variant="h5" marginLeft={0} marginBottom={"10px"}>Add Product</Typography>
+              <Grid container xs={12} style={{width: "100%"}}>
           <Grid xs={9}>
             <ProductCreateForm
               handleSubmit={handleSubmit}
@@ -158,9 +158,8 @@ const ProductCreate = () => {
             />
           </Grid>
         </Grid>
-
-
-      </Grid>
+        </Box>
+      </Box>
 
     </>
   );
