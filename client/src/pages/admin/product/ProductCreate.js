@@ -131,7 +131,7 @@ const ProductCreate = () => {
         <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
         <Box style={{marginTop: 20, marginLeft: 50, width: 1500}}>
               <Typography variant="h5" marginLeft={0} marginBottom={"10px"}>Add Product</Typography>
-              <Grid container xs={12} style={{width: "100%"}}>
+        <Grid container xs={12} style={{width: "100%"}}>
           <Grid xs={9}>
             <ProductCreateForm
               handleSubmit={handleSubmit}
@@ -148,9 +148,6 @@ const ProductCreate = () => {
             />
           </Grid>
           <Grid xs={2} padding={3}>
-            <Paper  style={{width:"250px",height:"250px"}}>
-
-            </Paper>
             <FileUpload 
               values={values}
               setValues={setValues}
