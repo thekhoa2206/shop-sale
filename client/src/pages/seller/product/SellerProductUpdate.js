@@ -8,6 +8,7 @@ import FileUpload from "../../../components/forms/FileUpload";
 import { LoadingOutlined } from "@ant-design/icons";
 import ProductUpdateForm from "../../../components/forms/ProductUpdateForm";
 import { useNavigate, useParams } from "react-router-dom";
+import { Box } from "@material-ui/core";
 
 const initialState = {
   title: "",
@@ -119,14 +120,10 @@ const SellerProductUpdate = ({ match }) => {
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <SellerNav />
-        </div>
-
-        <div className="col-md-10">
-          <h4>Product update</h4>
+    <Box style={{width: "100%", display: "flex", minHeight: 800}}>
+        <Box style={{width: 230, minHeight: "100%"}}><SellerNav /></Box>
+        <Box style={{marginTop: 20, marginLeft: 50,width: 1500}}>
+        <h4>Product update</h4>
           
           {/* {JSON.stringify(values)} */}
 
@@ -151,9 +148,8 @@ const SellerProductUpdate = ({ match }) => {
             selectedCategory={selectedCategory}
           />
           <hr />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
   );
 };
 

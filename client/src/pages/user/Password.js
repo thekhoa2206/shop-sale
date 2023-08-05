@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import UserNav from "../../components/nav/UserNav";
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
+import { Box } from "@material-ui/core";
 
 const Password = () => {
   const [password, setPassword] = useState("");
@@ -39,6 +40,7 @@ const Password = () => {
         />
         <button
           className="btn btn-primary"
+          style={{marginTop: 20, marginLeft: "80%"}}
           disabled={!password || password.length < 6 || loading}
         >
           Submit
@@ -48,21 +50,17 @@ const Password = () => {
   );
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <UserNav />
-        </div>
-        <div className="col">
-          {loading ? (
+    <Box style={{width: "100%", display: "flex", minHeight: 800}}>
+        <Box style={{width: 230, minHeight: "100%"}}><UserNav /></Box>
+        <Box style={{width: 600, marginTop: 30, marginLeft: 500, background: "#FFFFFF", padding: 20, height: 200 }}>
+        {loading ? (
             <h4 className="text-danger">Loading..</h4>
           ) : (
             <h4>Password Update</h4>
           )}
           {passwordUpdateForm()}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
   );
 };
 

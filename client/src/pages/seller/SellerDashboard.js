@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import Orders from "../../components/order/Orders";
 import SellerNav from "../../components/nav/SellerNav";
+import { Box } from "@material-ui/core";
 
 const SellerDashboard = () => {
   const [orders, setOrders] = useState([]);
@@ -27,19 +28,14 @@ const SellerDashboard = () => {
 //   };
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <SellerNav />
-        </div>
-
-        <div className="col-md-10">
+    <Box style={{width: "100%", display: "flex", minHeight: 800}}>
+        <Box style={{width: 230, minHeight: "100%"}}><SellerNav /></Box>
+        <Box style={{marginTop: 20, marginLeft: 50,width: 1500}}>
           <h4>Seller Dashboard</h4>
           {/* {JSON.stringify(orders)} */}
           <Orders orders={orders}  />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
   );
 };
 

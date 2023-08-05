@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import ShowPaymentInfo from "../../components/cards/ShowPaymentInfo";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import Invoice from "../../components/order/Invoice";
+import { Box } from "@material-ui/core";
 
 const History = () => {
   const [orders, setOrders] = useState([]);
@@ -80,19 +81,15 @@ const History = () => {
     ));
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <UserNav />
-        </div>
-        <div className="col text-center">
-          <h4>
+    <Box style={{width: "100%", display: "flex", minHeight: 800}}>
+        <Box style={{width: 230, minHeight: "100%"}}><UserNav /></Box>
+        <Box style={{marginTop: 20, marginLeft: 50,width: 1500}}>
+        <h4>
             {orders.length > 0 ? "User purchase orders" : "No purchase orders"}
           </h4>
           {showEachOrders()}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
   );
 };
 

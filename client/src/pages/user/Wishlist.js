@@ -4,6 +4,7 @@ import { getWishlist, removeWishlist } from "../../functions/user";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
+import { Box } from "@material-ui/core";
 
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);
@@ -25,13 +26,10 @@ const Wishlist = () => {
     });
 
   return (
-    <div className="container-fluid">
-      <div className="row">
-        <div className="col-md-2">
-          <UserNav />
-        </div>
-        <div className="col">
-          <h4>Wishlist</h4>
+    <Box style={{width: "100%", display: "flex", minHeight: 800}}>
+        <Box style={{width: 230, minHeight: "100%"}}><UserNav /></Box>
+        <Box style={{marginTop: 20, marginLeft: 50,width: 1500}}>
+        <h4>Wishlist</h4>
 
           {wishlist.map((p) => (
             <div key={p._id} className="alert alert-secondary">
@@ -44,9 +42,8 @@ const Wishlist = () => {
               </span>
             </div>
           ))}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
   );
 };
 
