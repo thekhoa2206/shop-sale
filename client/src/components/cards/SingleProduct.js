@@ -72,7 +72,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
     return (
         <Box style={{width: 1300, display: "flex", margin: "auto"}}>
             <div style={{width: 620}}>
-                <Box style={{background: "#FFFFFF", padding: 20, borderRadius: 10}}>
+                <Box style={{background: "#FFFFFF", padding: 20, borderRadius: 6, boxShadow: "0px 2px 4px rgba(168, 168, 168, 0.25)"}}>
                     {images && images.length ? (
                         <Carousel showArrows={true} autoPlay infiniteLoop>
                             {images && images.map((i) => <img src={i.url} key={i.public_id} />)}
@@ -93,7 +93,7 @@ const SingleProduct = ({ product, onStarClick, star }) => {
             </div>
 
             <div style={{width: 660, marginLeft: 20}}>
-                <Box style={{background: "#FFFFFF", padding: 20, borderRadius: 10}}>
+                <Box style={{background: "#FFFFFF", minHeight: "632px", padding: 20, borderRadius: 6, boxShadow: "0px 2px 4px rgba(168, 168, 168, 0.25)"}}>
                     <Typography style={{fontSize: 18, fontWeight: "bold", color: "#1c1c1b", marginBottom: 10}}>{title}</Typography>
                     <hr/>
 

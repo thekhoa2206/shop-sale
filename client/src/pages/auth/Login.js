@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { auth, googleAuthProvider } from "../../firebase";
 import { toast } from "react-toastify";
-import { Button } from "antd";
 import { MailOutlined, GoogleOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { createOrUpdateUser } from "../../functions/auth";
 import { useNavigate } from "react-router-dom";
+import { Box, Button } from "@material-ui/core";
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -140,9 +140,16 @@ const Login = ({ history }) => {
         className="mb-3"
         block
         shape="round"
-        icon={<MailOutlined />}
+        startIcon={<MailOutlined />}
         size="large"
+        fullWidth
         disabled={!email || password.length < 6}
+        style={{
+          background: !email || password.length < 6 ? "" : "#0088FF",
+          color: !email || password.length < 6 ? "" : "#FFFFFF",
+          border: !email || password.length < 6 ? "1px solid #e0e0e0" : "", 
+          float: "right"
+      }}
       >
         Login with Email/Password
       </Button>
@@ -153,6 +160,7 @@ const Login = ({ history }) => {
     <div className="container p-5">
       <div className="row">
         <div className="col-md-6 offset-md-3">
+          <Box style={{width: "100%", background: "#FFFFFF", borderRadius: 6, padding: 20, boxShadow: "0px 2px 4px rgba(168, 168, 168, 0.25)"}}>
           {loading ? (
             <h4 className="text-danger">Loading...</h4>
           ) : (
@@ -166,15 +174,18 @@ const Login = ({ history }) => {
             className="mb-3"
             block
             shape="round"
-            icon={<GoogleOutlined />}
+            startIcon={<GoogleOutlined />}
             size="large"
+            fullWidth
+            style={{border: "1px solid #0088FF"}}
           >
             Login with Google
           </Button>
 
-          <Link to="/forgot/password" className="float-right text-danger">
+          <Link to="/forgot/password" className="text-danger" style={{marginLeft: "75%"}}>
             Forgot Password
           </Link>
+          </Box>
         </div>
       </div>
     </div>

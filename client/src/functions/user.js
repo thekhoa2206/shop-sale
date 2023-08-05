@@ -18,9 +18,9 @@ export const getUserCart = async (authtoken) =>
     },
   });
 
-export const upgradeSeller = async (authtoken, name) => 
+export const upgradeSeller = async (authtoken, name, cardDetail) => 
   await axios.post(`${process.env.REACT_APP_API}/user/upgrade-seller`, 
-    { name },
+    { name, cardDetail },
     {
       headers: {
         authtoken,

@@ -3,6 +3,7 @@ import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Box, Button } from "@material-ui/core";
 
 const ForgotPassword = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -40,7 +41,7 @@ const ForgotPassword = ({ history }) => {
   };
 
   return (
-    <div className="container col-md-6 offset-md-3 p-5">
+    <Box style={{width: 700, margin: "auto", marginTop: 100, height: 200, background: "#FFFFFF", padding: 20, borderRadius: 6,boxShadow: "0px 2px 4px rgba(168, 168, 168, 0.25)"}}>
       {loading ? (
         <h4 className="text-danger">Loading</h4>
       ) : (
@@ -57,11 +58,16 @@ const ForgotPassword = ({ history }) => {
           autoFocus
         />
         <br />
-        <button className="btn btn-raised" disabled={!email}>
+        <Button  style={{
+          background: !email ? "" : "#0088FF", 
+          color: !email ? "" : "#FFFFFF", 
+          border: !email ? "1px solid #e0e0e0" : "", 
+          float: "right"
+          }}  disabled={!email}>
           Submit
-        </button>
+        </Button>
       </form>
-    </div>
+    </Box>
   );
 };
 

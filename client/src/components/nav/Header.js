@@ -124,7 +124,7 @@ const Header = () => {
               <MenuItem value="db5">Database 5</MenuItem>
             </Menu>
           </Box>
-          <Box><Search /></Box>
+          <Box style={{marginTop: 5}}><Search /></Box>
           <Box style={{display: "flex", cursor: "pointer"}} onClick={() => {window.location.href = "/shop"}}><ShoppingOutlined style={{marginRight: 5, marginTop: 3}}/><Typography style={{fontSize: 16}}>Shop</Typography></Box>
           <Box style={{display: "flex", cursor: "pointer"}} onClick={() => {window.location.href = "/cart"}}>
             <CartIcon style={{marginRight: 5, width: 18 }}/>

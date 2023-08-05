@@ -3,6 +3,7 @@ import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Box, Button } from "@material-ui/core";
 
 const Register = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -45,9 +46,9 @@ const Register = ({ history }) => {
       />
 
       <br />
-      <button type="submit" className="btn btn-raised">
+      <Button type="submit" style={{background: "#0088FF", color: "#FFFFFF", marginLeft: "82%"}}>
         Register
-      </button>
+      </Button>
     </form>
   );
 
@@ -55,8 +56,10 @@ const Register = ({ history }) => {
     <div className="container p-5">
       <div className="row">
         <div className="col-md-6 offset-md-3">
-          <h4>Register</h4>
-          {registerForm()}
+          <Box style={{width: "100%", background: "#FFFFFF", padding: 20, borderRadius: 6, boxShadow: "0px 2px 4px rgba(168, 168, 168, 0.25)"}}>
+              <h4>Register</h4>
+              {registerForm()}
+          </Box>
         </div>
       </div>
     </div>

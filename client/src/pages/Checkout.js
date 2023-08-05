@@ -94,9 +94,9 @@ const Checkout = ({ }) => {
   const showAddress = () => (
     <>
       <ReactQuill theme="snow" value={address} onChange={setAddress} />
-      {/* <Button className="btn btn-primary mt-2" onClick={saveAddressToDb} style={{background: "#0088FF", color: "#FFFFFF", height: 36}}>
+      <Button className="btn btn-primary mt-2" onClick={saveAddressToDb} style={{background: "#0088FF", color: "#FFFFFF", height: 36}}>
         Save
-      </Button> */}
+      </Button>
     </>
   );
 
@@ -124,15 +124,13 @@ const Checkout = ({ }) => {
         placeholder="Input Coupon"
         style={{marginBottom: 20}}
       />
-      {/* <Button onClick={applyDiscountCoupon} className="btn btn-primary mt-2" style={{background: "#0088FF", color: "#FFFFFF", height: 36}}>
+      <Button onClick={applyDiscountCoupon} className="btn btn-primary mt-2" style={{background: "#0088FF", color: "#FFFFFF", height: 36}}>
         Apply
-      </Button> */}
+      </Button>
     </>
   );
 
   const createCashOrder = () => {
-    saveAddressToDb();
-    applyDiscountCoupon();
     createCashOrderForUser(user.token, COD, couponTrueOrFalse).then((res) => {
       console.log("USER CASH ORDER CREATED RES ", res);
       // empty cart form redux, local Storage, reset coupon, reset COD, redirect

@@ -62,7 +62,7 @@ const Cart = () => {
   return (
     <div className="container-fluid pt-2" style={{marginTop: 50}}>
       <Box style={{display: "flex",  margin: "auto", width: 1600}}>
-      <Box style={{width: 1000, background: "#FFFFFF", padding: 20, borderRadius: 6, marginRight: 50}}>
+      <Box style={{width: 1000, background: "#FFFFFF", padding: 20, borderRadius: 6, marginRight: 50, boxShadow: "0px 2px 4px rgba(168, 168, 168, 0.25)"}}>
       <Typography style={{fontWeight: "bold", fontSize: 16}}>Cart / {cart.length} Product</Typography>
       <hr/>
         <Box>
@@ -77,7 +77,7 @@ const Cart = () => {
         
       </Box>
 
-      <Box style={{width: 500, background: "#FFFFFF", padding: 20, borderRadius: 6}}>
+      <Box style={{width: 500, background: "#FFFFFF", padding: 20, borderRadius: 6, boxShadow: "0px 2px 4px rgba(168, 168, 168, 0.25)"}}>
         <Box>
         <Typography style={{fontWeight: "bold", fontSize: 16}}>Order Summary</Typography>
             <hr />

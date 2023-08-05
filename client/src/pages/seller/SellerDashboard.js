@@ -6,18 +6,18 @@ import Orders from "../../components/order/Orders";
 import SellerNav from "../../components/nav/SellerNav";
 
 const SellerDashboard = () => {
-//   const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState([]);
   const { user } = useSelector((state) => ({ ...state }));
 
-//   useEffect(() => {
-//     loadOrders();
-//   }, []);
+  useEffect(() => {
+    loadOrders();
+  }, []);
 
-//   const loadOrders = () =>
-//     getOrders(user.token).then((res) => {
-//       console.log(JSON.stringify(res.data, null, 4));
-//       setOrders(res.data);
-//     });
+  const loadOrders = () =>
+    getOrders(user.token).then((res) => {
+      console.log(JSON.stringify(res.data, null, 4));
+      setOrders(res.data);
+    });
 
 //   const handleStatusChange = (orderId, orderStatus) => {
 //     changeStatus(orderId, orderStatus, user.token).then((res) => {
@@ -36,7 +36,7 @@ const SellerDashboard = () => {
         <div className="col-md-10">
           <h4>Seller Dashboard</h4>
           {/* {JSON.stringify(orders)} */}
-          {/* <Orders orders={orders} handleStatusChange={handleStatusChange} /> */}
+          <Orders orders={orders}  />
         </div>
       </div>
     </div>
