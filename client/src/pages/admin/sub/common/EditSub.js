@@ -1,37 +1,34 @@
-import * as React from "react";
+import { Box } from "@material-ui/core";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { toast } from "react-toastify";
-import { createCategory, getCategories } from "../../../../functions/category";
-import { useSelector } from "react-redux";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
-import { Box } from "@material-ui/core";
-import { createSub, updateSub } from "../../../../functions/sub";
+import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-const EditSub = ({ open, onClose, data, initData,categoryId }) => {
+import TextField from "@mui/material/TextField";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import * as React from "react";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { getCategories } from "../../../../functions/category";
+import { updateSub } from "../../../../functions/sub";
+const EditSub = ({ open, onClose, data, initData, category }) => {
   const [name, setName] = React.useState(undefined);
   const { user } = useSelector((state) => ({ ...state }));
   const [openAdd, setOpenAdd] = React.useState(open);
-  const [category, setCategory] = React.useState("");
   const theme = useTheme();
   const [categories, setCategories] = React.useState([]);
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [parent, setParent] = React.useState("");
   React.useEffect(() => {
     setName(initData.name);
-    setParent(categoryId)
+    if(category) setParent(category._id)
     loadCategories();
-  }, []);
+  }, [category]);
   const loadCategories = () =>
     getCategories().then((c) => setCategories(c.data));
   const handleChangeEdit = (event) => {
@@ -41,13 +38,19 @@ const EditSub = ({ open, onClose, data, initData,categoryId }) => {
     setName(event.target.value);
   };
   const handleSubmit = (name,parent) => {
-    console.log(initData);
-    debugger
     let name1 = name !== undefined ? name : initData.name;
-    let parent1 = parent!== undefined ? parent :categoryId;
-    updateSub(initData.slug, {name1 ,parent1}, user.token)
+
+    if(!parent){
+      toast.error(`Category no empty`);
+      return;
+    }
+    let parent1 = parent!== undefined ? parent : category._id;
+    if(!name1){
+      toast.error(`Name sub category no empty`);
+      return;
+    }
+    updateSub(initData.slug, {name: name1 ,parent: parent1}, user.token)
       .then((res) => {
-        setName("");
         toast.success(`updated compelete`);
         data();
         onClose();
@@ -73,7 +76,7 @@ const EditSub = ({ open, onClose, data, initData,categoryId }) => {
               autoFocus
               margin="dense"
               id="name"
-              label="Name category"
+              label="Name Sub category"
               type="text"
               fullWidth
               variant="outlined"
@@ -81,7 +84,7 @@ const EditSub = ({ open, onClose, data, initData,categoryId }) => {
               value={name === undefined ? initData.name : name}
             />
             <FormControl fullWidth style={{ marginLeft: 12, marginTop: 8 }}>
-              <InputLabel id="demo-simple-select-label">{categoryId}</InputLabel>
+              <InputLabel id="demo-simple-select-label">Category</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -92,6 +95,7 @@ const EditSub = ({ open, onClose, data, initData,categoryId }) => {
                 {categories.length > 0 &&
                   categories.map((c) => (
                     <MenuItem
+                      key={c._id}
                       value={c._id}
                       >
                       {c.name}

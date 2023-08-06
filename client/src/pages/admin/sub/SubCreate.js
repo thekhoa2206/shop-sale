@@ -50,7 +50,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const SubCreate = () => {
   const { user } = useSelector((state) => ({ ...state }));
 
-  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [subs, setSubs] = useState([]);
@@ -99,7 +99,8 @@ const SubCreate = () => {
   };
   const handleChangeEdit = (data) => {
     let test = categories.filter((x) => x._id === data.parent);
-    setName(test[0]._id)
+    debugger
+    setCategory(test[0])
     setData(data);
     setOpenEdit(!openEdit);
   };
@@ -134,7 +135,7 @@ const SubCreate = () => {
                       variant="contained"
                       color="primary"
                       onClick={handleChangeAdd}
-                      style={{ float: "right", marginLeft: "1300px" }}
+                      style={{ float: "right", marginLeft: "1200px" }}
                     >
                       Add Sub
                     </Button>
@@ -180,7 +181,7 @@ const SubCreate = () => {
                             {findCategories(x.parent)}
                           </StyledTableCell> */}
                           <StyledTableCell align="right" width={150}>
-                            {new Date(x.createdAt * 1000).toLocaleString()}
+                            {new Date(x.createdAt).toLocaleString()}
                           </StyledTableCell>
                         </StyledTableRow>
                       ))}
@@ -198,7 +199,7 @@ const SubCreate = () => {
         onClose={handleChangeEdit1}
         data={loadSubs}
         initData={data}
-        categoryId={name}
+        category={category}
       />
     </>
   );

@@ -44,6 +44,42 @@ const ProductCreate = () => {
     getCategories().then((c) => setValues({ ...values, categories: c.data }));
 
   const handleSubmit = (e) => {
+    if(!values.category){
+      toast.error(`Category not empty`);
+      return;
+    }
+    if(!values.title){
+      toast.error(`Title not empty`);
+      return;
+    }
+    if(!values.color){
+      toast.error(`Color not empty`);
+      return;
+    }
+    if(!values.description){
+      toast.error(`Description not empty`);
+      return;
+    }
+    if(!values.price){
+      toast.error(`Price not empty`);
+      return;
+    }
+    if(!values.quantity){
+      toast.error(`Quantity not empty`);
+      return;
+    }
+    if(!values.resident){
+      toast.error(`Resident not empty`);
+      return;
+    }
+    if(!values.shipping){
+      toast.error(`Shipping not empty`);
+      return;
+    }
+    if(!values.images || values.images.length === 0){
+      toast.error(`Images not empty`);
+      return;
+    }
     e.preventDefault();
     createProduct(values, user.token)
       .then((res) => {
@@ -64,7 +100,6 @@ const ProductCreate = () => {
   };
 
   const handleChangeColor = (e) => {
-    debugger
     setValues({ ...values, color: e.target.value });
     // console.log(e.target.name, " ----- ", e.target.value);
   };
@@ -81,13 +116,15 @@ const ProductCreate = () => {
     // console.log(e.target.name, " ----- ", e.target.value);
   };
   const handleCatagoryChange = (e) => {
-    debugger
     setValues({ ...values, subs: [], category: e.target.value });
-    getCategorySubs(e.target.value).then((res) => {
-      debugger
-      setSubOptions(res.data);
-    });
-    setShowSub(true);
+    if(e.target.value){
+      getCategorySubs(e.target.value).then((res) => {
+        if(res.data){
+          setSubOptions(res.data);
+        }
+      });
+      setShowSub(true);
+    }
   };
 
   return (

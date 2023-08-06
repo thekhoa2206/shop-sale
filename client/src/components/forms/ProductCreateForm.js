@@ -39,7 +39,7 @@ const ProductCreateForm = ({
     color,
     resident,
   } = values;
-
+  console.log(subOptions);
   return (
     <Box padding={2}>
       <form onSubmit={handleSubmit}>
@@ -120,6 +120,7 @@ const ProductCreateForm = ({
                 value={resident}
                 onChange={handleChangeResident}
                 label="Resident"
+                required
               >
                 {residents.map((c) => (
                   <MenuItem key={c} value={c}>{c}</MenuItem>
@@ -135,12 +136,14 @@ const ProductCreateForm = ({
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={category}
-                onChange={handleCatagoryChange}
+                onChange={(e) =>{handleCatagoryChange(e)}}
                 label="Category"
+                required
+              
               >
-                {categories.length > 0 &&
+                {categories && categories.length > 0 &&
                   categories.map((c) => (
-                    <MenuItem key={c._id} value={c._id}>{c.name}</MenuItem>
+                    c._id && <MenuItem key={c._id} value={c._id}>{c.name}</MenuItem>
                   ))}
               </Select>
             </FormControl>
@@ -154,8 +157,8 @@ const ProductCreateForm = ({
                 onChange={handleChangeSub}
                 label="Sub Categories"
               >
-                {subOptions.length && subOptions.map((c) => (
-                  <MenuItem key={c._id} value={c._id}>{c.name}</MenuItem>
+                {subOptions && subOptions.length > 0 && subOptions.map((c) => (
+                c && c._id &&  <MenuItem key={c._id} value={c._id}>{c.name}</MenuItem>
                 ))}
               </Select>
             </FormControl>) : ""
@@ -291,7 +294,7 @@ const ProductCreateForm = ({
         )} */}
 
         <br />
-        <Button className="btn btn-outline-info">Save</Button>
+        <Button className="btn btn-outline-info" onClick={handleSubmit}>Save</Button>
       </form>
     </Box>
   );
