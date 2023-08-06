@@ -112,6 +112,7 @@ const App = () => {
           <Route path="/seller/products" element={<SellerRoute><AllSellerProducts /></SellerRoute>} />
           <Route path="/seller/product/:slug" element={<SellerRoute><ProductUpdate /></SellerRoute>} />
           <Route path="/seller/dashboard" element={<SellerRoute><SellerDashboard /></SellerRoute>} />
+   
 
         /*admin v2 */
           <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard/></AdminRoute>} />

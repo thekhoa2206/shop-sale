@@ -18,7 +18,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-const EditSub = ({ open, onClose, data, initData,categoryName }) => {
+const EditSub = ({ open, onClose, data, initData,categoryId }) => {
   const [name, setName] = React.useState(undefined);
   const { user } = useSelector((state) => ({ ...state }));
   const [openAdd, setOpenAdd] = React.useState(open);
@@ -29,7 +29,7 @@ const EditSub = ({ open, onClose, data, initData,categoryName }) => {
   const [parent, setParent] = React.useState("");
   React.useEffect(() => {
     setName(initData.name);
-    setParent(categoryName)
+    setParent(categoryId)
     loadCategories();
   }, []);
   const loadCategories = () =>
@@ -42,8 +42,9 @@ const EditSub = ({ open, onClose, data, initData,categoryName }) => {
   };
   const handleSubmit = (name,parent) => {
     console.log(initData);
-    let name1 = name === undefined ? name : initData.name;
-    let parent1 = parent=== undefined ? parent :categoryName;
+    debugger
+    let name1 = name !== undefined ? name : initData.name;
+    let parent1 = parent!== undefined ? parent :categoryId;
     updateSub(initData.slug, {name1 ,parent1}, user.token)
       .then((res) => {
         setName("");
@@ -80,7 +81,7 @@ const EditSub = ({ open, onClose, data, initData,categoryName }) => {
               value={name === undefined ? initData.name : name}
             />
             <FormControl fullWidth style={{ marginLeft: 12, marginTop: 8 }}>
-              <InputLabel id="demo-simple-select-label">{categoryName}</InputLabel>
+              <InputLabel id="demo-simple-select-label">{categoryId}</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -91,7 +92,7 @@ const EditSub = ({ open, onClose, data, initData,categoryName }) => {
                 {categories.length > 0 &&
                   categories.map((c) => (
                     <MenuItem
-                      value={c.name}
+                      value={c._id}
                       >
                       {c.name}
                     </MenuItem>

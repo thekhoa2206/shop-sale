@@ -268,6 +268,7 @@ exports.updateInfoUser = async (req,res) => {
   const userAddress = await User.findOneAndUpdate(
     { email: req.user.email },
     { 
+      role:req.body.role,
       phoneNumber: req.body.phoneNumber,
       name: req.body.name,
       address: req.body.address,

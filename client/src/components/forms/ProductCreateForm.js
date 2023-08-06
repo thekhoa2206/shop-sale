@@ -1,6 +1,6 @@
 import React from "react";
 import Select from '@mui/material/Select';
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Button, Paper, Typography } from "@mui/material";
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -43,7 +43,7 @@ const ProductCreateForm = ({
   return (
     <Box padding={2}>
       <form onSubmit={handleSubmit}>
-        <Paper style={{ height: "80px" }}>
+        <Paper >
           <Box display={"flex"} padding={2} height={30}>
             <TextField
               id="outlined-basic" variant="outlined"
@@ -53,20 +53,19 @@ const ProductCreateForm = ({
               onChange={handleChange}
               size="small"
             />
-            <TextField
-              style={{ marginLeft: 12 }}
-              id="Description"
-              label="Description"
-              type="text"
+                <TextField
               fullWidth
-              variant="outlined"
+              id="outlined-multiline-static"
+              label="description"
+              multiline
+              rows={1}
+
+              name="description"
               onChange={handleChange}
-              size="small"
+              style={{ marginLeft: 12 }}
             />
           </Box>
-        </Paper>
-        <Paper style={{ height: "160px", marginTop: 24 }}>
-          <Box display={"flex"} padding={2} height={30} >
+          <Box display={"flex"} padding={2} height={30}  marginTop={5}>
             <FormControl fullWidth >
               <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
               <OutlinedInput
@@ -128,9 +127,7 @@ const ProductCreateForm = ({
               </Select>
             </FormControl>
           </Box>
-        </Paper>
-        <Paper style={{  marginTop: 24 }}>
-          <Box padding={2} >
+          <Box padding={2}  marginTop={5}>
              <FormControl fullWidth >
               <InputLabel id="demo-simple-select-label">Category</InputLabel>
               <Select
@@ -148,7 +145,7 @@ const ProductCreateForm = ({
               </Select>
             </FormControl>
             {showSub ? (<FormControl fullWidth style={{ marginTop: 12 }}>
-              <InputLabel id="demo-simple-select-label">Resident</InputLabel>
+              <InputLabel id="demo-simple-select-label">Sub Categories</InputLabel>
               <Select
                 size="small"
                 labelId="demo-simple-select-label"
@@ -166,18 +163,9 @@ const ProductCreateForm = ({
 
           </Box>
         </Paper>
-        <Paper style={{ height: "150px", marginTop: 24 }}>
+        <Paper style={{ height: "100px", marginTop: 24 }}>
           <Box display={"flex"} padding={2} height={30}>
-            <TextField
-              fullWidth
-              id="outlined-multiline-static"
-              label="description"
-              multiline
-              rows={1}
 
-              name="description"
-              onChange={handleChange}
-            />
             <FormControl fullWidth style={{ marginLeft:"24px" }}>
               <InputLabel id="demo-simple-select-label">shipping</InputLabel>
               <Select
@@ -303,7 +291,7 @@ const ProductCreateForm = ({
         )} */}
 
         <br />
-        <button className="btn btn-outline-info">Save</button>
+        <Button className="btn btn-outline-info">Save</Button>
       </form>
     </Box>
   );

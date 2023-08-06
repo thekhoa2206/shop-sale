@@ -79,7 +79,7 @@ const AllProducts = () => {
         <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
         <Box style={{marginTop: 20, marginLeft: 50, width: 1600}}>
           <Typography variant="h5" marginLeft={0} marginBottom={"10px"}>All Products({products.length})</Typography>
-            {products.map((product) => (
+
               <div className="row">
               {products.map((product) => (
                 <div key={product._id} className="col-md-4 pb-3">
@@ -90,7 +90,7 @@ const AllProducts = () => {
                 </div>
               ))}
             </div>
-            ))}
+
         </Box>
       </Box>
     </>
