@@ -9,6 +9,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import ProductUpdateForm from "../../../components/forms/ProductUpdateForm";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box } from "@material-ui/core";
+import { Grid } from "@mui/material";
 
 const initialState = {
   title: "",
@@ -122,20 +123,17 @@ const ProductUpdate = ({ match }) => {
   return (
 
     <Box style={{width: "100%", display: "flex", minHeight: "820px"}}>
-        <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
-        <Box style={{marginTop: 20, marginLeft: 50, width: 1600}}>
+        <Box style={{width: 230, minHeight: "100%"}}>
+          <AdminNav />
+          </Box>
+        <Box style={{marginTop: 20, marginLeft: 50 }}>
         <h4>Product update</h4>
           
+        <Grid container spacing={2}>
           {/* {JSON.stringify(values)} */}
 
-          <div className="p-3">
-            <FileUpload
-              values={values}
-              setValues={setValues}
-              setLoading={setLoading}
-            />
-          </div>
-
+          
+          <Grid item xs={8} style={{width:"1500px"}}>
           <ProductUpdateForm
             handleSubmit={handleSubmit}
             handleChange={handleChange}
@@ -148,7 +146,17 @@ const ProductUpdate = ({ match }) => {
             setArrayOfSubs={setArrayOfSubs}
             selectedCategory={selectedCategory}
           />
-          <hr />
+          </Grid>
+          <Grid item xs={4}>
+          <div className="p-3">
+            <FileUpload
+              values={values}
+              setValues={setValues}
+              setLoading={setLoading}
+            />
+          </div>
+          </Grid>
+          </Grid>
         </Box>
       </Box>
   );
