@@ -13,9 +13,6 @@ const AdminUserInfo = () => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const handleChangeAdd = () => {
-    setOpen(!open);
-  };
   // redux
   const { user } = useSelector((state) => ({ ...state }));
   useEffect(() => {
@@ -83,10 +80,10 @@ const AdminUserInfo = () => {
           </Box>
         </Box>
         <EditUser
-        open1={open}
-      data={data}
-      onClose={handleChangeAdd}
-      />
+          open={open}
+          data={data}
+          onClose={() => {setOpen(false)}}
+          />
       </Box>
      
 

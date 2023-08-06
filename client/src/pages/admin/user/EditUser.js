@@ -24,7 +24,7 @@ const initialState = {
 
 };
 
-const EditUser = (open1,data, onClose) => {
+const EditUser = ({open,data, onClose}) => {
     const [role, setRole] = React.useState("");
     const [user, setUser] = React.useState(initialState);
     const handleSubmit = () => {
@@ -34,10 +34,11 @@ const EditUser = (open1,data, onClose) => {
         setUser({ ...user, [e.target.name]: e.target.value });
         // console.log(e.target.name, " ----- ", e.target.value);
     };
+
     return (
         <>
             <Dialog
-                open={false}
+                open={open}
                 onClose={onClose}
                 aria-labelledby="responsive-dialog-title"
                 maxWidth="sm"
