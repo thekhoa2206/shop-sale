@@ -259,7 +259,7 @@ const ProductUpdateForm = ({
             </Select>
           </FormControl>
         </Box>
-        <Box padding={2}  marginTop={5}>
+        {/* <Box padding={2}  marginTop={5}>
            <FormControl fullWidth >
             <InputLabel id="demo-simple-select-label">Category</InputLabel>
             <Select
@@ -293,7 +293,7 @@ const ProductUpdateForm = ({
           </FormControl>) : ""
           }
 
-        </Box>
+        </Box> */}
       </Paper>
       <Paper style={{ height: "100px", marginTop: 24 }}>
         <Box display={"flex"} padding={2} height={30}>
