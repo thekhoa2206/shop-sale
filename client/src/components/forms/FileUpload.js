@@ -92,18 +92,19 @@ console.log('iii',values);
               count="X"
               key={image.public_id}
               onClick={() => handleImageRemove(image.public_id)}
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer",marginRight:"50px" }}
+              
             >
               <Avatar
                 src={image.url}
-                size={100}
+                size={250}
                 shape="square"
                 className="ml-3"
               />
             </Badge>
           ))}
       </div>
-      <div className="row">
+      <div className="row" style={{width:"50%"}}>
         <label className="btn btn-primary btn-raised mt-3" style={{marginLeft:"40px"}}>
           Choose File
           <input

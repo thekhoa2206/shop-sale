@@ -23,20 +23,9 @@ const AdminUserInfo = () => {
       setUsers(res.data);
     })
   }
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    // console.log(password);
-
-    updateRole(role)
-      .then(() => {
-        setLoading(false);
-        toast.success("Password updated");
-      })
-      .catch((err) => {
-        setLoading(false);
-        toast.error(err.message);
-      });
+  const handleChange = (data) => {
+   setData(data);
+   setOpen(!open)
   };
 
 
@@ -53,7 +42,7 @@ const AdminUserInfo = () => {
                 <TableCell><Typography style={{ fontWeight: "bold" }}>Index</Typography></TableCell>
                 <TableCell><Typography style={{ fontWeight: "bold" }}>Name</Typography></TableCell>
                 <TableCell><Typography style={{ fontWeight: "bold" }}>Email</Typography></TableCell>
-                <TableCell><Typography style={{ fontWeight: "bold" }}>Phone Number</Typography></TableCell>
+                <TableCell><Typography style={{ fontWeight: "bold" }}>Address</Typography></TableCell>
                 <TableCell><Typography style={{ fontWeight: "bold" }}>Role</Typography></TableCell>
                 <TableCell></TableCell>
               </TableHead>
@@ -61,14 +50,14 @@ const AdminUserInfo = () => {
                 {users && users.map((item, index) => (
                   <TableRow key={index}>
                     <TableCell>{index + 1}</TableCell>
-                    <TableCell onClick={()=>setData(item)}>
+                    <TableCell>
                       {item.name}
                       </TableCell>
                     
                     <TableCell>{item.email}</TableCell>
-                    <TableCell>{item.phoneNumber}</TableCell>
+                    <TableCell>{item.address}</TableCell>
                     <TableCell>{item.role}</TableCell>
-                    <TableCell>
+                    <TableCell  onClick={()=>handleChange(item)}>
                       <IconButton >
                         <EditIcon />
                       </IconButton>
@@ -83,6 +72,7 @@ const AdminUserInfo = () => {
           open={open}
           data={data}
           onClose={() => {setOpen(false)}}
+          load={initUsers}
           />
       </Box>
      
