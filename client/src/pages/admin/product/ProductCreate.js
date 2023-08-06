@@ -84,54 +84,56 @@ const ProductCreate = () => {
     debugger
     setValues({ ...values, subs: [], category: e.target.value });
     getCategorySubs(e.target.value).then((res) => {
+      debugger
       setSubOptions(res.data);
     });
     setShowSub(true);
   };
 
   return (
-    // <div className="container-fluid">
-    //   <div className="row">
-    //     <div className="col-md-2">
-    //       <AdminNav />
-    //     </div>
 
-    //     <div className="col-md-10">
-    //       {loading ? (
-    //         <LoadingOutlined className="text-danger h1" />
-    //       ) : (
-    //         <h4>Product create</h4>
-    //       )}
-    //       <hr />
-
-    //       {JSON.stringify(values.subs)}
-
-    //       <div className="p-3">
-    //         <FileUpload 
-    //         values={values}
-    //         setValues={setValues}
-    //         setLoading={setLoading}
-    //         />
-    //       </div>
-
-    //       <ProductCreateForm
-    //         handleSubmit={handleSubmit}
-    //         handleChange={handleChange}
-    //         setValues={setValues}
-    //         values={values}
-    //         handleCatagoryChange={handleCatagoryChange}
-    //         subOptions={subOptions}
-    //         showSub={showSub}
-    //       />
-    //     </div>
-    //   </div>
-    // </div>
     <>
+        {/* <div className="container-fluid">
+      <div className="row">
+        <div className="col-md-2">
+          <AdminNav />
+        </div>
+
+        <div className="col-md-10">
+          {loading ? (
+            <LoadingOutlined className="text-danger h1" />
+          ) : (
+            <h4>Product create</h4>
+          )}
+          <hr />
+
+          {JSON.stringify(values.subs)}
+
+          <div className="p-3">
+            <FileUpload 
+            values={values}
+            setValues={setValues}
+            setLoading={setLoading}
+            />
+          </div>
+
+          <ProductCreateForm
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            setValues={setValues}
+            values={values}
+            handleCatagoryChange={handleCatagoryChange}
+            subOptions={subOptions}
+            showSub={showSub}
+          />
+        </div>
+      </div>
+    </div> */}
     <Box style={{width: "100%", display: "flex", minHeight: 800}}>
         <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
         <Box style={{marginTop: 20, marginLeft: 50, width: 1500}}>
               <Typography variant="h5" marginLeft={0} marginBottom={"10px"}>Add Product</Typography>
-              <Grid container xs={12} style={{width: "100%"}}>
+        <Grid container xs={12} style={{width: "100%"}}>
           <Grid xs={9}>
             <ProductCreateForm
               handleSubmit={handleSubmit}
@@ -148,9 +150,6 @@ const ProductCreate = () => {
             />
           </Grid>
           <Grid xs={2} padding={3}>
-            <Paper  style={{width:"250px",height:"250px"}}>
-
-            </Paper>
             <FileUpload 
               values={values}
               setValues={setValues}

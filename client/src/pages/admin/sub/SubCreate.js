@@ -98,8 +98,8 @@ const SubCreate = () => {
     setOpenAdd(!openAdd);
   };
   const handleChangeEdit = (data) => {
-    let test =categories.filter((x)=>x._id === data.parent);
-    setName(test[0].name)
+    let test = categories.filter((x) => x._id === data.parent);
+    setName(test[0]._id)
     setData(data);
     setOpenEdit(!openEdit);
   };
@@ -117,17 +117,17 @@ const SubCreate = () => {
   }))(TableCell);
   return (
     <>
-    <Box style={{width: "100%", display: "flex", minHeight: "820px"}}>
-        <Box style={{width: 230, minHeight: "100%"}}><AdminNav /></Box>
-        <Box style={{marginTop: 20, marginLeft: 50, width: 1600}}>
-        <Box>
+      <Box style={{ width: "100%", display: "flex", minHeight: "820px" }}>
+        <Box style={{ width: 230, minHeight: "100%" }}><AdminNav /></Box>
+        <Box style={{ marginTop: 20, marginLeft: 50, width: "80%" }}>
+          <Box>
             {loading ? (
               <h4 className="text-danger">Loading..</h4>
             ) : (
               <Box>
                 <Box style={{ display: "flex", marginTop: "24px" }}>
                   <Box>
-                    <Typography variant="h4">Category</Typography>
+                    <Typography variant="h4">Sub Category</Typography>
                   </Box>
                   <Box>
                     <Button
@@ -157,9 +157,9 @@ const SubCreate = () => {
                       <TableRow>
                         <TableHeaderCell>Id</TableHeaderCell>
                         <TableHeaderCell align="center">Name</TableHeaderCell>
-                        <TableHeaderCell align="center">
+                        {/* <TableHeaderCell align="center">
                           Category
-                        </TableHeaderCell>
+                        </TableHeaderCell> */}
                         <TableHeaderCell align="right">
                           CreateAt
                         </TableHeaderCell>
@@ -168,7 +168,7 @@ const SubCreate = () => {
                     <TableBody>
                       {subs.filter(searched(keyword)).map((x) => (
                         <StyledTableRow key={x._id}>
-                          <StyledTableCell width={150} scope="row">
+                          <StyledTableCell width={80} scope="row">
                             <Link onClick={() => handleChangeEdit(x)}>
                               {x._id}
                             </Link>
@@ -176,9 +176,9 @@ const SubCreate = () => {
                           <StyledTableCell align="center" width={150}>
                             {x.name}
                           </StyledTableCell>
-                          <StyledTableCell align="center" width={150}>
+                          {/* <StyledTableCell align="center" width={150}>
                             {findCategories(x.parent)}
-                          </StyledTableCell>
+                          </StyledTableCell> */}
                           <StyledTableCell align="right" width={150}>
                             {new Date(x.createdAt * 1000).toLocaleString()}
                           </StyledTableCell>
@@ -192,14 +192,14 @@ const SubCreate = () => {
           </Box>
         </Box>
       </Box>
-        <AddSub open={openAdd} onClose={handleChangeAdd} data={loadSubs} />
-        <EditSub
-          open={openEdit}
-          onClose={handleChangeEdit1}
-          data={loadSubs}
-          initData={data}
-          categoryName={name}
-        />
+      <AddSub open={openAdd} onClose={handleChangeAdd} data={loadSubs} />
+      <EditSub
+        open={openEdit}
+        onClose={handleChangeEdit1}
+        data={loadSubs}
+        initData={data}
+        categoryId={name}
+      />
     </>
   );
 };

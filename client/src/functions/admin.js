@@ -17,3 +17,15 @@ export const changeStatus = async (orderId, orderStatus, authtoken) =>
       },
     }
   );
+
+
+  export const updateRole = async (userRole, userId,authtoken) =>
+  await axios.put(
+    `${process.env.REACT_APP_API}/admin/update-user`,
+    { userRole,userId },
+    {
+      headers: {
+        authtoken,
+      },
+    }
+  );

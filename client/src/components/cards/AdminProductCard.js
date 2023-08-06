@@ -13,26 +13,6 @@ const AdminProductCard = ({ product, handleRemove }) => {
   const { title, description, images, slug } = product;
 
   return (
-    // <Card
-    //   cover={
-    //     <img
-    //       src={images && images.length ? images[0].url : defaultIMG}
-    //       style={{ height: "150px", objectFit: "cover" }}
-    //       className="p-1"
-    //     />
-    //   }
-    //   actions={[
-    //     <Link to={`/admin/product/${slug}`}>
-    //       <EditOutlined className="text-warning" />
-    //     </Link>,
-    //     <DeleteOutlined
-    //       onClick={() => handleRemove(slug)}
-    //       className="text-danger"
-    //     />,
-    //   ]}
-    // >
-    //   <Meta title={title} description={description} />
-    // </Card>
     <Box  style={{border: "1px solid #E5E9EB", borderRadius: 6, width: 400}}>
     <Box>
       <img

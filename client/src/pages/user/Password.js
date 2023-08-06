@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import UserNav from "../../components/nav/UserNav";
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
-import { Box } from "@material-ui/core";
+import TextField from '@mui/material/TextField';
+import { Box, Button, FormControl, Select } from "@mui/material";
 
 const Password = () => {
   const [password, setPassword] = useState("");
@@ -30,7 +31,7 @@ const Password = () => {
     <form onSubmit={handleSubmit}>
       <div className="form-group">
         <label>Your Password</label>
-        <input
+        <TextField
           type="password"
           onChange={(e) => setPassword(e.target.value)}
           className="form-control"
@@ -38,16 +39,18 @@ const Password = () => {
           disabled={loading}
           value={password}
         />
-        <button
-          className="btn btn-primary"
-          style={{marginTop: 20, marginLeft: "80%"}}
+        <Button
+          variant="contained"
+          color="primary"
           disabled={!password || password.length < 6 || loading}
+          style={{marginTop:12}}
         >
           Submit
-        </button>
+        </Button>
       </div>
     </form>
   );
+
 
   return (
     <Box style={{width: "100%", display: "flex", minHeight: 800}}>
@@ -56,7 +59,10 @@ const Password = () => {
         {loading ? (
             <h4 className="text-danger">Loading..</h4>
           ) : (
+            <Box>
             <h4>Password Update</h4>
+            <hr/>
+            </Box>
           )}
           {passwordUpdateForm()}
         </Box>

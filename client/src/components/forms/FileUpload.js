@@ -6,7 +6,7 @@ import { Avatar, Badge } from "antd";
 
 const FileUpload = ({ values, setValues, setLoading }) => {
   const { user } = useSelector((state) => ({ ...state }));
-
+console.log('iii',values);
   const fileUploadAndResize = (e) => {
     // console.log(e.target.files);
     // resize
@@ -36,6 +36,7 @@ const FileUpload = ({ values, setValues, setLoading }) => {
                 }
               )
               .then((res) => {
+                debugger
                 console.log("IMAGE UPLOAD RES DATA", res);
                 setLoading(false);
                 allUploadedFiles.push(res.data);
