@@ -108,7 +108,7 @@ const ProductCreate = () => {
     // console.log(e.target.name, " ----- ", e.target.value);
   };
   const handleChangeSub = (e) => {
-    setValues({ ...values, subs: e.target.value });
+    setValues({ ...values, subs: typeof e.target.value === 'string' ? e.target.value.split(',') : e.target.value});
     // console.log(e.target.name, " ----- ", e.target.value);
   };
   const handleChangeShipping= (e) => {
@@ -186,7 +186,7 @@ const ProductCreate = () => {
               handleChangeShipping={handleChangeShipping}
             />
           </Grid>
-          <Grid xs={2} padding={3}>
+          <Grid xs={3} padding={3}>
             <FileUpload 
               values={values}
               setValues={setValues}

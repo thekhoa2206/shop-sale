@@ -32,6 +32,10 @@ const EditUser = ({open,data, onClose,load}) => {
     const [users, setUsers] = React.useState(initialState);
     const [loading, setLoading] = React.useState(false);
       // redux
+
+      React.useEffect(() => {
+        setUsers(data)
+      }, [data])
   const { user } = useSelector((state) => ({ ...state }));
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -146,9 +150,18 @@ const EditUser = ({open,data, onClose,load}) => {
                                             Seller
                                         </MenuItem>
                                         <MenuItem value={'buyer '}>
-                                            buyer
+                                            Buyer
                                         </MenuItem>
-
+                                        {users.role === "admin"  && (
+                                            <MenuItem value={'admin'}>
+                                            Admin
+                                        </MenuItem>
+                                        )}
+                                        {users.role === "subscriber" &&
+                                            (<MenuItem value={'subscriber'}>
+                                            Subscriber
+                                        </MenuItem>)
+                                        }
                                     </Select>
                                 </FormControl>
                             </Box>

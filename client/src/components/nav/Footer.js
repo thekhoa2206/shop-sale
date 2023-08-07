@@ -43,7 +43,7 @@ const Footer = () => {
       };
     
   return (
-    <Box style={{width: "100%", minHeight: 150, background: "#232f3e", marginTop: 30, color: "#FFFFFF"}}>
+    <Box style={{width: "100%", minHeight: 150, background: "#232f3e", color: "#FFFFFF"}}>
       <Box style={{width: "60%", margin: "auto", padding: 10}}>
         <Grid xs={12} container>
         {/* <Grid xs={4} item>

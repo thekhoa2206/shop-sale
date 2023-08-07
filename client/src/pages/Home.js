@@ -10,7 +10,7 @@ import Banner from "./Banner";
 const Home = () => {
   const [category, setCategory] = useState();
   return (
-    <>
+    <Box>
       <Box style={{width: "100%", margin: "auto"}}>
       <Box style={{width: "100%" , margin: "auto", zIndex: 1}}>
         <img style={{width: "100%", height: 700}} src={Background}/>
@@ -116,9 +116,10 @@ const Home = () => {
       <CategoryList /> */}
 
       {/* <SubList /> */}
-
+      <Box style={{marginTop: 30}}>
       <Footer/>
-    </>
+      </Box>
+    </Box>
   );
 };
 

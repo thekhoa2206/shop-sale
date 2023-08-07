@@ -230,7 +230,7 @@ const Header = () => {
               }}
               style={{marginTop: 40}}
             >
-                <MenuItem><Box style={{display: "flex", cursor: "pointer"}} onClick={() => {logout();}}>
+                <MenuItem><Box style={{display: "flex", cursor: "pointer"}} onClick={() => {window.location.href = `/admin/user/info`}}>
                   <LogoutOutlined style={{marginRight: 5, marginTop: 3}}/>
                   <Typography style={{fontSize: 16}}>User info</Typography>
                 </Box></MenuItem>

@@ -24,7 +24,7 @@ const Login = ({ history }) => {
     if (intended) {
       return;
     } else {
-      if (user && user.token) navigate('/');
+      // if (user && user.token) navigate('/');
     }
   }, [user, navigate]);
 
@@ -36,7 +36,7 @@ const Login = ({ history }) => {
       navigate(intended.from);
     } else {
       if (res.data.role === "admin") {
-        navigate("/admin/dashboard");
+        window.location.href = "/admin/dashboard";
       } else if (res.data.role === "seller") {
         navigate("/seller/dashboard"); 
       } else {

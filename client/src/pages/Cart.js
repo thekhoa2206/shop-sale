@@ -5,6 +5,7 @@ import ProductCardInCheckout from "../components/cards/ProductCartInCheckout";
 import { userCart } from "../functions/user";
 import { Box, Button, Table, TableCell, TableHead } from "@material-ui/core";
 import { Typography } from "antd";
+import Footer from "../components/nav/Footer";
 
 const Cart = () => {
   const { cart, user } = useSelector((state) => ({ ...state }));
@@ -131,6 +132,9 @@ const Cart = () => {
             )}
       </Box>
       </Box>
+      </Box>
+      <Box style={{position: "absolute", bottom: 0, zIndex: 100, width: "100%", left: 0}}>
+        <Footer/>
       </Box>
     </div>
   );

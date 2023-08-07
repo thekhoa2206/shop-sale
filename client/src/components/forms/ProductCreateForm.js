@@ -39,7 +39,7 @@ const ProductCreateForm = ({
     color,
     resident,
   } = values;
-  console.log(subOptions);
+  console.log(subs);
   return (
     <Box padding={2}>
       <form onSubmit={handleSubmit}>
@@ -53,21 +53,20 @@ const ProductCreateForm = ({
               onChange={handleChange}
               size="small"
             />
-                <TextField
-              fullWidth
-              id="outlined-multiline-static"
-              label="description"
-              multiline
-              rows={1}
 
-              name="description"
+              <TextField
+              id="outlined-basic" variant="outlined"
+              label="description"
+              type="text"
+              fullWidth
               onChange={handleChange}
+              size="small"
               style={{ marginLeft: 12 }}
             />
           </Box>
           <Box display={"flex"} padding={2} height={30}  marginTop={5}>
             <FormControl fullWidth >
-              <InputLabel htmlFor="outlined-adornment-amount">Price</InputLabel>
+              <InputLabel htmlFor="outlined-adornment-amount" style={{marginTop: -7}}>Price</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-amount"
                 endAdornment={<InputAdornment position="start">$</InputAdornment>}
@@ -97,7 +96,7 @@ const ProductCreateForm = ({
           <Box display={"flex"} padding={2} height={30} marginTop={5} >
 
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Color</InputLabel>
+              <InputLabel id="demo-simple-select-label" style={{marginTop: -7}}>Color</InputLabel>
               <Select
                 size="small"
                 labelId="demo-simple-select-label"
@@ -112,7 +111,7 @@ const ProductCreateForm = ({
               </Select>
             </FormControl>
             <FormControl fullWidth style={{ marginLeft: 12 }}>
-              <InputLabel id="demo-simple-select-label">Resident</InputLabel>
+              <InputLabel id="demo-simple-select-label" style={{marginTop: -7}}>Resident</InputLabel>
               <Select
                 size="small"
                 labelId="demo-simple-select-label"
@@ -130,7 +129,7 @@ const ProductCreateForm = ({
           </Box>
           <Box padding={2}  marginTop={5}>
              <FormControl fullWidth >
-              <InputLabel id="demo-simple-select-label">Category</InputLabel>
+              <InputLabel id="demo-simple-select-label" style={{marginTop: -7}}>Category</InputLabel>
               <Select
                 size="small"
                 labelId="demo-simple-select-label"
@@ -148,14 +147,16 @@ const ProductCreateForm = ({
               </Select>
             </FormControl>
             {showSub ? (<FormControl fullWidth style={{ marginTop: 12 }}>
-              <InputLabel id="demo-simple-select-label">Sub Categories</InputLabel>
+              <InputLabel  labelId="demo-multiple-name-label" style={{marginTop: -7}}>Sub Categories</InputLabel>
               <Select
                 size="small"
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
+                labelId="demo-multiple-name-label"
+                id="demo-multiple-name"
                 value={subs}
+                multiple
                 onChange={handleChangeSub}
                 label="Sub Categories"
+                input={<OutlinedInput label="sub-category" />}
               >
                 {subOptions && subOptions.length > 0 && subOptions.map((c) => (
                 c && c._id &&  <MenuItem key={c._id} value={c._id}>{c.name}</MenuItem>
@@ -170,14 +171,14 @@ const ProductCreateForm = ({
           <Box display={"flex"} padding={2} height={30}>
 
             <FormControl fullWidth >
-              <InputLabel id="demo-simple-select-label">shipping</InputLabel>
+              <InputLabel id="demo-simple-select-label" style={{marginTop: -7}}>Shipping</InputLabel>
               <Select
                 size="small"
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={shipping}
                 onChange={handleChangeShipping}
-                label="shipping"
+                label="Shipping"
                 fullWidth
               >
                 <MenuItem value={"Yes"}>Yes</MenuItem>
@@ -189,113 +190,6 @@ const ProductCreateForm = ({
         </Paper>
        <br />
         <Button variant="contained" color="primary">Save</Button>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       </form>
     </Box>
   );
