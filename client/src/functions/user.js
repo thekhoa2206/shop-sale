@@ -126,7 +126,7 @@ export const updateUser = async (
 ) =>
   await axios.post(
     `${process.env.REACT_APP_API}/user/information`,
-    { user},
+    { ...user},
     {
       headers: {
         authtoken,

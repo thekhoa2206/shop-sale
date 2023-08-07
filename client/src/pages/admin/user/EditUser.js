@@ -41,7 +41,7 @@ const EditUser = ({open,data, onClose,load}) => {
         e.preventDefault();
         setLoading(true);
         // console.log(password);
-        updateUser(user.token,users)
+        updateUser(user.token, users)
           .then(() => {
             setLoading(false);
             setUsers(initialState);
