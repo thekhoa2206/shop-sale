@@ -42,6 +42,7 @@ import SellerProductCreate from "./pages/seller/product/SellerProductCreate";
 import AllSellerProducts from "./pages/seller/product/AllSellerProducts";
 import UpgradeSeller from "./pages/user/UpgradeSeller";
 import AdminUserInfo from "./pages/admin/user/AdminUserInfo";
+import UserInfo from "./pages/UserInfo";
 
 
 const App = () => {
@@ -65,6 +66,9 @@ const App = () => {
                 token: idTokenResult.token,
                 role: res.data.role,
                 _id: res.data._id,
+                phoneNumber: res.data.phoneNumber,
+                address: res.data.address,
+                cartDetail: res.data.cartDetail,
               },
             });
           })
@@ -105,6 +109,7 @@ const App = () => {
           <Route path="/sub/:slug" element={<SubHome />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/user/information" element={<UserInfo />} />
           <Route path="/checkout" element={<Checkout />}/>
           <Route path="/admin/coupon" element={<AdminRoute><CreateCouponPage /></AdminRoute>} />
           <Route path="/payment" element={<UserRoute><Payment /></UserRoute>} />

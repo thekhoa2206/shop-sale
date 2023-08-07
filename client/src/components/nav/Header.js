@@ -190,6 +190,11 @@ const Header = () => {
               </Typography></MenuItem>
             )}
 
+            {user &&  (
+              <MenuItem><Typography style={{fontSize: 16}}>
+                <Link to="user/information">User Infomation</Link>
+              </Typography></MenuItem>
+            )}
             {user && user.role === "seller" && (
               <MenuItem><Typography style={{fontSize: 16}}>
                 <Link to="/seller/dashboard">Seller Dashboard</Link>
@@ -230,9 +235,9 @@ const Header = () => {
               }}
               style={{marginTop: 40}}
             >
-                <MenuItem><Box style={{display: "flex", cursor: "pointer"}} onClick={() => {window.location.href = `/admin/user/info`}}>
+                <MenuItem><Box style={{display: "flex", cursor: "pointer"}} onClick={() => {window.location.href = `/user/information`}}>
                   <LogoutOutlined style={{marginRight: 5, marginTop: 3}}/>
-                  <Typography style={{fontSize: 16}}>User info</Typography>
+                  <Typography style={{fontSize: 16}}>User infomation</Typography>
                 </Box></MenuItem>
                 <MenuItem><Box style={{display: "flex", cursor: "pointer"}} onClick={() => {logout();}}>
                   <LogoutOutlined style={{marginRight: 5, marginTop: 3}}/>
